@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SmartCity</string>
+    <string name="welcomeText">Bienvenue sur notre application !</string>
+    <string name="connectionButton">Connexion</string>
+    <string name="passwordInput">Mot de passe</string>
+    <string name="login">Se connecter</string>
+    <string name="register">S\'enregistrer</string>
+    <string name="myAccountText">Mon compte</string>
+    <string name="mailInput">Adresse mail</string>
+    <string name="nameText">Nom</string>
+    <string name="firstNameInput">Prénom</string>
+    <string name="lastNameInput">Nom de famille</string>
+    <string name="contactInformationText">Informations de contact</string>
+    <string name="streetInput">Rue, numéro et boite</string>
+    <string name="cityInput">Ville</string>
+    <string name="postalCodeInput">Code postal</string>
+    <string name="phoneInput">Numéro de téléphone</string>
+</resources>
