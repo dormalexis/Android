@@ -7,9 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.BindView;
+
 public class RegisterForm extends AppCompatActivity {
+
+    @BindView(R.id.myAcountText)
     private TextView myAccountText;
+
+    @BindView(R.id.mailInput)
     private EditText mailInput;
+
+
     private EditText passwordInput;
     private TextView nameText;
     private EditText firstNameInput;
