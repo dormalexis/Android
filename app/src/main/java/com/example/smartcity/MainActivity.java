@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener connectionButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this,ConnectionActivity.class);
+            Intent intent = new Intent(MainActivity.this,DrawerMenu.class);
             startActivity(intent);
         }
     };

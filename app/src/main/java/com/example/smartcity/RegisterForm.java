@@ -12,10 +12,10 @@ import butterknife.BindView;
 public class RegisterForm extends AppCompatActivity {
 
     @BindView(R.id.myAcountText)
-    private TextView myAccountText;
+    TextView myAccountText;
 
     @BindView(R.id.mailInput)
-    private EditText mailInput;
+    EditText mailInput;
 
 
     private EditText passwordInput;
