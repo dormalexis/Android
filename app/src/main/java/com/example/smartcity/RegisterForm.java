@@ -35,8 +35,8 @@ public class RegisterForm extends AppCompatActivity {
         setContentView(R.layout.activity_register_form);
 
         // initialisation
-        myAccountText = findViewById(R.id.myAcountText);
-        myAccountText.setText(R.string.myAccountText);
+        //myAccountText = findViewById(R.id.myAcountText);
+        //myAccountText.setText(R.string.myAccountText);
         mailInput = findViewById(R.id.mailInput);
         mailInput.setHint(R.string.mailInput);
         passwordInput = findViewById(R.id.passwordInput);

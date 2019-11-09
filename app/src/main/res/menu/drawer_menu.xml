@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home" />
+
+        <item
+            android:id="@+id/nav_logIn"
+            android:icon="@drawable/ic_person"
+            android:title="Connection" />
+    </group>
+
+    <item android:title="@string/myAccount">
+        <menu>
+            <item
+                android:id="@+id/nav_mySettings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/mySettings" />
+            <item
+                android:id="@+id/nav_myItems"
+                android:icon="@drawable/ic_items"
+                android:title="@string/myItems" />
+            <item
+                android:id="@+id/nav_addItem"
+                android:icon="@drawable/ic_add"
+                android:title="@string/addItem" />
+            <item
+                android:id="@+id/nav_check"
+                android:icon="@drawable/ic_check"
+                android:title="@string/myCheck" />
+        </menu>
+    </item>
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/nav_info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/informations" />
+
+
 </menu>
