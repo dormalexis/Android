@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_logIn"
             android:icon="@drawable/ic_person"
-            android:title="Connection" />
+            android:title="@string/connection" />
     </group>
 
     <item android:title="@string/myAccount">

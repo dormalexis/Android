@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LocApp</string>
+    <string name="addItem">Add an ad</string>
+    <string name="cityInput">City</string>
+    <string name="connectAs">Connected as</string>
+    <string name="connection">Connection</string>
+    <string name="connectionButton">Connection</string>
+    <string name="contactInformationText">Contact informations</string>
+    <string name="firstNameInput">First name</string>
+    <string name="home">Home</string>
+    <string name="informations">Informations</string>
+    <string name="lastNameInput">Last name</string>
+    <string name="login">Login</string>
+    <string name="mailInput">Email adress</string>
+    <string name="myAccount">My account</string>
+    <string name="myAccountText">My account</string>
+    <string name="myCheck">My validations</string>
+    <string name="myItems">My ads</string>
+    <string name="mySettings">My settings</string>
+    <string name="nameText">Last name</string>
+    <string name="passwordInput">Password</string>
+    <string name="phoneInput">Phone number</string>
+    <string name="postalCodeInput">Zip code</string>
+    <string name="register">Sign in</string>
+    <string name="streetInput">Street number and box</string>
+    <string name="welcomeText">Welcome to our app !</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

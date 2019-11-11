@@ -9,12 +9,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.BindView;
+
 public class ConnectionActivity extends AppCompatActivity {
-    private TextView welcomeText;
-    private EditText mailInput;
-    private EditText passwordInput;
-    private Button logingButton;
-    private Button registerButton;
+
+    @BindView(R.id.welcomeText)
+    TextView welcomeText;
+
+    @BindView(R.id.mailInput)
+    EditText mailInput;
+
+    @BindView(R.id.passwordInput)
+    EditText passwordInput;
+
+    @BindView(R.id.logInButton)
+    Button logingButton;
+
+    @BindView(R.id.registerButton)
+    Button registerButton;
 
 
     @Override
@@ -22,18 +34,15 @@ public class ConnectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-        welcomeText = findViewById(R.id.welcomeText);
         welcomeText.setText(R.string.welcomeText);
 
-        mailInput = findViewById(R.id.mailInput);
         mailInput.setHint(R.string.mailInput);
         passwordInput = findViewById(R.id.passwordInput);
         passwordInput.setHint(R.string.passwordInput);
 
-        logingButton = findViewById(R.id.logInButton);
         logingButton.setText(R.string.login);
         logingButton.setOnClickListener(loginListener);
-        registerButton = findViewById(R.id.registerButton);
+
         registerButton.setText(R.string.register);
         registerButton.setOnClickListener(registerListerner);
     }
