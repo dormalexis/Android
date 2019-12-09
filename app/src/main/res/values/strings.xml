@@ -19,8 +19,8 @@
     <string name="connection">Connexion</string>
     <string name="myAccount">Mon compte</string>
     <string name="mySettings">Mes paramètres</string>
-    <string name="myItems">Mes annonces</string>
-    <string name="addItem">Ajouter une annonce</string>
+    <string name="myItems">Mes items</string>
+    <string name="addItem">Ajouter une item</string>
     <string name="myCheck">Mes validations</string>
     <string name="informations">Informations</string>
 

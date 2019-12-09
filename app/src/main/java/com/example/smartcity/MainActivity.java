@@ -10,6 +10,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.smartcity.View.AddItemFragment;
+import com.example.smartcity.View.CheckFragment;
+import com.example.smartcity.View.HomeFragment;
+import com.example.smartcity.View.InfoFragment;
+import com.example.smartcity.View.MyItemsFragment;
+import com.example.smartcity.View.MySettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new LoadItem
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -1,4 +1,4 @@
-package com.example.smartcity;
+package com.example.smartcity.View;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.smartcity.R;
 
 public class AddItemFragment extends Fragment {
 
