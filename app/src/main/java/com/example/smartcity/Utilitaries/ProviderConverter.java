@@ -11,15 +11,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ProviderConverter {
-    public static MutableLiveData<ArrayList<Item>> jsonToItems(String stringJSON) {
-        MutableLiveData<ArrayList<Item>> items = new MutableLiveData<ArrayList<Item>>();
+    public static ArrayList<Item> jsonToItems(String stringJSON) {
+        ArrayList<Item> items = new ArrayList<Item>();
         JSONObject jsonItem;
         try {
             JSONArray jsonArray = new JSONArray(stringJSON);
             for(int i = 0; i < jsonArray.length(); i++)
             {
                 jsonItem = jsonArray.getJSONObject(i);
-                items.a(new GsonBuilder().create().fromJson(jsonItem.toString(), Item.class));
+                items.add(new GsonBuilder().create().fromJson(jsonItem.toString(), Item.class));
             }
         }
         catch(Exception e)
