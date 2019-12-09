@@ -11,8 +11,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ProviderConverter {
-    public static ArrayList<Item> jsonToItems(String stringJSON) {
-        ArrayList<Item> items = new ArrayList<Item>();
+    public static MutableLiveData<ArrayList<Item>> jsonToItems(String stringJSON) {
+        MutableLiveData<ArrayList<Item>> itemsLive = new MutableLiveData<>();
+        ArrayList<Item> items = new ArrayList<>();
         JSONObject jsonItem;
         try {
             JSONArray jsonArray = new JSONArray(stringJSON);
@@ -25,6 +26,7 @@ public class ProviderConverter {
         catch(Exception e)
         {
         }
-        return items;
+        itemsLive.postValue(items);
+        return itemsLive;
     }
 }

@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.Model.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private ArrayList<Item> items;
+    private
+    List<Item> items;
 
-
-    public ItemAdapter(ArrayList<Item> items) { this.items = items;}
+    public ItemAdapter(List<Item> items) { this.items = items;}
+    public ItemAdapter() {}
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,5 +39,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         return this.items == null ? 0 : this.items.size();
     }
 
-
+    public void setItems(List<Item> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
 }

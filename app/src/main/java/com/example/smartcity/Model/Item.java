@@ -1,10 +1,17 @@
 package com.example.smartcity.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Item {
+    @SerializedName("itemId")
     private Integer itemId;
+    @SerializedName("isVisible")
     private Boolean isVisible;
+    @SerializedName("name")
     private String name;
+    @SerializedName("description")
     private String description;
+    @SerializedName("pricePerDay")
     private Double pricePerDay;
     //private ItemCategory itemCategory;
 
