@@ -1,7 +1,11 @@
 package com.example.smartcity.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ItemCategory {
+    @SerializedName("categoryId")
     private Integer categoryId;
+    @SerializedName("label")
     private String label;
 
     public ItemCategory() {}

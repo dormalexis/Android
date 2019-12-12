@@ -1,12 +1,12 @@
-package com.example.smartcity.ViewModel;
+package com.example.smartcity.DataAccess.Repository;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.smartcity.ItemService;
+import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.Item;
-import com.example.smartcity.RetrofitItem;
+import com.example.smartcity.Utilitaries.RetrofitInstance;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ItemRepository implements ItemDataAccess
     @Override
     public MutableLiveData<List<Item>> getItems() {
 
-        ItemService service = RetrofitItem.getRetrofitInstance().create(ItemService.class);
+        ItemService service = RetrofitInstance.getRetrofitInstance().create(ItemService.class);
         Call<List<Item>> call = service.getItems();
         call.enqueue(new Callback<List<Item>>() {
             @Override

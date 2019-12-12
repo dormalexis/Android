@@ -1,16 +1,16 @@
-package com.example.smartcity;
+package com.example.smartcity.Utilitaries;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitItem {
+public class RetrofitInstance {
 
         private static Retrofit retrofit;
         private static final String BASE_URL = "https://locappapi.azurewebsites.net/api/";
 
         public static Retrofit getRetrofitInstance() {
             if (retrofit == null) {
-                retrofit = new retrofit2.Retrofit.Builder()
+                retrofit = new Retrofit.Builder()
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();

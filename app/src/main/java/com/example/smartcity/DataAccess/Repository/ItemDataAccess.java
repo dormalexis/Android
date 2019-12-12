@@ -1,4 +1,4 @@
-package com.example.smartcity.ViewModel;
+package com.example.smartcity.DataAccess.Repository;
 
 import androidx.lifecycle.MutableLiveData;
 

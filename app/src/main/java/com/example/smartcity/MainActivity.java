@@ -10,12 +10,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.smartcity.View.AddItemFragment;
-import com.example.smartcity.View.CheckFragment;
-import com.example.smartcity.View.HomeFragment;
-import com.example.smartcity.View.InfoFragment;
-import com.example.smartcity.View.MyItemsFragment;
-import com.example.smartcity.View.MySettingsFragment;
+import com.example.smartcity.View.Fragment.AddItemFragment;
+import com.example.smartcity.View.Fragment.CheckFragment;
+import com.example.smartcity.View.Fragment.HomeFragment;
+import com.example.smartcity.View.Fragment.InfoFragment;
+import com.example.smartcity.View.Fragment.LogInFragment;
+import com.example.smartcity.View.Fragment.MyItemsFragment;
+import com.example.smartcity.View.Fragment.MySettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

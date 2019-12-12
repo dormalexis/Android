@@ -1,4 +1,4 @@
-package com.example.smartcity.View;
+package com.example.smartcity.View.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

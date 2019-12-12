@@ -1,4 +1,4 @@
-package com.example.smartcity;
+package com.example.smartcity.View.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.smartcity.View.CheckFragment;
+import com.example.smartcity.R;
+import com.example.smartcity.View.Fragment.CheckFragment;
 
 import butterknife.BindView;
 

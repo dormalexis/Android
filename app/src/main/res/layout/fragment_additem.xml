@@ -16,41 +16,44 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp" />
 
-    <TextView
+    <EditText
         android:id="@+id/nameTextView"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/categorySpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Titre" />
+        android:hint="@string/title"
+        android:inputType="text"/>
 
-    <TextView
+    <EditText
         android:id="@+id/descriptionTextView"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_below="@+id/nameTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Entrez une description" />
+        android:hint="@string/description"
+        android:inputType="text"/>
 
-    <TextView
+    <EditText
         android:id="@+id/priceTextView"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/descriptionTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Price/jour" />
+        android:hint="@string/dailyPrice"
+        android:inputType="text"/>
 
-    <Button
+    <TextView
         android:id="@+id/addImageButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/priceTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Ajouter une image"  />
+        android:text="@string/addPicture"/>
 
     <ImageView
         android:id="@+id/imageView1"
@@ -78,9 +81,13 @@
         android:layout_height="100dp"
         android:layout_below="@+id/imageView1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="-209dp"
         android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/imageView2"
         app:srcCompat="@drawable/ic_add" />
+
 
     <ImageView
         android:id="@+id/imageView4"
@@ -88,26 +95,19 @@
         android:layout_height="100dp"
         android:layout_below="@+id/imageView1"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="100dp"
-        app:srcCompat="@drawable/ic_add" />
 
-    <Button
-        android:id="@+id/addDownTimeButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView4"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Ajouter une image"  />
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="99dp"
+        app:srcCompat="@drawable/ic_add" />
 
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addDownTimeButton"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView4"
         android:layout_marginTop="10dp"
-        android:text="Publier l'annonce"  />
+        android:text="@string/publish"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

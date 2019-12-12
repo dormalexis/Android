@@ -21,7 +21,7 @@
             <item
                 android:id="@+id/nav_mySettings"
                 android:icon="@drawable/ic_settings"
-                android:title="@string/mySettings" />
+                android:title="@string/settings" />
             <item
                 android:id="@+id/nav_myItems"
                 android:icon="@drawable/ic_items"
@@ -40,7 +40,7 @@
     <item
         android:id="@+id/nav_info"
         android:icon="@drawable/ic_info"
-        android:title="@string/informations" />
+        android:title="@string/information" />
 
 
 </menu>

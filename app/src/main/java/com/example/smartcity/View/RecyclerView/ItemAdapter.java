@@ -1,4 +1,4 @@
-package com.example.smartcity;
+package com.example.smartcity.View.RecyclerView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.R;
+import com.example.smartcity.View.RecyclerView.ItemViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
