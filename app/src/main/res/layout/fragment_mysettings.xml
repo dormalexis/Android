@@ -5,8 +5,38 @@
     >
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment my settings" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/mySettingsTitle"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/changeAttributesButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/changeInfos" />
+
+    <EditText
+        android:id="@+id/availibilityDescriptionText"
+        android:layout_width="223dp"
+        android:layout_height="131dp"
+        android:layout_below="@+id/changeAttributesButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/changeDisponibilityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/availibilityDescriptionText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/changeAvailibilityDescription" />
 </RelativeLayout>
