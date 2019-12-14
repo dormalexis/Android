@@ -11,11 +11,22 @@ import androidx.fragment.app.Fragment;
 
 import com.example.smartcity.R;
 
+
 public class AddItemFragment extends Fragment {
+
+
+
+    @Override
+    public void onCreate(Bundle savedInstance)
+    {
+        super.onCreate(savedInstance);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_additem,container,false);
     }
+
+
 }

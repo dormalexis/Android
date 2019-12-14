@@ -19,14 +19,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private List<Item> items;
     private OnItemListener onItemListener;
 
-    public ItemAdapter(List<Item> items,OnItemListener onItemListener) {
-        this.items = items;
-        this.onItemListener = onItemListener;
-    }
-    public ItemAdapter(OnItemListener onItemListener) {
-        this.onItemListener = onItemListener;
-    }
-
+    public ItemAdapter(List<Item> items) { this.items = items;}
+    public ItemAdapter() {}
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,7 +32,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.updateAnnonces(this.items.get(position));
+        holder.updateAnnonces(this.items.get(position), context);
     }
 
     @Override

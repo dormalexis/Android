@@ -16,4 +16,7 @@ public interface ItemService {
 
     @GET("Item")
     Call<List<Item>> getItems();
+
+    @POST("Item")
+    Call<Integer> postItem(@Body Item item);
 }

@@ -2,6 +2,8 @@ package com.example.smartcity.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Item {
     /*
     @SerializedName("itemId")
@@ -17,6 +19,13 @@ public class Item {
     private Double pricePerDay;
     @SerializedName("owner")
     private Person owner;
+    @SerializedName("picture")
+    private ArrayList<Picture> pictures;
+
+
+    public ArrayList<Picture> getPictures() {
+        return pictures;
+    }
 
     public Person getOwner() {
         return owner;
@@ -41,5 +50,9 @@ public class Item {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public void setPictures(ArrayList<Picture> pictures) {
+        this.pictures = pictures;
     }
 }
