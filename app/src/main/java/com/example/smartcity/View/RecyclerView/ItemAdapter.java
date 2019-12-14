@@ -18,13 +18,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     private
     List<Item> items;
+    Context context;
 
     public ItemAdapter(List<Item> items) { this.items = items;}
     public ItemAdapter() {}
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_item, parent, false);
         return new ItemViewHolder(view);
@@ -32,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.updateAnnonces(this.items.get(position));
+        holder.updateAnnonces(this.items.get(position), context);
     }
 
     @Override
@@ -42,6 +43,5 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     public void setItems(List<Item> items) {
         this.items = items;
-        notifyDataSetChanged();
     }
 }
