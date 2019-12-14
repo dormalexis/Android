@@ -16,18 +16,24 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private
-    List<Item> items;
+    private List<Item> items;
+    private OnItemListener onItemListener;
 
-    public ItemAdapter(List<Item> items) { this.items = items;}
-    public ItemAdapter() {}
+    public ItemAdapter(List<Item> items,OnItemListener onItemListener) {
+        this.items = items;
+        this.onItemListener = onItemListener;
+    }
+    public ItemAdapter(OnItemListener onItemListener) {
+        this.onItemListener = onItemListener;
+    }
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_item, parent, false);
-        return new ItemViewHolder(view);
+        return new ItemViewHolder(view,onItemListener);
     }
 
     @Override
@@ -44,4 +50,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         this.items = items;
         notifyDataSetChanged();
     }
+
+    public interface OnItemListener{
+        void onItemClick(int postition);
+    }
+
 }

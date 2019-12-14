@@ -14,18 +14,23 @@ import org.w3c.dom.Text;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     @BindView(R.id.description) TextView descriptionText;
     @BindView(R.id.price) TextView priceText;
     @BindView(R.id.owner) TextView owner;
+    private ItemAdapter.OnItemListener onItemListener;
 
-    public ItemViewHolder(@NonNull View itemView) {
+    public ItemViewHolder(@NonNull View itemView, ItemAdapter.OnItemListener onItemListener) {
         super(itemView);
+
         //nameText = itemView.findViewById(R.id.name);
         //descriptionText = itemView.findViewById(R.id.description);
         //priceText = itemView.findViewById(R.id.price);
         ButterKnife.bind(this, itemView);
+
+        this.onItemListener = onItemListener;
+        itemView.setOnClickListener(this);
     }
 
     public void updateAnnonces(Item item)
@@ -33,5 +38,10 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         this.descriptionText.setText(item.getDescription());
         this.priceText.setText(String.valueOf(item.getPricePerDay()));
         this.owner.setText(item.getOwner().getStreetName());
+    }
+
+    @Override
+    public void onClick(View v) {
+        onItemListener.onItemClick(getAdapterPosition());
     }
 }

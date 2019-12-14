@@ -17,9 +17,10 @@ import com.example.smartcity.View.Fragment.InfoFragment;
 import com.example.smartcity.View.Fragment.LogInFragment;
 import com.example.smartcity.View.Fragment.MyItemsFragment;
 import com.example.smartcity.View.Fragment.MySettingsFragment;
+import com.example.smartcity.View.RecyclerView.ItemViewHolder;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
 
