@@ -26,7 +26,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener {
 
-    ArrayList<Item> items = new ArrayList<>();
     ItemViewModel itemModel;
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
@@ -56,12 +55,13 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     }
 
     @Override
-    public void onItemClick(int postition) {
-        //Item item = items.get(postition);
+    public void onItemClick(int position) {
+        //Item item = items.get(position);
+
         //La liste des items est vide mais sinon avec cette ligne on peut retrouver l'item sur lequel
         //on a cliqué
         //Puis on peut lancer une autre Activité/lister pour afficher les détails
-        Toast.makeText(getContext(), "click " + postition, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "click " + item.getPricePerDay(), Toast.LENGTH_SHORT).show();
 
     }
 }

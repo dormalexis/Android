@@ -31,9 +31,28 @@ public class ItemRepository implements ItemDataAccess
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Log.i("coucou", "Test raté");
+                Log.i("home", "Affichage items raté");
             }
         });
         return itemsLive;
     }
+
+    public void postItem(Item item)
+    {
+        ItemService service = RetrofitInstance.getRetrofitInstance().create(ItemService.class);
+        Call<Integer> call = service.postItem(item);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Log.i("postOk", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.i("postFailed", "Post failed");
+            }
+        });
+    }
+
+
 }
