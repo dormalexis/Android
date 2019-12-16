@@ -20,4 +20,5 @@ public class ItemViewModel extends ViewModel {
     public LiveData<List<Item>> getItems() {
         return itemRepository.getItems();
     }
+    public void postItem(Item item) { itemRepository.postItem(item);}
 }
