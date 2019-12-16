@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public void onCreate(Bundle savedInstance)
     {
         super.onCreate(savedInstance);
-        adapter = new ItemAdapter(items);
+        adapter = new ItemAdapter(this);
     }
 
     public HomeFragment() {}

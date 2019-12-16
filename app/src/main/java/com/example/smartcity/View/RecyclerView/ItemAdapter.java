@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ConsoleMessage;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,8 +21,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private OnItemListener onItemListener;
     private Context context;
 
-    public ItemAdapter(List<Item> items) { this.items = items;}
-
+    public ItemAdapter(List<Item> items,OnItemListener onItemListener) {
+        this.items = items;
+        this.onItemListener = onItemListener;
+    }
+    public ItemAdapter(OnItemListener onItemListener) {this.onItemListener = onItemListener;}
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
