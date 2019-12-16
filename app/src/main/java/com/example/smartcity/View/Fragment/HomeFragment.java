@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,12 +23,13 @@ import com.example.smartcity.View.RecyclerView.ItemViewHolder;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener {
 
-    ArrayList<Item> items = new ArrayList<>();
+    ArrayList<Item> itemsArray = new ArrayList<>();
     ItemViewModel itemModel;
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
@@ -56,12 +59,13 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     }
 
     @Override
-    public void onItemClick(int postition) {
-        //Item item = items.get(postition);
-        //La liste des items est vide mais sinon avec cette ligne on peut retrouver l'item sur lequel
-        //on a cliqué
-        //Puis on peut lancer une autre Activité/lister pour afficher les détails
-        Toast.makeText(getContext(), "click " + postition, Toast.LENGTH_SHORT).show();
+    public void onItemClick(int position) {
+        Item itemSelected = itemModel.getItems().getValue().get(position);
 
+        Toast.makeText(getContext(), "click " + position + " " + itemSelected.getPricePerDay(), Toast.LENGTH_SHORT).show();
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
+        transaction.commit();
     }
 }
