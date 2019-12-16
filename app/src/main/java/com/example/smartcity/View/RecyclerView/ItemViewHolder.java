@@ -24,7 +24,6 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @BindView(R.id.description) TextView descriptionText;
     @BindView(R.id.price) TextView priceText;
-    @BindView(R.id.owner) TextView owner;
     private ItemAdapter.OnItemListener onItemListener;
     @BindView(R.id.image) ImageView image;
 

@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public void onCreate(Bundle savedInstance)
     {
         super.onCreate(savedInstance);
-        adapter = new ItemAdapter(this);
+        adapter = new ItemAdapter(items);
     }
 
     public HomeFragment() {}
@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public void onItemClick(int postition) {
         //Item item = items.get(postition);
         //La liste des items est vide mais sinon avec cette ligne on peut retrouver l'item sur lequel
-        //on  a cliqué
-        // Puis on peut lancer une autre Activité/lister pour afficher les détails
+        //on a cliqué
+        //Puis on peut lancer une autre Activité/lister pour afficher les détails
         Toast.makeText(getContext(), "click " + postition, Toast.LENGTH_SHORT).show();
 
     }
