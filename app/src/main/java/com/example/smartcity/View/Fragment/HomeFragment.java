@@ -62,8 +62,6 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public void onItemClick(int position) {
         Item itemSelected = itemModel.getItems().getValue().get(position);
 
-        Toast.makeText(getContext(), "click " + position + " " + itemSelected.getPricePerDay(), Toast.LENGTH_SHORT).show();
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
         transaction.commit();
