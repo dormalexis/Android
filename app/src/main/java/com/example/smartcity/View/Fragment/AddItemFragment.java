@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +29,8 @@ import butterknife.ButterKnife;
 
 public class AddItemFragment extends Fragment {
 
+    @BindView(R.id.categorySpinner)
+    Spinner categoriesList;
     @BindView(R.id.addItemName)
     EditText name;
     @BindView(R.id.addItemDescription)
@@ -31,7 +40,9 @@ public class AddItemFragment extends Fragment {
     @BindView(R.id.addItemConfirmation)
     Button confirmation;
 
-    ItemViewModel itemModel = new ItemViewModel();
+
+    ItemViewModel itemModel;
+    CategoryViewModel categoryModel;
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -45,6 +56,10 @@ public class AddItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_additem,container,false);
         ButterKnife.bind(this, view);
         confirmation.setOnClickListener(confirmationListener);
+        categoryModel = new CategoryViewModel();
+        categoryModel.getCategories().observe(this,categories -> {
+            categoriesList.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
+        });
         return view;
     }
 

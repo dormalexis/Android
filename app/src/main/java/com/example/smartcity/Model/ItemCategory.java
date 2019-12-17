@@ -3,6 +3,7 @@ package com.example.smartcity.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class ItemCategory {
+
     @SerializedName("categoryId")
     private Integer categoryId;
     @SerializedName("label")
@@ -29,5 +30,11 @@ public class ItemCategory {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    @Override
+    public String toString()
+    {
+        return label;
     }
 }
