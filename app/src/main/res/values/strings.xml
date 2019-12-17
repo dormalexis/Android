@@ -27,6 +27,12 @@
     <string name="dailyPrice">Prix journalier</string>
     <string name="addPicture">Ajouter une image</string>
     <string name="publish">Publier</string>
+    <string name="selectDate">Sélectionner une date</string>
+    <string name="selectTime">Sélectionner une heure</string>
+    <string name="sectionDateFrom">Date de départ</string>
+    <string name="sectionDateTo">Date de fin</string>
+    <string name="bookItemButton">Demander une réservation</string>
+
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

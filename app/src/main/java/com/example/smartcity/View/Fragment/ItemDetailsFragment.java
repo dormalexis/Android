@@ -1,5 +1,7 @@
 package com.example.smartcity.View.Fragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,14 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +33,6 @@ import butterknife.ButterKnife;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class ItemDetailsFragment extends Fragment {
-
-    private Item itemSelected;
 
     @BindView(R.id.titleItemDetailsText)
     TextView titleText;
@@ -40,6 +46,27 @@ public class ItemDetailsFragment extends Fragment {
     ImageButton nextImageButton;
     @BindView(R.id.previousImageButton)
     ImageButton previousImageButton;
+    @BindView(R.id.inputDateFrom)
+    TextView inputDateFrom;
+    @BindView(R.id.buttonDateFrom)
+    Button buttonDateFrom;
+    @BindView(R.id.inputTimeFrom)
+    TextView inputTimeFrom;
+    @BindView(R.id.buttonTimeFrom)
+    Button buttonTimeFrom;
+    @BindView(R.id.inputDateTo)
+    TextView inputDateTo;
+    @BindView(R.id.buttonDateTo)
+    Button buttonDateTo;
+    @BindView(R.id.inputTimeTo)
+    TextView inputTimeTo;
+    @BindView(R.id.buttonTimeTo)
+    Button buttonTimeTo;
+
+
+    private Item itemSelected;
+    private Date dateFrom;
+    private Date dateTo;
 
     public ItemDetailsFragment(Item itemSelected)
     {
@@ -65,6 +92,11 @@ public class ItemDetailsFragment extends Fragment {
             }
         });
 
+        buttonDateFrom.setOnClickListener(onClickListenerDateSelector);
+        buttonTimeFrom.setOnClickListener(onClickListenerTimeSelector);
+        buttonDateTo.setOnClickListener(onClickListenerDateSelector);
+        buttonTimeTo.setOnClickListener(onClickListenerTimeSelector);
+
         displayImage(0);
         changeTextImage(0,itemSelected.getPictures().size());
 
@@ -72,6 +104,68 @@ public class ItemDetailsFragment extends Fragment {
 
         return view;
     }
+
+    private View.OnClickListener onClickListenerDateSelector = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int mounth, int day) {
+
+                            String generateText = (day + "-" + (mounth + 1) + "-" + year);
+                            if(v.getId() == R.id.buttonDateFrom)
+                            {
+                                inputDateFrom.setText(generateText);
+                            }
+                            else
+                            {
+                                inputDateTo.setText(generateText);
+                            }
+                        }
+                    }, year, month, day);
+            datePickerDialog.show();
+        }
+    };
+
+    private View.OnClickListener onClickListenerTimeSelector = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Calendar calendar = Calendar.getInstance();
+           int hour = calendar.get(Calendar.HOUR_OF_DAY);
+           int minute = calendar.get(Calendar.MINUTE);
+
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hour, int minute) {
+
+                            String generateText = (hour + " : " + (minute < 10 ? "0":"") + minute);
+
+                            if(v.getId() == R.id.buttonTimeFrom)
+                            {
+                                inputTimeFrom.setText(generateText);
+                            }
+                            else
+                            {
+                                inputTimeTo.setText(generateText);
+                            }
+
+
+                        }
+                    }, hour, minute,true);
+            timePickerDialog.show();
+        }
+    };
 
     private void changeImage(Boolean isPrevious)
     {

@@ -29,8 +29,8 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener {
 
-    ArrayList<Item> itemsArray = new ArrayList<>();
-    ItemViewModel itemModel;
+    private ArrayList<Item> itemsArray = new ArrayList<>();
+    private ItemViewModel itemModel;
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
 
