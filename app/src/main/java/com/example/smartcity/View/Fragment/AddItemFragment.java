@@ -67,12 +67,14 @@ public class AddItemFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Item item = new Item();
+            itemModel = new ItemViewModel();
             item.setName(name.getText().toString());
             item.setDescription(description.getText().toString());
             item.setVisible(true);
-            item.setPricePerDay(10.);
+            item.setPricePerDay(Double.valueOf(price.getText().toString()));
             item.setOwner(1);
-            item.setItemCategory(1);
+            ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+            item.setItemCategory(itemCat.getCategoryId());
             itemModel.postItem(item);
         }
     };

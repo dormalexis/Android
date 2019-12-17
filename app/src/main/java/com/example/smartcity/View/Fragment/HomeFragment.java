@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
+        transaction.addToBackStack(new HomeFragment().getClass().getName());
         transaction.commit();
     }
 }

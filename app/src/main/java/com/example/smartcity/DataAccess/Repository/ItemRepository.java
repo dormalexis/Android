@@ -44,7 +44,7 @@ public class ItemRepository implements ItemDataAccess
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                Log.i("postOk", response.body().toString());
+                //Log.i("postOk", response.body().toString());
             }
 
             @Override
