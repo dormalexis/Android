@@ -20,12 +20,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.example.smartcity.DataAccess.ViewModel.ProposalViewModel;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.Proposal;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,15 +67,20 @@ public class ItemDetailsFragment extends Fragment {
     TextView inputTimeTo;
     @BindView(R.id.buttonTimeTo)
     Button buttonTimeTo;
+    @BindView(R.id.bookItemButton)
+    Button bookItemButton;
 
 
     private Item itemSelected;
-    private Date dateFrom;
-    private Date dateTo;
+    private GregorianCalendar dateFrom;
+    private GregorianCalendar dateTo;
+    private ProposalViewModel proposalViewModel;
 
     public ItemDetailsFragment(Item itemSelected)
     {
         this.itemSelected = itemSelected;
+        dateFrom = new GregorianCalendar();
+        dateTo = new GregorianCalendar();
     }
 
     @Override
@@ -97,6 +107,8 @@ public class ItemDetailsFragment extends Fragment {
         buttonDateTo.setOnClickListener(onClickListenerDateSelector);
         buttonTimeTo.setOnClickListener(onClickListenerTimeSelector);
 
+        bookItemButton.setOnClickListener(onClickListenerBookItem);
+
         displayImage(0);
         changeTextImage(0,itemSelected.getPictures().size());
 
@@ -118,16 +130,17 @@ public class ItemDetailsFragment extends Fragment {
 
                         @Override
                         public void onDateSet(DatePicker view, int year,
-                                              int mounth, int day) {
-
-                            String generateText = (day + "-" + (mounth + 1) + "-" + year);
+                                              int month, int day) {
+                            String generateText = (day + "-" + (month + 1) + "-" + year);
                             if(v.getId() == R.id.buttonDateFrom)
                             {
                                 inputDateFrom.setText(generateText);
+                                dateFrom.set(year,month,day);
                             }
                             else
                             {
                                 inputDateTo.setText(generateText);
+                                dateTo.set(year,month,day);
                             }
                         }
                     }, year, month, day);
@@ -148,22 +161,38 @@ public class ItemDetailsFragment extends Fragment {
 
                         @Override
                         public void onTimeSet(TimePicker view, int hour, int minute) {
-
+                            java.util.Date date = new java.util.Date();
+                            date.setMinutes(minute);
+                            date.setHours(hour);
                             String generateText = (hour + " : " + (minute < 10 ? "0":"") + minute);
-
                             if(v.getId() == R.id.buttonTimeFrom)
                             {
+
+                                dateFrom.setTime(date);
                                 inputTimeFrom.setText(generateText);
                             }
                             else
                             {
+                                dateTo.setTime(date);
                                 inputTimeTo.setText(generateText);
                             }
-
-
                         }
                     }, hour, minute,true);
             timePickerDialog.show();
+        }
+    };
+
+    private View.OnClickListener onClickListenerBookItem = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Proposal proposal = new Proposal();
+            proposalViewModel = new ProposalViewModel();
+
+            proposal.setMessage("Blabla");
+            proposal.setDateFrom(dateFrom);
+            proposal.setDateTo(dateTo);
+            proposal.setRentalId(1);
+            proposalViewModel.postProposal(proposal);
         }
     };
 

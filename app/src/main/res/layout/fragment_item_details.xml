@@ -15,7 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:isScrollContainer="true">
 
             <TextView
@@ -31,7 +31,8 @@
                 android:id="@+id/descriptionItemText"
                 android:layout_width="299dp"
                 android:layout_height="152dp"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="76dp"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailsItemImage" />
@@ -40,32 +41,27 @@
                 android:id="@+id/countImageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailsItemImage" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionItemText" />
 
             <ImageButton
                 android:id="@+id/previousImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="87dp"
-                android:layout_marginTop="23dp"
-                android:layout_marginEnd="32dp"
                 android:src="@android:drawable/ic_media_previous"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailsItemImage" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionItemText" />
 
             <ImageButton
                 android:id="@+id/nextImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="23dp"
-                android:layout_marginEnd="73dp"
+                android:layout_marginEnd="100dp"
                 android:src="@android:drawable/ic_media_next"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailsItemImage" />
+                app:layout_constraintTop_toTopOf="@+id/countImageText" />
 
             <ImageView
                 android:id="@+id/detailsItemImage"
@@ -77,33 +73,25 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleItemDetailsText" />
 
-            <Button
-                android:id="@+id/bookItemButton"
-                android:layout_width="206dp"
-                android:layout_height="84dp"
-                android:layout_marginTop="26dp"
-                android:text="@string/bookItemButton"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionItemText" />
-
 
             <TextView
                 android:id="@+id/sectionDateFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
+                android:layout_marginTop="52dp"
                 android:text="@string/sectionDateFrom"
+                android:textSize="18sp"
+                app:layout_constraintHorizontal_bias="0.042"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookItemButton" />
+                app:layout_constraintTop_toBottomOf="@+id/countImageText" />
 
             <Button
                 android:id="@+id/buttonDateFrom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="202dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/selectDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sectionDateFrom" />
@@ -112,8 +100,8 @@
                 android:id="@+id/inputDateFrom"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sectionDateFrom" />
@@ -122,8 +110,8 @@
                 android:id="@+id/buttonTimeFrom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
                 android:text="@string/selectTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonDateFrom" />
@@ -132,41 +120,42 @@
                 android:id="@+id/inputTimeFrom"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputDateFrom" />
-
 
             <TextView
                 android:id="@+id/sectionDateTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/sectionDateTo"
                 android:textSize="18sp"
-                app:layout_constraintHorizontal_bias="0.172"
+                app:layout_constraintHorizontal_bias="0.041"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputTimeFrom" />
 
             <Button
                 android:id="@+id/buttonDateTo"
-                android:layout_width="wrap_content"
+                android:layout_width="203dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/selectDate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sectionDateTo" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/inputDateTo"
+                app:layout_constraintTop_toBottomOf="@+id/buttonTimeFrom" />
 
             <TextView
                 android:id="@+id/inputDateTo"
-                android:layout_width="179dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="198dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sectionDateTo" />
@@ -175,8 +164,8 @@
                 android:id="@+id/buttonTimeTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
                 android:text="@string/selectTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonDateTo" />
@@ -185,11 +174,22 @@
                 android:id="@+id/inputTimeTo"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="44dp"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputDateTo" />
+
+            <Button
+                android:id="@+id/bookItemButton"
+                android:layout_width="206dp"
+                android:layout_height="84dp"
+                android:layout_marginTop="52dp"
+                android:text="@string/bookItemButton"
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputTimeTo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
