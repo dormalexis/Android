@@ -3,6 +3,7 @@ package com.example.smartcity.View.RecyclerView;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,10 +23,11 @@ import butterknife.ButterKnife;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @BindView(R.id.description) TextView descriptionText;
+    @BindView(R.id.name) TextView descriptionText;
     @BindView(R.id.price) TextView priceText;
     private ItemAdapter.OnItemListener onItemListener;
-    @BindView(R.id.image) ImageView image;
+    @BindView(R.id.picture) ImageView image;
+    @BindView(R.id.ratingBar) RatingBar ratingBar;
 
     public ItemViewHolder(@NonNull View itemView, ItemAdapter.OnItemListener onItemListener) {
         super(itemView);
@@ -40,9 +42,9 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void updateAnnonces(Item item, Context context)
     {
-        this.descriptionText.setText(item.getDescription());
+        this.descriptionText.setText(item.getName());
         this.priceText.setText(context.getString(R.string.dailyPrice) + " - " +String.valueOf(item.getPricePerDay()) + "€");
-
+        this.ratingBar.setRating(item.getNbStars());
         if(item.getPictures().size() != 0)
         {
             RequestOptions requestOptions = new RequestOptions();
@@ -52,7 +54,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             GlideApp.with(context)
                     .load(item.getPictures().get(0).getPath())
                     .apply(requestOptions)
-                    .override(100, 200)
+                    .override(100, 100)
                     .into(image);
         }
     }

@@ -61,7 +61,8 @@ public class LogInFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new CheckFragment());
+            transaction.replace(R.id.fragment_container, new RegisterFragment());
+            transaction.addToBackStack(new LogInFragment().getClass().getName());
             transaction.commit();
         }
     };

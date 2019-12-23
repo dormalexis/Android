@@ -3,25 +3,37 @@ package com.example.smartcity.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class Person {
-    private Integer PersonId;
+    private Integer personId;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phoneNumber;
-    private Integer streetNumber;
-    private String streetName;
+    private String street;
     private Integer box;
-    private String availability;
+    private String availabilityDescription;
     private Boolean isBlocked;
 
     public Person() { }
 
+    public String getAvailabilityDescription() {
+        return availabilityDescription;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
     public Integer getPersonId() {
-        return PersonId;
+        return personId;
     }
 
     public String getStreetName() {
-        return streetName;
+        return street;
     }
 
     public String getFirstName() {
@@ -40,16 +52,12 @@ public class Person {
         return phoneNumber;
     }
 
-    public Integer getStreetNumber() {
-        return streetNumber;
-    }
-
     public Integer getBox() {
         return box;
     }
 
     public String getAvailability() {
-        return availability;
+        return availabilityDescription;
     }
 
     public Boolean getBlocked() {
@@ -57,11 +65,11 @@ public class Person {
     }
 
     public void setPersonId(Integer personId) {
-        PersonId = personId;
+        personId = personId;
     }
 
     public void setAvailability(String availability) {
-        this.availability = availability;
+        this.availabilityDescription = availability;
     }
 
     public void setBlocked(Boolean blocked) {
@@ -88,7 +96,15 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setStreetNumber(Integer streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setAvailabilityDescription(String availabilityDescription) {
+        this.availabilityDescription = availabilityDescription;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 }

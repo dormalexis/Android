@@ -1,0 +1,33 @@
+package com.example.smartcity.DataAccess.Repository;
+
+import android.util.Log;
+
+import com.example.smartcity.DataAccess.Service.ItemService;
+import com.example.smartcity.DataAccess.Service.PersonService;
+import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.Person;
+import com.example.smartcity.Utilitaries.RetrofitInstance;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class PersonRepository implements PersonDataAccess {
+    public void postPerson(Person person)
+    {
+        PersonService service = RetrofitInstance.getRetrofitInstance().create(PersonService.class);
+        Call<Integer> call = service.postPerson(person);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                //Log.i("postOk", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.i("postFailed", "Post person failed");
+            }
+        });
+
+    }
+}

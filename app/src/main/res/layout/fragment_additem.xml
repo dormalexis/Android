@@ -45,13 +45,30 @@
         android:layout_marginTop="10dp"
         android:hint="@string/dailyPrice"
         android:inputType="text"/>
+    
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="100dp"
+        android:layout_below="@+id/addItemPrice"/>
+
+    <Button
+        android:id="@+id/addPicture"
+        style="@style/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/picture"
+        android:layout_marginTop="10dp"
+        android:text="@string/addPicture"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/addItemConfirmation"
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addItemPrice"
+        android:layout_below="@+id/addPicture"
         android:layout_marginTop="10dp"
         android:text="@string/publish"
         android:layout_centerHorizontal="true"/>

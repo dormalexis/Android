@@ -7,15 +7,15 @@ import java.util.GregorianCalendar;
 public class Proposal
 {
     @SerializedName("proposalId")
-    private int proposalId;
+    private Integer proposalId;
     @SerializedName("message")
     private String message;
     @SerializedName("dateFrom")
     private GregorianCalendar dateFrom;
     @SerializedName("dateTo")
     private GregorianCalendar dateTo;
-    @SerializedName("RentalId")
-    private int RentalId;
+    @SerializedName("rentalId")
+    private Integer RentalId;
 
     public int getProposalId() {
         return proposalId;

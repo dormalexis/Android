@@ -187,7 +187,6 @@ public class ItemDetailsFragment extends Fragment {
         public void onClick(View v) {
             Proposal proposal = new Proposal();
             proposalViewModel = new ProposalViewModel();
-
             proposal.setMessage("Blabla");
             proposal.setDateFrom(dateFrom);
             proposal.setDateTo(dateTo);
@@ -225,6 +224,7 @@ public class ItemDetailsFragment extends Fragment {
         {
             Context context = getContext();
             RequestOptions requestOptions = new RequestOptions();
+            // TODO : Modifier les drawable montrés par défaut en cas de non chargement de l'image
             requestOptions.placeholder(R.drawable.ic_add);
             requestOptions.error(R.drawable.ic_check);
 

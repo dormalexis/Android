@@ -22,6 +22,16 @@ public class Item {
     private Integer itemCategory;
     @SerializedName("picture")
     private ArrayList<Picture> pictures;
+    @SerializedName("nbStars")
+    private Float nbStars;
+
+    public Float getNbStars() {
+        return nbStars;
+    }
+
+    public void setNbStars(Float nbStars) {
+        this.nbStars = nbStars;
+    }
 
     public Boolean getVisible() {
         return isVisible;

@@ -3,7 +3,7 @@
     <string name="welcome">Bienvenue sur notre application !</string>
     <string name="password">Mot de passe</string>
     <string name="login">Se connecter</string>
-    <string name="register">S\'enregistrer</string>
+    <string name="register">S\'inscrire</string>
     <string name="myAccount">Mon compte</string>
     <string name="mail">Adresse mail</string>
     <string name="name">Nom</string>
