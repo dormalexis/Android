@@ -2,8 +2,10 @@ package com.example.smartcity.View.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +22,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cloudinary.Cloudinary;
 import com.cloudinary.android.MediaManager;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +98,49 @@ public class AddItemFragment extends Fragment {
             item.setOwner(1);
             ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             item.setItemCategory(itemCat.getCategoryId());
+
+
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream .toByteArray();
+            String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", "locapp",
+                    "api_key", "731592778186861",
+                    "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
+
+            new Thread(new Runnable() {
+                public void run() {
+                    try
+                    {
+                        //Map result = cloudinary.uploader().upload(encoded, ObjectUtils.emptyMap());
+                        //cloudinary.uploader().unsignedUpload(encoded, "ml_default",ObjectUtils.emptyMap());
+                        Map uploadResult = cloudinary.uploader().upload("http://res.cloudinary.com/demo/image/upload/sample.jpg", ObjectUtils.emptyMap());
+                    }
+                    catch (IOException e )
+                    {
+                        Log.d("image", "problème upload " + e.getMessage());
+                    }
+                }
+            }).start();
+
+
+
+
+
+            /*
+            Map config = new HashMap();
+            config.put("cloudinary://731592778186861:tW7qsDmldy7IP-aLhxj6XWLnh-A@locapp", "cloudinary://@locapp");
+            MediaManager.init(getContext(), config);
+            String requestId = MediaManager.get().upload(encoded).dispatch();
+            */
+
             itemModel.postItem(item);
+
+
+
         }
     };
 
@@ -112,10 +162,14 @@ public class AddItemFragment extends Fragment {
             //String requestId = MediaManager.get().upload("test.png").dispatch();
             try {
                 photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                picture.setImageBitmap(photo);
+                /*
                 Map config = new HashMap();
                 config.put("cloudinary://731592778186861:tW7qsDmldy7IP-aLhxj6XWLnh-A@locapp", "cloudinary://@locapp");
                 MediaManager.init(getContext(), config);
                 String requestId = MediaManager.get().upload(data.getData().getPath()).dispatch();
+
+                 */
             }
             catch(IOException e) {
                 Log.i("ici", "aie");
