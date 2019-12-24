@@ -28,6 +28,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ItemAdapter.OnItemListener onItemListener;
     @BindView(R.id.picture) ImageView image;
     @BindView(R.id.ratingBar) RatingBar ratingBar;
+    @BindView(R.id.rateNumber) TextView rateNumber;
 
     public ItemViewHolder(@NonNull View itemView, ItemAdapter.OnItemListener onItemListener) {
         super(itemView);
@@ -45,6 +46,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.descriptionText.setText(item.getName());
         this.priceText.setText(context.getString(R.string.dailyPrice) + " - " +String.valueOf(item.getPricePerDay()) + "€");
         this.ratingBar.setRating(item.getNbStars());
+        this.rateNumber.setText(context.getString(R.string.rateNumber) + " " + item.getNbAvis() + " avis");
         if(item.getPictures().size() != 0)
         {
             RequestOptions requestOptions = new RequestOptions();

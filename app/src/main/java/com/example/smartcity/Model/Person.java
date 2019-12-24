@@ -3,18 +3,68 @@ package com.example.smartcity.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class Person {
+    @SerializedName("personId")
     private Integer personId;
+    @SerializedName("firstName")
     private String firstName;
+    @SerializedName("lastName")
     private String lastName;
+    @SerializedName("email")
     private String email;
+    @SerializedName("password")
     private String password;
+    @SerializedName("phoneNumber")
     private String phoneNumber;
+    @SerializedName("streetName")
     private String street;
-    private Integer box;
+    @SerializedName("streetNumber")
+    private Integer streetNumber;
+    @SerializedName("box")
+    private String box;
+    @SerializedName("availabilityDescription")
     private String availabilityDescription;
+    @SerializedName("isBlocked")
     private Boolean isBlocked;
+    @SerializedName("localitylocalityId")
+    private Integer locality;
+    @SerializedName("roleroleId")
+    private Integer role;
+
+
 
     public Person() { }
+
+    public Integer getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getBox() {
+        return box;
+    }
+
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public void setBox(String box) {
+        this.box = box;
+    }
+
+    public Integer getLocality() {
+        return locality;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setLocality(Integer locality) {
+        this.locality = locality;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
 
     public String getAvailabilityDescription() {
         return availabilityDescription;
@@ -52,9 +102,6 @@ public class Person {
         return phoneNumber;
     }
 
-    public Integer getBox() {
-        return box;
-    }
 
     public String getAvailability() {
         return availabilityDescription;
@@ -76,9 +123,6 @@ public class Person {
         isBlocked = blocked;
     }
 
-    public void setBox(Integer box) {
-        this.box = box;
-    }
 
     public void setEmail(String email) {
         this.email = email;

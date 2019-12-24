@@ -32,7 +32,7 @@
     <string name="sectionDateFrom">Date de départ</string>
     <string name="sectionDateTo">Date de fin</string>
     <string name="bookItemButton">Demander une réservation</string>
-
+    <string name="rateNumber">Basé sur</string>
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

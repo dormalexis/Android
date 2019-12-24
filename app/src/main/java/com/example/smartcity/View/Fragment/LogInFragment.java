@@ -1,6 +1,7 @@
 package com.example.smartcity.View.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.smartcity.DataAccess.ViewModel.ConnectionViewModel;
+import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.example.smartcity.View.Fragment.CheckFragment;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class LogInFragment extends Fragment {
 
@@ -39,7 +43,8 @@ public class LogInFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login,container,false);
-        this.registerButton = v.findViewById(R.id.registerButton);
+        ButterKnife.bind(this, v);
+        logingButton.setOnClickListener(loginListener);
         registerButton.setOnClickListener(registerListerner);
         return v;
     }
@@ -53,7 +58,11 @@ public class LogInFragment extends Fragment {
     private View.OnClickListener loginListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // actions à faire quand on clique sur le bouton login
+            LoginModel loginModel = new LoginModel();
+            ConnectionViewModel connectionViewModel = new ConnectionViewModel();
+            loginModel.setEmail(mailInput.getText().toString());
+            loginModel.setPassword(passwordInput.getText().toString());
+            connectionViewModel.getToken(loginModel, getContext());
         }
     };
 
@@ -66,4 +75,5 @@ public class LogInFragment extends Fragment {
             transaction.commit();
         }
     };
+
 }

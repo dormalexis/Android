@@ -24,6 +24,16 @@ public class Item {
     private ArrayList<Picture> pictures;
     @SerializedName("nbStars")
     private Float nbStars;
+    @SerializedName("nbAvis")
+    private int nbAvis;
+
+    public int getNbAvis() {
+        return nbAvis;
+    }
+
+    public void setNbAvis(int nbAvis) {
+        this.nbAvis = nbAvis;
+    }
 
     public Float getNbStars() {
         return nbStars;

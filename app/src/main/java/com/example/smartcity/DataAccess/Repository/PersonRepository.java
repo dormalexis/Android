@@ -1,5 +1,6 @@
 package com.example.smartcity.DataAccess.Repository;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.smartcity.DataAccess.Service.ItemService;
@@ -20,7 +21,7 @@ public class PersonRepository implements PersonDataAccess {
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                //Log.i("postOk", response.body().toString());
+                Log.i("postOk", response.body().toString());
             }
 
             @Override
@@ -28,6 +29,5 @@ public class PersonRepository implements PersonDataAccess {
                 Log.i("postFailed", "Post person failed");
             }
         });
-
     }
 }

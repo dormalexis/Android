@@ -1,5 +1,6 @@
 package com.example.smartcity.DataAccess.Repository;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.smartcity.DataAccess.Service.ProposalService;
