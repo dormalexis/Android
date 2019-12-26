@@ -67,32 +67,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
-                android:inputType="textPersonName"
-                android:hint="@string/street"/>
+                android:hint="@string/street"
+                android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/cityInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:inputType="textPersonName"
-                android:hint="@string/city"/>
-
-            <EditText
-                android:id="@+id/postalCodeInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:inputType="textPersonName"
-                android:hint="@string/zipCode"/>
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinnerLocalities"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/phoneInput"
