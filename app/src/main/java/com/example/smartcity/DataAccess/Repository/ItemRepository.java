@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
 import java.util.List;
@@ -19,12 +20,15 @@ public class ItemRepository implements ItemDataAccess
 {
     private MutableLiveData<List<Item>> itemsLive;
     private MutableLiveData<List<Item>> myItems;
+    private MutableLiveData<Item> itemPost;
+    private Integer itemId;
     Context context;
 
     public ItemRepository(Context context)
     {
         this.itemsLive = new MutableLiveData<>();
         this.myItems = new MutableLiveData<>();
+        this.itemPost = new MutableLiveData<>();
         this.context = context;
     }
 
@@ -47,21 +51,22 @@ public class ItemRepository implements ItemDataAccess
         return itemsLive;
     }
 
-    public void postItem(Item item)
+    public Integer postItem(Item item)
     {
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<Integer> call = service.postItem(item);
-        call.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                //Log.i("postOk", response.body().toString());
-            }
+        Call<Item> call = service.postItem(item);
 
+        call.enqueue(new Callback<Item>() {
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onResponse(Call<Item> call, Response<Item> response) {
+                itemId = response.body().getItemId();
+            }
+            @Override
+            public void onFailure(Call<Item> call, Throwable t) {
                 Log.i("postFailed", "Post failed");
             }
         });
+        return itemId;
     }
 
     public MutableLiveData<List<Item>> getMyItems()

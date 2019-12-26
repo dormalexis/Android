@@ -33,6 +33,8 @@
     <string name="sectionDateTo">Date de fin</string>
     <string name="bookItemButton">Demander une réservation</string>
     <string name="rateNumber">Basé sur</string>
+    <string name="titleSpinnerLocalities">Sélectionner une localité</string>
+    <string name="validate">Valider</string>
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

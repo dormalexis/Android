@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SpinnerAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.smartcity.DataAccess.ViewModel.PersonViewModel;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.R;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +40,10 @@ public class RegisterFragment extends Fragment {
     EditText zipCode;
     @BindView(R.id.registerButton)
     Button register;
+    @BindView(R.id.spinnerLocalities)
+    SearchableSpinner spinnerLocalities;
 
+    SpinnerAdapter spinnerAdapter;
 
     @Nullable
     @Override
@@ -46,6 +51,10 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register,container,false);
         ButterKnife.bind(this, view);
         register.setOnClickListener(registerListenr);
+        spinnerLocalities.setTitle(getResources().getString(R.string.titleSpinnerLocalities));
+        spinnerLocalities.setPositiveButton((getResources().getString(R.string.validate)));
+
+
         return view;
     }
 

@@ -27,8 +27,10 @@ import com.cloudinary.android.MediaManager;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
+import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
+import com.example.smartcity.Model.Picture;
 import com.example.smartcity.R;
 
 import java.io.ByteArrayOutputStream;
@@ -65,6 +67,7 @@ public class AddItemFragment extends Fragment {
 
     ItemViewModel itemModel;
     CategoryViewModel categoryModel;
+    PictureViewModel pictureModel;
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -90,7 +93,11 @@ public class AddItemFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Item item = new Item();
+            Picture picture = new Picture();
             itemModel = new ItemViewModel(getContext());
+            pictureModel = new PictureViewModel(getContext());
+
+
             item.setName(name.getText().toString());
             item.setDescription(description.getText().toString());
             item.setVisible(true);
@@ -98,16 +105,43 @@ public class AddItemFragment extends Fragment {
             item.setOwner(1);
             ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             item.setItemCategory(itemCat.getCategoryId());
+
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
+            /*
             Map config = new HashMap();
             config.put("cloud_name", "locapp");
             config.put("api_key", "731592778186861");
             config.put("api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A");
             MediaManager.init(getContext(), config);
-            MediaManager.get().upload(byteArray).dispatch(getContext());
-            itemModel.postItem(item);
+            String idUpload = MediaManager.get().upload(byteArray).dispatch(getContext());
+            */
+
+            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                    "cloud_name", "locapp",
+                    "api_key", "731592778186861",
+                    "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
+
+
+            new Thread(new Runnable() {
+                public void run() {
+                    try
+                    {
+                        Map uploadResult = cloudinary.uploader().upload(byteArray,
+                                ObjectUtils.asMap("folder", "Locapp/"));
+                        String idCloudinary = (String) uploadResult.get("public_id");
+                        picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/Locapp/"+idCloudinary);
+                    }
+                    catch (IOException e )
+                    {
+                        Log.d("image", "problème upload " + e.getMessage());
+                    }
+                }
+            }).start();
+            Integer idItemPosted = itemModel.postItem(item);
+            picture.setItem(idItemPosted);
+            pictureModel.postPicture(picture);
         }
     };
 

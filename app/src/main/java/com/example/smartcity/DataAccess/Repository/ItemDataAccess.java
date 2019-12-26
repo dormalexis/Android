@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ItemDataAccess {
     MutableLiveData<List<Item>> getItems();
-    void postItem(Item item);
+    Integer postItem(Item item);
     MutableLiveData<List<Item>> getMyItems();
 
 }

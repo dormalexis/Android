@@ -1,8 +1,13 @@
 package com.example.smartcity.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Picture {
+    @SerializedName("pictureID")
     private Integer pictureId;
+    @SerializedName("path")
     private String path;
+    @SerializedName("Item")
     private Integer item;
 
     public Integer getPictureId() {

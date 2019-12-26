@@ -88,6 +88,12 @@
                 android:inputType="textPersonName"
                 android:hint="@string/zipCode"/>
 
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinnerLocalities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
             <EditText
                 android:id="@+id/phoneInput"
                 android:layout_width="match_parent"
