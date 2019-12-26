@@ -1,5 +1,7 @@
 package com.example.smartcity.DataAccess.ViewModel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -17,8 +19,9 @@ public class CategoryViewModel extends ViewModel {
 
     MutableLiveData<List<ItemCategory>> categories;
 
-    public CategoryViewModel() {
-        categoryRepository = new CategoryRepository();
+    public CategoryViewModel(Context context) {
+
+        categoryRepository = new CategoryRepository(context);
     }
 
     public MutableLiveData<List<ItemCategory>> getCategories() {

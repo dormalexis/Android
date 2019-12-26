@@ -17,12 +17,21 @@ import retrofit2.Response;
 
 public class ItemRepository implements ItemDataAccess
 {
-    MutableLiveData<List<Item>> itemsLive = new MutableLiveData<>();
+    private MutableLiveData<List<Item>> itemsLive;
+    private MutableLiveData<List<Item>> myItems;
+    Context context;
+
+    public ItemRepository(Context context)
+    {
+        this.itemsLive = new MutableLiveData<>();
+        this.myItems = new MutableLiveData<>();
+        this.context = context;
+    }
 
     @Override
     public MutableLiveData<List<Item>> getItems() {
 
-        ItemService service = RetrofitInstance.getRetrofitInstance().create(ItemService.class);
+        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<List<Item>> call = service.getItems();
         call.enqueue(new Callback<List<Item>>() {
             @Override
@@ -40,7 +49,7 @@ public class ItemRepository implements ItemDataAccess
 
     public void postItem(Item item)
     {
-        ItemService service = RetrofitInstance.getRetrofitInstance().create(ItemService.class);
+        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<Integer> call = service.postItem(item);
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -55,21 +64,27 @@ public class ItemRepository implements ItemDataAccess
         });
     }
 
-    public void get(Item item)
+    public MutableLiveData<List<Item>> getMyItems()
     {
-        ItemService service = RetrofitInstance.getRetrofitInstance().create(ItemService.class);
-        Call<Integer> call = service.postItem(item);
-        call.enqueue(new Callback<Integer>() {
+        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
+        Call<List<Item>> call = service.getMyItems();
+        call.enqueue(new Callback<List<Item>>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                //Log.i("postOk", response.body().toString());
+            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                if(response.isSuccessful())
+                {
+                    Log.i("Ok", response.body().toString());
+                    myItems.setValue(response.body());
+                }
+                else Log.i("PasOk", response.errorBody().toString());
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                Log.i("postFailed", "Post failed");
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+                Log.i("postFailed", "Connection failed");
             }
         });
+        return myItems;
     }
 
 

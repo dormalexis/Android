@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         recyclerView = view.findViewById(R.id.homeRV);
-        itemModel = new ItemViewModel();
+        itemModel = new ItemViewModel(getContext());
 
         itemModel.getItems().observe(this,items -> {
             adapter.setItems(items);
@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     @Override
     public void onItemClick(int position) {
         Item itemSelected = itemModel.getItems().getValue().get(position);
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());

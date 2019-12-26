@@ -186,7 +186,7 @@ public class ItemDetailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Proposal proposal = new Proposal();
-            proposalViewModel = new ProposalViewModel();
+            proposalViewModel = new ProposalViewModel(getContext());
             proposal.setMessage("Blabla");
             proposal.setDateFrom(dateFrom);
             proposal.setDateTo(dateTo);

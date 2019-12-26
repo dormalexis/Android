@@ -13,9 +13,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProposalRepository implements ProposalDataAccess {
+
+    private Context context;
+    public ProposalRepository(Context context)
+    {
+        this.context = context;
+    }
     public void postProposal(Proposal proposal)
     {
-        ProposalService service = RetrofitInstance.getRetrofitInstance().create(ProposalService.class);
+        ProposalService service = RetrofitInstance.getRetrofitInstance(context).create(ProposalService.class);
         Call<Integer> call = service.postProposal(proposal);
 
         call.enqueue(new Callback<Integer>() {

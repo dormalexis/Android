@@ -19,14 +19,21 @@ import retrofit2.Response;
 
 public class CategoryRepository
 {
-    MutableLiveData<List<ItemCategory>> categoryLive = new MutableLiveData<>();
+    private MutableLiveData<List<ItemCategory>> categoryLive;
+    private Context context;
+
+    public CategoryRepository(Context context)
+    {
+        this.categoryLive = new MutableLiveData<>();
+        this.context = context;
+    }
 
     public MutableLiveData<List<ItemCategory>> getCategories() {
 
         // Pour optimiser le réseau, comme les catégories ne vont pas souvent varier,
         // on va garder la liste des catégories telle quelle durant toute la durée de l'
         // application
-            CategoryService service = RetrofitInstance.getRetrofitInstance().create(CategoryService.class);
+            CategoryService service = RetrofitInstance.getRetrofitInstance(context).create(CategoryService.class);
             Call<List<ItemCategory>> call = service.getCategory();
             call.enqueue(new Callback<List<ItemCategory>>() {
                 @Override

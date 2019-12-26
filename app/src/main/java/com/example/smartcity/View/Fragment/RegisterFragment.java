@@ -54,7 +54,7 @@ public class RegisterFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Person person = new Person();
-            PersonViewModel personViewModel = new PersonViewModel();
+            PersonViewModel personViewModel = new PersonViewModel(getContext());
             person.setFirstName(firstName.getText().toString());
             person.setLastName(lastName.getText().toString());
             person.setEmail(mail.getText().toString());

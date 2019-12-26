@@ -70,7 +70,7 @@ public class AddItemFragment extends Fragment {
     public void onCreate(Bundle savedInstance)
     {
         super.onCreate(savedInstance);
-        categoryModel = new CategoryViewModel();
+        categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories().observe(this,categories -> {
             categoriesList.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
         });
@@ -90,7 +90,7 @@ public class AddItemFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Item item = new Item();
-            itemModel = new ItemViewModel();
+            itemModel = new ItemViewModel(getContext());
             item.setName(name.getText().toString());
             item.setDescription(description.getText().toString());
             item.setVisible(true);
@@ -98,49 +98,16 @@ public class AddItemFragment extends Fragment {
             item.setOwner(1);
             ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             item.setItemCategory(itemCat.getCategoryId());
-
-
-
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
-            String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", "locapp",
-                    "api_key", "731592778186861",
-                    "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
-
-            new Thread(new Runnable() {
-                public void run() {
-                    try
-                    {
-                        //Map result = cloudinary.uploader().upload(encoded, ObjectUtils.emptyMap());
-                        //cloudinary.uploader().unsignedUpload(encoded, "ml_default",ObjectUtils.emptyMap());
-                        Map uploadResult = cloudinary.uploader().upload("http://res.cloudinary.com/demo/image/upload/sample.jpg", ObjectUtils.emptyMap());
-                    }
-                    catch (IOException e )
-                    {
-                        Log.d("image", "problème upload " + e.getMessage());
-                    }
-                }
-            }).start();
-
-
-
-
-
-            /*
             Map config = new HashMap();
-            config.put("cloudinary://731592778186861:tW7qsDmldy7IP-aLhxj6XWLnh-A@locapp", "cloudinary://@locapp");
+            config.put("cloud_name", "locapp");
+            config.put("api_key", "731592778186861");
+            config.put("api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A");
             MediaManager.init(getContext(), config);
-            String requestId = MediaManager.get().upload(encoded).dispatch();
-            */
-
+            MediaManager.get().upload(byteArray).dispatch(getContext());
             itemModel.postItem(item);
-
-
-
         }
     };
 

@@ -14,9 +14,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonRepository implements PersonDataAccess {
+
+    private Context context;
+
+    public PersonRepository(Context context)
+    {
+        this.context = context;
+    }
     public void postPerson(Person person)
     {
-        PersonService service = RetrofitInstance.getRetrofitInstance().create(PersonService.class);
+        PersonService service = RetrofitInstance.getRetrofitInstance(context).create(PersonService.class);
         Call<Integer> call = service.postPerson(person);
         call.enqueue(new Callback<Integer>() {
             @Override

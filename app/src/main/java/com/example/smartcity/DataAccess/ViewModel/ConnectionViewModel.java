@@ -9,9 +9,9 @@ import com.example.smartcity.Model.LoginModel;
 public class ConnectionViewModel {
     private ConnectionDataAccess connectionDataAccess;
 
-    public ConnectionViewModel()
+    public ConnectionViewModel(Context context)
     {
-        this.connectionDataAccess = new ConnectionRepository();
+        this.connectionDataAccess = new ConnectionRepository(context);
     }
 
     public void getToken(LoginModel loginModel, Context context) { connectionDataAccess.getToken(loginModel, context);}

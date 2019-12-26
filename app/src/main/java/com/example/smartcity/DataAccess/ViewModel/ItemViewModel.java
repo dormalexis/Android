@@ -1,5 +1,7 @@
 package com.example.smartcity.DataAccess.ViewModel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,13 +14,16 @@ import java.util.List;
 public class ItemViewModel extends ViewModel {
     private ItemDataAccess itemRepository;
 
-    public ItemViewModel()
+    public ItemViewModel(Context context)
     {
-        itemRepository = new ItemRepository();
+        itemRepository = new ItemRepository(context);
     }
 
     public LiveData<List<Item>> getItems() {
         return itemRepository.getItems();
     }
     public void postItem(Item item) { itemRepository.postItem(item);}
+    public LiveData<List<Item>> getMyItems() {
+        return itemRepository.getMyItems();
+    }
 }

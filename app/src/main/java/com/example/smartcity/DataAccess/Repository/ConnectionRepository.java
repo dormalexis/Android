@@ -17,10 +17,14 @@ import retrofit2.Response;
 
 public class ConnectionRepository implements ConnectionDataAccess {
 
-
+    private Context context;
+    public ConnectionRepository(Context context)
+    {
+        this.context = context;
+    }
     public void getToken(LoginModel loginModel, Context context) {
 
-        ConnectionService service = RetrofitInstance.getRetrofitInstance().create(ConnectionService.class);
+        ConnectionService service = RetrofitInstance.getRetrofitInstance(context).create(ConnectionService.class);
         Call<TokenResponse> call = service.getToken(loginModel);
         call.enqueue(new Callback<TokenResponse>() {
             @Override
