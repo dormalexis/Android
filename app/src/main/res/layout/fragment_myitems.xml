@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     >
 
+    <TextView
+        android:id="@+id/myItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/myItems"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myItemRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/myItemsText"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         />

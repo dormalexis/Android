@@ -29,7 +29,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener {
 
-    private ArrayList<Item> itemsArray = new ArrayList<>();
+    private ArrayList<Item> items;
     private ItemViewModel itemModel;
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
 
     @Override
     public void onItemClick(int position) {
-        Item itemSelected = itemModel.getItems().getValue().get(position);
+        Item itemSelected = itemModel.getItems().getValue().get(position); // TODO : Bizarre d'aller rechercher toute la liste encore une fois
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());

@@ -33,14 +33,15 @@
     <string name="sectionDateTo">Date de fin</string>
     <string name="bookItemButton">Demander une réservation</string>
     <string name="rateNumber">Basé sur</string>
+    <string name="myitems">Mes annonces</string>
     <string name="titleSpinnerLocalities">Sélectionner une localité</string>
     <string name="validate">Valider</string>
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-
+    <string name="update">Appliquer les changements</string>
+    <string name="isVisible">Est visible</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="connectAs">Connecté en tant que</string>

@@ -6,73 +6,85 @@
     >
 
     <Spinner
-        android:id="@+id/categorySpinner"
+        android:id="@+id/updateCategorySpinner"
+        style="@style/spinner"
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        style="@style/spinner"/>
+        android:layout_marginBottom="10dp" />
 
     <EditText
-        android:id="@+id/addItemName"
+        android:id="@+id/updateItemName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/categorySpinner"
+        android:layout_below="@+id/updateCategorySpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:hint="@string/title"
         android:inputType="text"/>
 
     <EditText
-        android:id="@+id/addItemDescription"
+        android:id="@+id/updateItemDescription"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addItemName"
+        android:scrollbars="vertical"
+        android:minLines="6"
+        android:lines="8"
+        android:layout_below="@+id/updateItemName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:hint="@string/description"
-        android:inputType="text"/>
-
-
+        android:inputType="textMultiLine"/>
 
     <EditText
-        android:id="@+id/addItemPrice"
+        android:id="@+id/updatePrice"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addItemDescription"
+        android:layout_below="@+id/updateItemDescription"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:hint="@string/dailyPrice"
         android:inputType="text"/>
-    
+
+    <CheckBox
+        android:id="@+id/updateIsVisible"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/isVisible"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/updatePrice"
+        android:buttonTint="@color/orange"/>
+
     <ImageView
-        android:id="@+id/picture"
+        android:id="@+id/updatePicture"
         android:layout_width="200dp"
         android:layout_centerHorizontal="true"
         android:layout_height="100dp"
-        android:layout_below="@+id/addItemPrice"/>
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/updateIsVisible"/>
 
     <Button
-        android:id="@+id/addPicture"
+        android:id="@+id/updatePictureButton"
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/picture"
+        android:layout_below="@+id/updatePicture"
         android:layout_marginTop="10dp"
         android:text="@string/addPicture"
         android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/addItemConfirmation"
+        android:id="@+id/updateItem"
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addPicture"
+        android:layout_below="@+id/updatePictureButton"
         android:layout_marginTop="10dp"
-        android:text="@string/publish"
+        android:text="@string/update"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

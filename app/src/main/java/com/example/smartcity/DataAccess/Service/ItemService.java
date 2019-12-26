@@ -5,6 +5,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import com.example.smartcity.Model.Item;
@@ -22,6 +23,9 @@ public interface ItemService {
 
     @POST("Item")
     Call<Item> postItem(@Body Item item);
+
+    @PUT("Item")
+    Call<Integer> updateItem(@Body Item item);
 
 
 }

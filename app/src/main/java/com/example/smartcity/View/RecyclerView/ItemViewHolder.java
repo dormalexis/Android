@@ -1,6 +1,7 @@
 package com.example.smartcity.View.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -29,6 +30,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @BindView(R.id.picture) ImageView image;
     @BindView(R.id.ratingBar) RatingBar ratingBar;
     @BindView(R.id.rateNumber) TextView rateNumber;
+    @BindView(R.id.visibility) TextView isVisible;
 
     public ItemViewHolder(@NonNull View itemView, ItemAdapter.OnItemListener onItemListener) {
         super(itemView);
@@ -47,6 +49,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.priceText.setText(context.getString(R.string.dailyPrice) + " - " +String.valueOf(item.getPricePerDay()) + "€");
         this.ratingBar.setRating(item.getNbStars());
         this.rateNumber.setText(context.getString(R.string.rateNumber) + " " + item.getNbAvis() + " avis");
+        if(!item.getVisible())
+        {
+            this.isVisible.setText("Invisible");
+            this.isVisible.setTextColor(Color.RED);
+        }
         if(item.getPictures().size() != 0)
         {
             RequestOptions requestOptions = new RequestOptions();

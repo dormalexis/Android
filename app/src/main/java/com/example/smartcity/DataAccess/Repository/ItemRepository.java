@@ -69,6 +69,24 @@ public class ItemRepository implements ItemDataAccess
         return itemId;
     }
 
+    public void updateItem(Item item)
+    {
+        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
+        Call<Integer> call = service.updateItem(item);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+               if(response.isSuccessful()) Log.i("postOk", response.body().toString());
+               else Log.i("tag", response.errorBody().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                //Log.i("postFailed", "Post failed");
+            }
+        });
+    }
+
     public MutableLiveData<List<Item>> getMyItems()
     {
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);

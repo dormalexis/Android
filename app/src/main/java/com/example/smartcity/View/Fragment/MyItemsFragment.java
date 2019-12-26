@@ -19,7 +19,7 @@ import com.example.smartcity.View.RecyclerView.ItemAdapter;
 
 import java.util.ArrayList;
 
-public class MyItemsFragment extends Fragment {
+public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListener {
 
 
     private ArrayList<Item> itemsArray = new ArrayList<>();
@@ -27,13 +27,13 @@ public class MyItemsFragment extends Fragment {
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
 
-    public MyItemsFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        adapter = new ItemAdapter(this::onItemClick);
+        adapter = new ItemAdapter(this);
+    }
+
+    public MyItemsFragment() {
     }
 
     @Nullable
@@ -51,10 +51,11 @@ public class MyItemsFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void onItemClick(int position) {
-        Item itemSelected = itemModel.getItems().getValue().get(position);
+        Item itemSelected = itemModel.getMyItems().getValue().get(position);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
+        transaction.replace(R.id.fragment_container, new UpdateItemFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());
         transaction.commit();
     }

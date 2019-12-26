@@ -10,5 +10,6 @@ public interface ItemDataAccess {
     MutableLiveData<List<Item>> getItems();
     Integer postItem(Item item);
     MutableLiveData<List<Item>> getMyItems();
+    void updateItem(Item item);
 
 }
