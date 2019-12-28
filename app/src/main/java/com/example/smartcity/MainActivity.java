@@ -16,6 +16,7 @@ import com.example.smartcity.View.Fragment.HomeFragment;
 import com.example.smartcity.View.Fragment.InfoFragment;
 import com.example.smartcity.View.Fragment.LogInFragment;
 import com.example.smartcity.View.Fragment.MyItemsFragment;
+import com.example.smartcity.View.Fragment.MyRentalsFragment;
 import com.example.smartcity.View.Fragment.MySettingsFragment;
 import com.example.smartcity.View.RecyclerView.ItemViewHolder;
 import com.google.android.material.navigation.NavigationView;
@@ -73,8 +74,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_info:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new InfoFragment()).commit();
                 break;
-
-
+            case R.id.nav_myRentals:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MyRentalsFragment()).commit();
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

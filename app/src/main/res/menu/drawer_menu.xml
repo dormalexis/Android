@@ -34,6 +34,10 @@
                 android:id="@+id/nav_check"
                 android:icon="@drawable/ic_check"
                 android:title="@string/myCheck" />
+            <item
+                android:id="@+id/nav_myRentals"
+                android:icon="@drawable/ic_check"
+                android:title="@string/myRentals" />
         </menu>
     </item>
 

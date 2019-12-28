@@ -30,6 +30,7 @@ import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
+import com.example.smartcity.Model.ItemResponseAPI;
 import com.example.smartcity.Model.Picture;
 import com.example.smartcity.R;
 
@@ -68,6 +69,8 @@ public class AddItemFragment extends Fragment {
     ItemViewModel itemModel;
     CategoryViewModel categoryModel;
     PictureViewModel pictureModel;
+
+    ItemResponseAPI itemResponseAPI;
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -139,8 +142,10 @@ public class AddItemFragment extends Fragment {
                     }
                 }
             }).start();
-            Integer idItemPosted = itemModel.postItem(item);
-            picture.setItem(idItemPosted);
+
+
+            int idItemPosted = itemModel.postItem(item);
+            picture.setItem(itemResponseAPI.getItemId());
             pictureModel.postPicture(picture);
         }
     };

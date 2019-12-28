@@ -1,17 +1,22 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
+import android.util.JsonReader;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.ItemResponseAPI;
 import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,15 +25,13 @@ public class ItemRepository implements ItemDataAccess
 {
     private MutableLiveData<List<Item>> itemsLive;
     private MutableLiveData<List<Item>> myItems;
-    private MutableLiveData<Item> itemPost;
-    private Integer itemId;
+    private int itemId;
     Context context;
 
     public ItemRepository(Context context)
     {
         this.itemsLive = new MutableLiveData<>();
         this.myItems = new MutableLiveData<>();
-        this.itemPost = new MutableLiveData<>();
         this.context = context;
     }
 
@@ -51,18 +54,24 @@ public class ItemRepository implements ItemDataAccess
         return itemsLive;
     }
 
-    public Integer postItem(Item item)
-    {
+    public int postItem(Item item) {
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<Item> call = service.postItem(item);
+        Call<ItemResponseAPI> call = service.postItem(item);
 
-        call.enqueue(new Callback<Item>() {
+        call.enqueue(new Callback<ItemResponseAPI>() {
             @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
-                itemId = response.body().getItemId();
+            public void onResponse(Call<ItemResponseAPI> call, Response<ItemResponseAPI> response) {
+                if (response != null) {
+                    response.body();
+                    itemId = response.body().getItemId();
+                } else {
+                    Log.d("POST", "onResponse: response vide");
+                }
+
             }
+
             @Override
-            public void onFailure(Call<Item> call, Throwable t) {
+            public void onFailure(Call<ItemResponseAPI> call, Throwable t) {
                 Log.i("postFailed", "Post failed");
             }
         });
