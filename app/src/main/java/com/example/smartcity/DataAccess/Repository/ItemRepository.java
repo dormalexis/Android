@@ -1,30 +1,21 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
-import android.util.JsonReader;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
-import com.example.smartcity.Model.ItemResponseAPI;
-import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-
-import org.json.JSONObject;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 public class ItemRepository implements ItemDataAccess
 {
@@ -74,11 +65,11 @@ public class ItemRepository implements ItemDataAccess
 
         call.enqueue(new Callback<Item>() {
             @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
+            public void onResponse(Call<Item> call, Response<Item> response){
                 if (response.isSuccessful()) {
                     itemPost.setValue(response.body());
                 } else {
-                    Log.d("POST", "onResponse: response vide");
+
                 }
             }
 

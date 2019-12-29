@@ -75,9 +75,15 @@ public class UpdateItemFragment extends Fragment {
         categoryModel.getCategories().observe(this,categories -> {
             ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories);
             categoriesList.setAdapter(adapter);
-            ItemCategory categorySelect = new ItemCategory();
-            categorySelect.setCategoryId(itemSelected.getItemCategory());
-            categoriesList.setSelection(categories.indexOf(categorySelect));
+
+            for (int i = 0; i < categoriesList.getCount(); i++) {
+                ItemCategory categorySelect= (ItemCategory)categoriesList.getItemAtPosition(i);
+
+                if (categorySelect.getCategoryId().equals(itemSelected.getItemCategory())) {
+                    categoriesList.setSelection(i);
+                    break;
+                }
+            }
         });
     }
 
@@ -106,6 +112,8 @@ public class UpdateItemFragment extends Fragment {
             item.setDescription(description.getText().toString());
             item.setVisible(isVisible.isChecked());
             item.setPricePerDay(Double.valueOf(price.getText().toString()));
+            ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+            item.setItemCategory(itemCat.getCategoryId());
 
             //item.setOwner(1);
             //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();

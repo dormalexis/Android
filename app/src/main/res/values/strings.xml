@@ -41,6 +41,9 @@
     <string name="hidden">Invisible</string>
     <string name="avis">avis</string>
     <string name="deleteItem">Supprimer cette annonce</string>
+    <string name="exceptionApi">Erreur avec l\'API</string>
+    <string name="signOutButton">Se déconnecter</string>
+    <string name="signOutToast">Vous êtes déconnecté</string>
 
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
