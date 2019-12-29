@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/spinner"/>
+
+    <EditText
+        android:id="@+id/addItemName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/categorySpinner"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/title"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/addItemDescription"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/addItemName"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/categorySpinner"
+        android:layout_centerHorizontal="true"
+
+        android:hint="@string/description"
+        android:inputType="text"/>
+
+
+
+    <EditText
+        android:id="@+id/addItemPrice"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addItemDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:hint="@string/dailyPrice"
+        android:inputType="text"/>
+    
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="100dp"
+        android:layout_below="@+id/addItemPrice"/>
+
+    <Button
+        android:id="@+id/addPicture"
+        style="@style/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/picture"
+        android:layout_marginTop="10dp"
+        android:text="@string/addPicture"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/addItemConfirmation"
+        style="@style/button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addPicture"
+        android:layout_marginTop="10dp"
+        android:text="@string/publish"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

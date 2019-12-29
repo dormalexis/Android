@@ -41,10 +41,10 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
 
     private ItemViewModel itemModel;
     private ItemAdapter adapter;
-    @BindView(R.id.homeRV)
-    private RecyclerView recyclerView;
-    CategoryViewModel categoryModel;
 
+    private RecyclerView recyclerView;
+
+    CategoryViewModel categoryModel;
     @BindView(R.id.categorySorter)
     Spinner categorySorter;
     @BindView(R.id.searchByCategory)
@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         categoryModel.getCategories().observe(this,categories -> {
             categorySorter.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
         });
+        itemModel = new ItemViewModel(getContext());
     }
 
     public HomeFragment() {}
@@ -68,15 +69,14 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         ButterKnife.bind(this, view);
-        itemModel = new ItemViewModel(getContext());
-
+        recyclerView = view.findViewById(R.id.homeRV);
+        searchByCategory.setOnClickListener(searchByCategoryListener);
         itemModel.getItems().observe(this,items -> {
             adapter.setItems(items);
+            recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         });
-        recyclerView.setAdapter(adapter);
 
-        searchByCategory.setOnClickListener(searchByCategoryListener);
         return view;
     }
 

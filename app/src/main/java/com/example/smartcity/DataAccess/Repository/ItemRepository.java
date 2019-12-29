@@ -34,7 +34,6 @@ public class ItemRepository implements ItemDataAccess
     private MutableLiveData<List<Item>> itemsCategoryLive;
     private Integer itemId;
     private InternetChecking internetChecking;
-    private MutableLiveData<Item> itemPost;
     Context context;
 
     public ItemRepository(Context context)
@@ -156,7 +155,7 @@ public class ItemRepository implements ItemDataAccess
     {
         if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<List<Item>> call = service.getItemsByCategory(itemCategory);
+        Call<List<Item>> call = service.getItemsByCategory(itemCategory.getCategoryId());
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {

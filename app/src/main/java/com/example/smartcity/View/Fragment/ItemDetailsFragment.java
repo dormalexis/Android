@@ -25,10 +25,6 @@ import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.Proposal;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 

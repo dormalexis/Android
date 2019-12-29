@@ -27,8 +27,8 @@ public interface ItemService {
     @GET("Item")
     Call<List<Item>> getItems();
 
-    @GET("Item/itemsByCategory")
-    Call<List<Item>> getItemsByCategory(@Body ItemCategory itemCategory);
+    @GET("Item/byCategories/{id}")
+    Call<List<Item>> getItemsByCategory(@Path("id") int id);
 
     @GET("Item/myItems")
     Call<List<Item>> getMyItems();
