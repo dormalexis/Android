@@ -23,11 +23,12 @@ public class ItemViewModel extends ViewModel {
     public LiveData<List<Item>> getItems() {
         return itemRepository.getItems();
     }
-    public int postItem(Item item) {
+    public LiveData<Item> postItem(Item item) {
         return itemRepository.postItem(item);
     }
     public LiveData<List<Item>> getMyItems() {
         return itemRepository.getMyItems();
     }
     public void updateItem(Item item) {itemRepository.updateItem(item);}
+    public void deleteItem(int itemId) {itemRepository.deleteItem(itemId);}
 }

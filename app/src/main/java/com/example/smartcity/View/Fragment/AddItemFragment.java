@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cloudinary.Cloudinary;
@@ -65,12 +66,9 @@ public class AddItemFragment extends Fragment {
     ImageView picture;
     Bitmap photo;
 
-
-    ItemViewModel itemModel;
-    CategoryViewModel categoryModel;
-    PictureViewModel pictureModel;
-
-    ItemResponseAPI itemResponseAPI;
+    private ItemViewModel itemModel;
+    private CategoryViewModel categoryModel;
+    private PictureViewModel pictureModel;
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -105,7 +103,6 @@ public class AddItemFragment extends Fragment {
             item.setDescription(description.getText().toString());
             item.setVisible(true);
             item.setPricePerDay(Double.valueOf(price.getText().toString()));
-            item.setOwner(1);
             ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             item.setItemCategory(itemCat.getCategoryId());
 
@@ -127,26 +124,37 @@ public class AddItemFragment extends Fragment {
                     "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
 
 
-            new Thread(new Runnable() {
+            Thread threadCloudinary = new Thread(new Runnable() {
                 public void run() {
                     try
                     {
                         Map uploadResult = cloudinary.uploader().upload(byteArray,
                                 ObjectUtils.asMap("folder", "Locapp/"));
                         String idCloudinary = (String) uploadResult.get("public_id");
-                        picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/Locapp/"+idCloudinary);
+                        picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/"+idCloudinary);
                     }
                     catch (IOException e )
                     {
                         Log.d("image", "problème upload " + e.getMessage());
                     }
                 }
-            }).start();
+            });
+
+            threadCloudinary.start();
+            try {
+                threadCloudinary.join();
+                itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
+                    picture.setItem(item1.getItemId());
+                    pictureModel.postPicture(picture);
+                });
+            }
+            catch (Exception e)
+            {
+
+            }
 
 
-            int idItemPosted = itemModel.postItem(item);
-            picture.setItem(itemResponseAPI.getItemId());
-            pictureModel.postPicture(picture);
+
         }
     };
 

@@ -8,10 +8,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.cloudinary.android.MediaManager;
+import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
@@ -51,9 +54,13 @@ public class UpdateItemFragment extends Fragment {
     ImageView picture;
     @BindView(R.id.updateIsVisible)
     CheckBox isVisible;
-    Bitmap photo;
+    @BindView(R.id.deleteItemButton)
+    Button deleteItemButton;
+
+    private Bitmap photo;
     private Item itemSelected;
-    ItemViewModel itemModel;
+    private ItemViewModel itemModel;
+    private CategoryViewModel categoryModel;
 
     public UpdateItemFragment(Item itemSelected)
     {
@@ -63,7 +70,15 @@ public class UpdateItemFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        itemModel = new ItemViewModel(getContext());
+        categoryModel = new CategoryViewModel(getContext());
+        categoryModel.getCategories().observe(this,categories -> {
+            ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories);
+            categoriesList.setAdapter(adapter);
+            ItemCategory categorySelect = new ItemCategory();
+            categorySelect.setCategoryId(itemSelected.getItemCategory());
+            categoriesList.setSelection(categories.indexOf(categorySelect));
+        });
     }
 
     @Nullable
@@ -76,9 +91,9 @@ public class UpdateItemFragment extends Fragment {
         isVisible.setChecked(itemSelected.getVisible());
         price.setText(itemSelected.getPricePerDay().toString());
         confirmation.setOnClickListener(confirmationListener);
+        deleteItemButton.setOnClickListener(deleteListener);
         return view;
     }
-
 
 
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
@@ -91,14 +106,27 @@ public class UpdateItemFragment extends Fragment {
             item.setDescription(description.getText().toString());
             item.setVisible(isVisible.isChecked());
             item.setPricePerDay(Double.valueOf(price.getText().toString()));
-            item.setOwner(1);
+
+            //item.setOwner(1);
             //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
             //item.setItemCategory(itemCat.getCategoryId());
-            item.setItemCategory(itemSelected.getItemCategory());
+            //item.setItemCategory(itemSelected.getItemCategory());
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
             itemModel.updateItem(item);
+        }
+    };
+
+    private View.OnClickListener deleteListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            itemModel.deleteItem(itemSelected.getItemId());
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container,new MyItemsFragment());
+            transaction.addToBackStack(new HomeFragment().getClass().getName());
+            transaction.commit();
         }
     };
 }

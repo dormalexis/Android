@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -28,12 +29,14 @@ public interface ItemService {
     @GET("Item/myItems")
     Call<List<Item>> getMyItems();
 
-    @FormUrlEncoded
     @POST("Item")
-    Call<ItemResponseAPI> postItem(@Body Item item);
+    Call<Item> postItem(@Body Item item);
 
-    @PUT("Item")
-    Call<Integer> updateItem(@Body Item item);
+    @PUT("Item/{id}")
+    Call<Integer> updateItem(@Path("id") int id,@Body Item item);
+
+    @DELETE("Item/{id}")
+    Call<Void> deleteItem(@Path("id") int id);
 
 
 }

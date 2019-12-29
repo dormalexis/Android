@@ -37,6 +37,8 @@
     <string name="titleSpinnerLocalities">Sélectionner une localité</string>
     <string name="validate">Valider</string>
     <string name="myRentals">Mes locations</string>
+    <string name="deleteItem">Supprimer cette annonce</string>
+
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

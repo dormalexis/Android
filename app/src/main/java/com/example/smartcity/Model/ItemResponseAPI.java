@@ -43,6 +43,21 @@ public class ItemResponseAPI {
     @SerializedName("rental")
     private Array rental;
 
+    public ItemResponseAPI(Integer itemId, String name, String description, boolean isVisible, Double pricePerDay, Integer itemCategory, Integer owner, String itemCategoryNavigation, String ownerNavigation, Array itemDownTime, Array picture, Array rental) {
+        this.itemId = itemId;
+        this.name = name;
+        this.description = description;
+        this.isVisible = isVisible;
+        this.pricePerDay = pricePerDay;
+        this.itemCategory = itemCategory;
+        this.owner = owner;
+        this.itemCategoryNavigation = itemCategoryNavigation;
+        this.ownerNavigation = ownerNavigation;
+        this.itemDownTime = itemDownTime;
+        this.picture = picture;
+        this.rental = rental;
+    }
+
     public String getItemCategoryNavigation() {
         return itemCategoryNavigation;
     }
