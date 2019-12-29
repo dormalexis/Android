@@ -5,6 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,10 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
+import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
+import com.example.smartcity.Model.ItemCategory;
+import com.example.smartcity.Model.Picture;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
@@ -25,20 +32,33 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener {
 
-    private ArrayList<Item> items;
     private ItemViewModel itemModel;
     private ItemAdapter adapter;
+    @BindView(R.id.homeRV)
     private RecyclerView recyclerView;
+    CategoryViewModel categoryModel;
+
+    @BindView(R.id.categorySorter)
+    Spinner categorySorter;
+    @BindView(R.id.searchByCategory)
+    Button searchByCategory;
 
     @Override
     public void onCreate(Bundle savedInstance)
     {
         super.onCreate(savedInstance);
         adapter = new ItemAdapter(this);
+        categoryModel = new CategoryViewModel(getContext());
+        categoryModel.getCategories().observe(this,categories -> {
+            categorySorter.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
+        });
     }
 
     public HomeFragment() {}
@@ -47,14 +67,16 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
-        recyclerView = view.findViewById(R.id.homeRV);
+        ButterKnife.bind(this, view);
         itemModel = new ItemViewModel(getContext());
 
         itemModel.getItems().observe(this,items -> {
             adapter.setItems(items);
-            recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         });
+        recyclerView.setAdapter(adapter);
+
+        searchByCategory.setOnClickListener(searchByCategoryListener);
         return view;
     }
 
@@ -66,4 +88,16 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         transaction.addToBackStack(new HomeFragment().getClass().getName());
         transaction.commit();
     }
+
+    private View.OnClickListener searchByCategoryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ItemCategory itemCat = (ItemCategory) categorySorter.getSelectedItem();
+            itemModel.getItemsByCategory(itemCat).observe(getViewLifecycleOwner(), items -> {
+                adapter.setItems(items);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            });
+        }
+    };
 }

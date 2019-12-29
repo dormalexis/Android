@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.smartcity.DataAccess.Repository.ItemDataAccess;
 import com.example.smartcity.DataAccess.Repository.ItemRepository;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ItemViewModel extends ViewModel {
     public LiveData<List<Item>> getItems() {
         return itemRepository.getItems();
     }
+
     public int postItem(Item item) {
         return itemRepository.postItem(item);
     }
@@ -30,4 +32,7 @@ public class ItemViewModel extends ViewModel {
         return itemRepository.getMyItems();
     }
     public void updateItem(Item item) {itemRepository.updateItem(item);}
+    public LiveData<List<Item>> getItemsByCategory(ItemCategory itemCategory) {
+        return itemRepository.getItemsByCategory(itemCategory);
+    }
 }

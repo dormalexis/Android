@@ -19,26 +19,25 @@ import butterknife.ButterKnife;
 public class RentalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
    @BindView(R.id.labelItemText)
-    TextView labelItemText;
+   TextView labelItemText;
    @BindView(R.id.isValided)
-    TextView isValidedText;
+   TextView isValidedText;
 
    private RentalAdapter.OnRentalListerner onRentalListerner;
 
-   public RentalViewHolder(@NonNull View rentalView, RentalAdapter.OnRentalListerner onRentalListerner)
+   public RentalViewHolder(@NonNull View rentalView)
    {
        super(rentalView);
        ButterKnife.bind(this,rentalView);
-       this.onRentalListerner = onRentalListerner;
        rentalView.setOnClickListener(this);
    }
 
    public void updateRental(Rental rental, Context context)
    {
-       this.labelItemText.setText(rental.getItem());
-       if(rental.isValid() ==null)
+       this.labelItemText.setText(String.valueOf(rental.getRentalId()));
+       if(rental.isValid() == null)
        {
-            isValidedText.setText("En cours de validation...");
+            isValidedText.setText(context.getString(R.string.dailyPrice));
        }
        else
        {

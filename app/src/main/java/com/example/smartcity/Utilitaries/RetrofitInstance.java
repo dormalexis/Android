@@ -2,6 +2,8 @@ package com.example.smartcity.Utilitaries;
 
 import android.content.Context;
 
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -31,7 +33,7 @@ public class RetrofitInstance {
                 }).build();
                 retrofit = new Retrofit.Builder()
                         .baseUrl(url)
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()))
                         .client(client)
                         .build();
 

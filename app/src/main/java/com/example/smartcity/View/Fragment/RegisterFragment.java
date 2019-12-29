@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import com.example.smartcity.DataAccess.ViewModel.LocalityViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PersonViewModel;
+
 import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.R;
@@ -52,7 +54,7 @@ public class RegisterFragment extends Fragment {
 
         localityViewModel = new LocalityViewModel(getContext());
 
-        localityViewModel.getLocalities().observe(this,localities -> {
+        localityViewModel.getLocalities().observe(getViewLifecycleOwner(),localities -> {
             spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item,localities));
         });
 

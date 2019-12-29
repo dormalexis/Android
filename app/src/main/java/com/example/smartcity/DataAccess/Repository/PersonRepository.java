@@ -3,6 +3,7 @@ package com.example.smartcity.DataAccess.Repository;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.DataAccess.Service.PersonService;
 import com.example.smartcity.Model.Item;
@@ -16,6 +17,7 @@ import retrofit2.Response;
 public class PersonRepository implements PersonDataAccess {
 
     private Context context;
+    private InternetChecking internetChecking;
 
     public PersonRepository(Context context)
     {
@@ -23,6 +25,7 @@ public class PersonRepository implements PersonDataAccess {
     }
     public void postPerson(Person person)
     {
+        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         PersonService service = RetrofitInstance.getRetrofitInstance(context).create(PersonService.class);
         Call<Integer> call = service.postPerson(person);
         call.enqueue(new Callback<Integer>() {

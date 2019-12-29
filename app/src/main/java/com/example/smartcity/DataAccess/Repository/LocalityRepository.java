@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.CategoryService;
 import com.example.smartcity.DataAccess.Service.LocalityService;
 import com.example.smartcity.Model.ItemCategory;
@@ -20,15 +21,18 @@ import retrofit2.Response;
 public class LocalityRepository implements LocalityDataAccess {
     private MutableLiveData<List<Locality>> localityLive;
     private Context context;
+    private InternetChecking internetChecking;
 
     public LocalityRepository(Context context)
     {
         localityLive = new MutableLiveData<>();
+        this.internetChecking = new InternetChecking(context);
         this.context = context;
     }
 
 
     public MutableLiveData<List<Locality>> getLocalities() {
+        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         LocalityService service = RetrofitInstance.getRetrofitInstance(context).create(LocalityService.class);
         Call<List<Locality>> call = service.getLocalities();
         call.enqueue(new Callback<List<Locality>>() {

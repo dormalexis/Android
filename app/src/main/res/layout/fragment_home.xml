@@ -4,18 +4,39 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/myItemsTitle" />
+        android:text="@string/myItemsTitle"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"/>
+
+    <Spinner
+        android:id="@+id/categorySorter"
+        android:layout_width="200dp"
+        android:layout_height="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/searchByCategory"
+        android:layout_width="50dp"
+        android:layout_height="10dp"
+        android:layout_toRightOf="@+id/categorySorter"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="10dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
+        android:layout_below="@+id/categorySorter"
         />
 
 

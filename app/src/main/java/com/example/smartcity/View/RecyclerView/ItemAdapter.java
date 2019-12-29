@@ -21,10 +21,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     private OnItemListener onItemListener;
     private Context context;
 
-    public ItemAdapter(List<Item> items,OnItemListener onItemListener) {
-        this.items = items;
-        this.onItemListener = onItemListener;
-    }
     public ItemAdapter(OnItemListener onItemListener) {this.onItemListener = onItemListener;}
     @NonNull
     @Override

@@ -9,6 +9,9 @@ import retrofit2.http.GET;
 
 public interface RentalService {
 
-    @GET("Rental")
+    @GET("Rental/myRentals")
     Call<List<Rental>> getRentals();
+
+    @GET("Rental/waitingForValidation")
+    Call<List<Rental>> getValidations();
 }

@@ -17,19 +17,11 @@ import java.util.List;
 public class RentalAdapter extends RecyclerView.Adapter<RentalViewHolder> {
 
     private List<Rental> rentals;
-    private OnRentalListerner onRentalListerner;
     private Context context;
 
-    public RentalAdapter(List<Rental> rentals, OnRentalListerner onRentalListerner)
-    {
-        this.rentals = rentals;
-        this.onRentalListerner = onRentalListerner;
-    }
 
-    public RentalAdapter(OnRentalListerner onRentalListerner){
-        this.onRentalListerner = onRentalListerner;
+    public RentalAdapter(){
     }
-
 
     @NonNull
     @Override
@@ -37,7 +29,7 @@ public class RentalAdapter extends RecyclerView.Adapter<RentalViewHolder> {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_rental_details,parent,false);
-        return new RentalViewHolder(view,onRentalListerner);
+        return new RentalViewHolder(view);
     }
 
     @Override

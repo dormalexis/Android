@@ -13,6 +13,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
 import com.example.smartcity.Utilitaries.Preferences;
 
@@ -24,6 +25,9 @@ public interface ItemService {
 
     @GET("Item")
     Call<List<Item>> getItems();
+
+    @GET("Item/itemsByCategory")
+    Call<List<Item>> getItemsByCategory(@Body ItemCategory itemCategory);
 
     @GET("Item/myItems")
     Call<List<Item>> getMyItems();

@@ -1,5 +1,6 @@
 package com.example.smartcity.Model;
 
+import com.example.smartcity.DataAccess.InternetChecking;
 import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
@@ -7,23 +8,23 @@ import java.sql.Date;
 public class Rental {
 
     @SerializedName("rentalId")
-    private int rentalId;
+    private Integer rentalId;
     @SerializedName("dateFrom")
     private Date dateFrom;
     @SerializedName("dateTo")
     private Date dateTo;
     @SerializedName("isPaid")
-    private boolean isPaid;
+    private Boolean isPaid;
     @SerializedName("isValid")
     private Boolean isValid;
-    @SerializedName("PaidPrice")
-    private double PaidPrice;
+    @SerializedName("paidPrice")
+    private Double PaidPrice;
     @SerializedName("starsNumber")
-    private int starsNumber;
-    @SerializedName("Renter")
-    private int Renter;
-    @SerializedName("Item")
-    private int item;
+    private Integer starsNumber;
+    @SerializedName("renter")
+    private Integer Renter;
+    @SerializedName("item")
+    private Integer item;
 
     public int getRentalId() {
         return rentalId;

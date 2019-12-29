@@ -33,16 +33,9 @@ import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
 import com.example.smartcity.Model.Picture;
 import com.example.smartcity.R;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -100,7 +93,6 @@ public class AddItemFragment extends Fragment {
             itemModel = new ItemViewModel(getContext());
             pictureModel = new PictureViewModel(getContext());
 
-
             item.setName(name.getText().toString());
             item.setDescription(description.getText().toString());
             item.setVisible(true);
@@ -112,14 +104,6 @@ public class AddItemFragment extends Fragment {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
-            /*
-            Map config = new HashMap();
-            config.put("cloud_name", "locapp");
-            config.put("api_key", "731592778186861");
-            config.put("api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A");
-            MediaManager.init(getContext(), config);
-            String idUpload = MediaManager.get().upload(byteArray).dispatch(getContext());
-            */
 
             Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
                     "cloud_name", "locapp",
@@ -138,7 +122,7 @@ public class AddItemFragment extends Fragment {
                     }
                     catch (IOException e )
                     {
-                        Log.d("image", "problème upload " + e.getMessage());
+                        // TODO : Gérer l'exception
                     }
                 }
             }).start();
@@ -156,29 +140,21 @@ public class AddItemFragment extends Fragment {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Selectionner des photos"), 1);
+            startActivityForResult(Intent.createChooser(intent, "Selectionner une photo"), 1);
 
         }
     };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
         if(requestCode == 1){
-            //String requestId = MediaManager.get().upload("test.png").dispatch();
             try {
                 photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
                 picture.setImageBitmap(photo);
-                /*
-                Map config = new HashMap();
-                config.put("cloudinary://731592778186861:tW7qsDmldy7IP-aLhxj6XWLnh-A@locapp", "cloudinary://@locapp");
-                MediaManager.init(getContext(), config);
-                String requestId = MediaManager.get().upload(data.getData().getPath()).dispatch();
 
-                 */
             }
             catch(IOException e) {
-                Log.i("ici", "aie");
+                // TODO : Gérer l'exception
             }
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ConnectionService;
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.LoginModel;
@@ -18,12 +19,15 @@ import retrofit2.Response;
 public class ConnectionRepository implements ConnectionDataAccess {
 
     private Context context;
+    private InternetChecking internetChecking;
     public ConnectionRepository(Context context)
     {
         this.context = context;
+        this.internetChecking = new InternetChecking(context);
+
     }
     public void getToken(LoginModel loginModel, Context context) {
-
+        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         ConnectionService service = RetrofitInstance.getRetrofitInstance(context).create(ConnectionService.class);
         Call<TokenResponse> call = service.getToken(loginModel);
         call.enqueue(new Callback<TokenResponse>() {
