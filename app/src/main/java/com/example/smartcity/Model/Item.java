@@ -27,6 +27,19 @@ public class Item {
     @SerializedName("nbAvis")
     private int nbAvis;
 
+    public Item(){}
+
+    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures) {
+        this.itemId = itemId;
+        this.isVisible = isVisible;
+        this.name = name;
+        this.description = description;
+        this.pricePerDay = pricePerDay;
+        this.owner = owner;
+        this.itemCategory = itemCategory;
+        this.pictures = pictures;
+    }
+
     public int getNbAvis() {
         return nbAvis;
     }

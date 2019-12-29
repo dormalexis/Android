@@ -9,5 +9,5 @@ import retrofit2.http.POST;
 public interface PictureService
 {
     @POST("Picture")
-    Call<Integer> postPicture(@Body Picture picture);
+    Call<Void> postPicture(@Body Picture picture);
 }

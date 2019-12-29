@@ -3,7 +3,9 @@ package com.example.smartcity.DataAccess.Repository;
 import android.content.Context;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartcity.DataAccess.InternetChecking;
@@ -32,6 +34,7 @@ public class ItemRepository implements ItemDataAccess
     private MutableLiveData<List<Item>> itemsCategoryLive;
     private Integer itemId;
     private InternetChecking internetChecking;
+    private MutableLiveData<Item> itemPost;
     Context context;
 
     public ItemRepository(Context context)
@@ -40,6 +43,7 @@ public class ItemRepository implements ItemDataAccess
         this.myItems = new MutableLiveData<>();
         this.itemPost = new MutableLiveData<>();
         this.internetChecking = new InternetChecking(context);
+        this.itemPost = new MutableLiveData<>();
         this.context = context;
 
     }
@@ -64,35 +68,51 @@ public class ItemRepository implements ItemDataAccess
         return itemsLive;
     }
 
-    public int postItem(Item item) {
+    public MutableLiveData<Item> postItem(Item item) {
         if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<ItemResponseAPI> call = service.postItem(item);
-        call.enqueue(new Callback<ItemResponseAPI>()
-        {
+        Call<Item> call = service.postItem(item);
+
+        call.enqueue(new Callback<Item>() {
             @Override
-            public void onResponse(Call<ItemResponseAPI> call, Response<ItemResponseAPI> response) {
-                if (response != null) {
-                    response.body();
-                    itemId = response.body().getItemId();
+            public void onResponse(Call<Item> call, Response<Item> response) {
+                if (response.isSuccessful()) {
+                    itemPost.setValue(response.body());
                 } else {
                     Log.d("POST", "onResponse: response vide");
                 }
             }
 
             @Override
-            public void onFailure(Call<ItemResponseAPI> call, Throwable t) {
+            public void onFailure(Call<Item> call, Throwable t) {
                 Log.i("postFailed", "Post failed");
             }
         });
-        return itemId;
+        return itemPost;
+    }
+
+    public void deleteItem(int itemId)
+    {
+        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);  //TODO : Service dans constructeur
+        Call<Void> call = service.deleteItem(itemId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     public void updateItem(Item item)
     {
         if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<Integer> call = service.updateItem(item);
+        Call<Integer> call = service.updateItem(item.getItemId(),item);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -107,6 +127,7 @@ public class ItemRepository implements ItemDataAccess
         });
     }
 
+
     public MutableLiveData<List<Item>> getMyItems()
     {
         if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
@@ -118,7 +139,7 @@ public class ItemRepository implements ItemDataAccess
                 if(response.isSuccessful())
                 {
                     Log.i("Ok", response.body().toString());
-                    itemsCategoryLive.setValue(response.body());
+                    myItems.setValue(response.body());
                 }
                 else Log.i("PasOk", response.errorBody().toString());
             }

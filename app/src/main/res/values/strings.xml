@@ -40,6 +40,9 @@
     <string name="myValidations">Mes validations</string>
     <string name="hidden">Invisible</string>
     <string name="avis">avis</string>
+    <string name="deleteItem">Supprimer cette annonce</string>
+
+
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

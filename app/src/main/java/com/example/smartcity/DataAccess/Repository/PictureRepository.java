@@ -27,15 +27,15 @@ public class PictureRepository implements PictureDataAccess {
     public void postPicture(Picture picture) {
         if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
         PictureService service = RetrofitInstance.getRetrofitInstance(context).create(PictureService.class);
-        Call<Integer> call = service.postPicture(picture);
-        call.enqueue(new Callback<Integer>() {
+        Call<Void> call = service.postPicture(picture);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 //Log.i("postOk", response.body().toString());
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.i("postFailed", "Post failed");
             }
         });

@@ -13,9 +13,10 @@ import retrofit2.http.Body;
 
 public interface ItemDataAccess {
     MutableLiveData<List<Item>> getItems();
-    int postItem(Item item);
+    MutableLiveData<Item> postItem(Item item);
     MutableLiveData<List<Item>> getMyItems();
     void updateItem(Item item);
     MutableLiveData<List<Item>> getItemsByCategory(ItemCategory itemCategory);
+    void deleteItem(int itemId);
 
 }
