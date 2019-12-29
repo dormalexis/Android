@@ -23,7 +23,7 @@ public class PersonRepository implements PersonDataAccess {
     {
 
         this.context = context;
-        this.internetChecking =
+        this.internetChecking = new InternetChecking(context);
     }
     public void postPerson(Person person)
     {
@@ -32,7 +32,7 @@ public class PersonRepository implements PersonDataAccess {
         Call<Integer> call = service.postPerson(person);
         call.enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) throws Exception {
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
                 Log.i("postOk", response.body().toString());
             }
 
