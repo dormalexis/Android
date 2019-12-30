@@ -71,6 +71,35 @@
                 android:hint="@string/street"
                 android:inputType="textPersonName" />
 
+            <EditText
+                android:id="@+id/streetNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:hint="@string/streetNumber"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:hint="@string/box"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/availibilityDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:minLines="6"
+                android:lines="8"
+                android:hint="@string/availibility"
+                android:inputType="textPersonName" />
+
 
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/spinnerLocalities"

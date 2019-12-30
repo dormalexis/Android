@@ -55,6 +55,7 @@ public class PersonRepository implements PersonDataAccess {
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+
                 personneLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
             }
         });

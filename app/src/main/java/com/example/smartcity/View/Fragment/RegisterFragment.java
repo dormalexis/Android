@@ -45,6 +45,12 @@ public class RegisterFragment extends Fragment {
     Button register;
     @BindView(R.id.spinnerLocalities)
     SearchableSpinner spinnerLocalities;
+    @BindView(R.id.streetNumberInput)
+    EditText streetNumber;
+    @BindView(R.id.box)
+    EditText box;
+    @BindView(R.id.availibilityDescriptionInput)
+    EditText availibilityDescription;
 
     LocalityViewModel localityViewModel;
 
@@ -85,24 +91,23 @@ public class RegisterFragment extends Fragment {
             person.setLastName(lastName.getText().toString());
             person.setEmail(mail.getText().toString());
             person.setPhoneNumber(phone.getText().toString());
-            person.setStreetNumber(10);
-            person.setBox("10");
+            person.setStreetNumber(Integer.valueOf(streetNumber.getText().toString()));
+            person.setBox(box.getText().toString());
             person.setPassword(password.getText().toString());
             person.setStreet(street.getText().toString());
             person.setLocality(((Locality) spinnerLocalities.getSelectedItem()).getLocalityId());
-            person.setAvailabilityDescription("Tous les jours");
+            person.setAvailabilityDescription(availibilityDescription.getText().toString());
             person.setRole(3);
             person.setBlocked(false);
-
             personViewModel.postPerson(person).observe(getViewLifecycleOwner(),personPost -> {
-                if(personPost.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),personPost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(),R.string.PostPersonOk,Toast.LENGTH_LONG).show();
-                }
+            if(personPost.isErrorDetected())
+            {
+                Toast.makeText(getContext(),personPost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getContext(),R.string.PostPersonOk,Toast.LENGTH_LONG).show();
+            }
             });
 
         }

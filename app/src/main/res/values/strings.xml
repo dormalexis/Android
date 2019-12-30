@@ -10,7 +10,10 @@
     <string name="firstName">Prénom</string>
     <string name="lastName">Nom de famille</string>
     <string name="contactInformation">Informations de contact</string>
-    <string name="street">Rue, numéro et boite</string>
+    <string name="street">Nom de rue</string>
+    <string name="streetNumber">Numéro de rue</string>
+    <string name="box">Boite</string>
+    <string name="availibility">Vos disponibilités</string>
     <string name="city">Ville</string>
     <string name="zipCode">Code postal</string>
     <string name="phone">Numéro de téléphone</string>
@@ -72,4 +75,10 @@
     <string name="mySettingsTitle">Mes paramètres</string>
     <string name="changeInfos">Changer les informations personnelles</string>
     <string name="changeAvailibilityDescription">Changer ses disponibilités générales</string>
+
+
+
+    <!-- Erreurs -->
+    <string name="noConnection">Pas de connection</string>
+
 </resources>
