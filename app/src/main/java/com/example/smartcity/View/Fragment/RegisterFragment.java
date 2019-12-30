@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.smartcity.DataAccess.ViewModel.LocalityViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PersonViewModel;
 
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.R;
@@ -55,7 +57,15 @@ public class RegisterFragment extends Fragment {
         localityViewModel = new LocalityViewModel(getContext());
 
         localityViewModel.getLocalities().observe(getViewLifecycleOwner(),localities -> {
-            spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item,localities));
+            if(localities.isErrorDetected())
+            {
+                Toast.makeText(getContext(),localities.getErrorCode().getMessage(),Toast.LENGTH_LONG);
+            }
+            else
+            {
+                spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item,localities.getObject()));
+            }
+
         });
 
         register.setOnClickListener(registerListenr);
@@ -83,7 +93,18 @@ public class RegisterFragment extends Fragment {
             person.setAvailabilityDescription("Tous les jours");
             person.setRole(3);
             person.setBlocked(false);
-            personViewModel.postPerson(person);
+
+            personViewModel.postPerson(person).observe(getViewLifecycleOwner(),personPost -> {
+                if(personPost.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),personPost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),R.string.PostPersonOk,Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     };
 

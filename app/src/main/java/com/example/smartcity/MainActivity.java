@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.View.Fragment.AddItemFragment;
 import com.example.smartcity.View.Fragment.CheckFragment;
 import com.example.smartcity.View.Fragment.HomeFragment;
@@ -31,13 +32,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO : utilsier bind
+
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-
 
         // Changer de layout
         NavigationView navigationView = findViewById(R.id.nav_view);

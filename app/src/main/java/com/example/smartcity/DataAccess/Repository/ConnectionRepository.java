@@ -4,11 +4,16 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ConnectionService;
 import com.example.smartcity.DataAccess.Service.ItemService;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.Model.TokenResponse;
+import com.example.smartcity.Utilitaries.ApiCodeTrad;
+import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
@@ -20,30 +25,42 @@ public class ConnectionRepository implements ConnectionDataAccess {
 
     private Context context;
     private InternetChecking internetChecking;
+    private MutableLiveData<ApiResponse> tokenLive;
+
+
     public ConnectionRepository(Context context)
     {
         this.context = context;
+        this.tokenLive = new MutableLiveData<>();
         this.internetChecking = new InternetChecking(context);
 
     }
-    public void getToken(LoginModel loginModel, Context context) {
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+    public MutableLiveData<ApiResponse> getToken(LoginModel loginModel, Context context) {
+        if(!internetChecking.isNetworkAvailable()) {
+            tokenLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+        }
         ConnectionService service = RetrofitInstance.getRetrofitInstance(context).create(ConnectionService.class);
         Call<TokenResponse> call = service.getToken(loginModel);
         call.enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.i("postSuccess", Preferences.getToken(context));
-                    Preferences.saveToken(response.body().getAccess_token(), context);
-                } else Log.i("postFailed", response.errorBody().toString());
+                if(response.isSuccessful())
+                {
+                    tokenLive.setValue(new ApiResponse<>(response.body()));
+                    Preferences.saveToken(response.body().getAccess_token(),context);
+                }
+                else
+                {
+                    tokenLive.setValue(new  ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
 
             }
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                Log.i("connectionFailed", "Connection failed");
+                tokenLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
             }
         });
+        return tokenLive;
     }
 }

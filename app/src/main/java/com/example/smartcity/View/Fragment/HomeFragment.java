@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.Picture;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
@@ -41,14 +42,18 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
 
     private ItemViewModel itemModel;
     private ItemAdapter adapter;
+    private CategoryViewModel categoryModel;
+    private List<Item> itemList;
 
-    private RecyclerView recyclerView;
-
-    CategoryViewModel categoryModel;
     @BindView(R.id.categorySorter)
     Spinner categorySorter;
     @BindView(R.id.searchByCategory)
     Button searchByCategory;
+    @BindView(R.id.displayAllItems)
+    Button displayAllItemsButton;
+    @BindView(R.id.homeRV)
+    RecyclerView recyclerView;
+
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -57,7 +62,15 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         adapter = new ItemAdapter(this);
         categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories().observe(this,categories -> {
-            categorySorter.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
+            if(categories.isErrorDetected())
+            {
+                Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                categorySorter.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories.getObject()));
+            }
+
         });
         itemModel = new ItemViewModel(getContext());
     }
@@ -69,20 +82,17 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         ButterKnife.bind(this, view);
-        recyclerView = view.findViewById(R.id.homeRV);
         searchByCategory.setOnClickListener(searchByCategoryListener);
-        itemModel.getItems().observe(this,items -> {
-            adapter.setItems(items);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        });
+        displayAllItemsButton.setOnClickListener(displayAllItemsListener);
+
+        displayAllItems();
 
         return view;
     }
 
     @Override
     public void onItemClick(int position) {
-        Item itemSelected = itemModel.getItems().getValue().get(position); // TODO : Bizarre d'aller rechercher toute la liste encore une fois
+        Item itemSelected = itemList.get(position);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());
@@ -93,11 +103,48 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         @Override
         public void onClick(View v) {
             ItemCategory itemCat = (ItemCategory) categorySorter.getSelectedItem();
-            itemModel.getItemsByCategory(itemCat).observe(getViewLifecycleOwner(), items -> {
-                adapter.setItems(items);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            recyclerView.removeAllViews();
+
+            itemModel.getItemsByCategory(itemCat.getCategoryId()).observe(getViewLifecycleOwner(), items -> {
+                if(items.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),items.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    adapter.setItems(items.getObject());
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
             });
         }
     };
+
+    private View.OnClickListener displayAllItemsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            displayAllItems();
+        }
+    };
+
+    private void displayAllItems()
+    {
+        recyclerView.removeAllViews();
+
+
+        itemModel.getItems().observe(this,items -> {
+            if(items.isErrorDetected())
+            {
+                Toast.makeText(getContext(),items.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                adapter.setItems(items.getObject());
+                itemList = items.getObject();
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+        });
+    }
 }

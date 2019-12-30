@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.smartcity.DataAccess.Repository.LocalityRepository;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Locality;
 
 import java.util.List;
@@ -21,8 +22,7 @@ public class LocalityViewModel extends ViewModel {
         localityRepository = new LocalityRepository(context);
     }
 
-    public MutableLiveData<List<Locality>> getLocalities() {
-        localities = localityRepository.getLocalities();
-        return localities;
+    public MutableLiveData<ApiResponse<List<Locality>>> getLocalities() {
+        return localityRepository.getLocalities();
     }
 }

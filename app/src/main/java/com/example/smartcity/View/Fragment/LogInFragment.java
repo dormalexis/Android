@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartcity.DataAccess.ViewModel.ConnectionViewModel;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.Preferences;
@@ -72,29 +73,39 @@ public class LogInFragment extends Fragment {
             ConnectionViewModel connectionViewModel = new ConnectionViewModel(getContext());
             loginModel.setEmail(mailInput.getText().toString());
             loginModel.setPassword(passwordInput.getText().toString());
-            connectionViewModel.getToken(loginModel, getContext());
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setCancelable(true);
-            builder.setTitle("Connexion réussie");
-            builder.setMessage("La connexion a réussie");
-            builder.setPositiveButton("Voir les annonces",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.fragment_container, new HomeFragment());
-                            transaction.addToBackStack(new MyItemsFragment().getClass().getName());
-                            transaction.commit();
-                        }
+
+
+            connectionViewModel.getToken(loginModel,getContext()).observe(getViewLifecycleOwner(),token->{
+                if(token.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),token.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setCancelable(true);
+                    builder.setTitle("Connexion réussie");
+                    builder.setMessage("La connexion a réussie");
+                    builder.setPositiveButton("Voir les annonces",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.fragment_container, new HomeFragment());
+                                    transaction.addToBackStack(new MyItemsFragment().getClass().getName());
+                                    transaction.commit();
+                                }
+                            });
+                            builder.setNegativeButton("", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
                     });
-            builder.setNegativeButton("", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 
-            AlertDialog dialog = builder.create();
-            dialog.show();
         }
     };
 

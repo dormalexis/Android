@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.smartcity.DataAccess.Repository.ItemDataAccess;
 import com.example.smartcity.DataAccess.Repository.ItemRepository;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
@@ -21,18 +22,18 @@ public class ItemViewModel extends ViewModel {
         itemRepository = new ItemRepository(context);
     }
 
-    public LiveData<List<Item>> getItems() {
+    public LiveData<ApiResponse<List<Item>>> getItems() {
         return itemRepository.getItems();
     }
-    public LiveData<Item> postItem(Item item) {
+    public LiveData<ApiResponse<Item>> postItem(Item item) {
         return itemRepository.postItem(item);
     }
-    public LiveData<List<Item>> getMyItems() {
+    public LiveData<ApiResponse<List<Item>>> getMyItems() {
         return itemRepository.getMyItems();
     }
-    public void updateItem(Item item) {itemRepository.updateItem(item);}
-    public void deleteItem(int itemId) {itemRepository.deleteItem(itemId);}
-    public LiveData<List<Item>> getItemsByCategory(ItemCategory itemCategory) {
-        return itemRepository.getItemsByCategory(itemCategory);
+    public LiveData<ApiResponse> updateItem(Item item) { return itemRepository.updateItem(item);}
+    public LiveData<ApiResponse> deleteItem(int itemId) { return itemRepository.deleteItem(itemId);}
+    public LiveData<ApiResponse<List<Item>>> getItemsByCategory(int categoryId) {
+        return itemRepository.getItemsByCategory(categoryId);
     }
 }

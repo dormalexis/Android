@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
 import com.example.smartcity.R;
@@ -44,9 +45,15 @@ public class MyRentalsFragment extends Fragment {
         ButterKnife.bind(this, view);
         rentalViewModel = new RentalViewModel(getContext());
         rentalViewModel.getRentals().observe(this, rentals -> {
-            rentalAdapter.setRentals(rentals);
-            myRentalsRecyclerView.setAdapter(rentalAdapter);
-            myRentalsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(rentals.isErrorDetected())
+            {
+                Toast.makeText(getContext(),rentals.getErrorCode().getMessage(),Toast.LENGTH_LONG);
+            }
+            else {
+                rentalAdapter.setRentals(rentals.getObject());
+                myRentalsRecyclerView.setAdapter(rentalAdapter);
+                myRentalsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
         });
         return view;
     }

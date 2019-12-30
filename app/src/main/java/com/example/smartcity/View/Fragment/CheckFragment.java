@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,9 +42,17 @@ public class CheckFragment extends Fragment {
         ButterKnife.bind(this, view);
         rentalViewModel = new RentalViewModel(getContext());
         rentalViewModel.getValidations().observe(this, rentals -> {
-            rentalAdapter.setRentals(rentals);
-            myValidationRV.setAdapter(rentalAdapter);
-            myValidationRV.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(rentals.isErrorDetected())
+            {
+                Toast.makeText(getContext(),rentals.getErrorCode().getMessage(),Toast.LENGTH_LONG);
+            }
+            else
+            {
+                rentalAdapter.setRentals(rentals.getObject());
+                myValidationRV.setAdapter(rentalAdapter);
+                myValidationRV.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+
         });
         return view;
     }

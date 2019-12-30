@@ -1,14 +1,19 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
+import android.icu.text.MessagePattern;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.cloudinary.Api;
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ItemService;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
+import com.example.smartcity.Utilitaries.ApiCodeTrad;
+import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
 import java.util.List;
@@ -19,12 +24,15 @@ import retrofit2.Response;
 
 public class ItemRepository implements ItemDataAccess
 {
-    private MutableLiveData<List<Item>> itemsLive;
-    private MutableLiveData<List<Item>> myItems;
-    private MutableLiveData<Item> itemPost;
-    private MutableLiveData<List<Item>> itemsCategoryLive;
+    private MutableLiveData<ApiResponse<List<Item>>> itemsLive;
+    private MutableLiveData<ApiResponse<List<Item>>> myItems;
+    private MutableLiveData<ApiResponse<Item>> itemPost;
+    private MutableLiveData<ApiResponse<List<Item>>> itemsCategoryLive;
     private Integer itemId;
     private InternetChecking internetChecking;
+    private MutableLiveData<ApiResponse> deleteLive;
+    private MutableLiveData<ApiResponse> updateLive;
+
     Context context;
 
     public ItemRepository(Context context)
@@ -35,31 +43,47 @@ public class ItemRepository implements ItemDataAccess
         this.internetChecking = new InternetChecking(context);
         this.itemPost = new MutableLiveData<>();
         this.context = context;
-
+        this.itemsCategoryLive = new MutableLiveData<>();
+        this.updateLive = new MutableLiveData<>();
+        this.deleteLive = new MutableLiveData<>();
     }
 
     @Override
-    public MutableLiveData<List<Item>> getItems() {
+    public MutableLiveData<ApiResponse<List<Item>>> getItems() {
 
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+        if(!internetChecking.isNetworkAvailable()) {
+            itemsLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            return itemsLive;
+        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<List<Item>> call = service.getItems();
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-                itemsLive.setValue(response.body());
+                if(response.isSuccessful())
+                {
+                    itemsLive.setValue(new ApiResponse<>(response.body()));
+                }
+                else
+                {
+                    itemsLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
+
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Log.i("home", "Affichage items raté");
+                itemsLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
             }
         });
         return itemsLive;
     }
 
-    public MutableLiveData<Item> postItem(Item item) {
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+    public MutableLiveData<ApiResponse<Item>> postItem(Item item) {
+        if(!internetChecking.isNetworkAvailable()) {
+            itemPost.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            return itemPost;
+        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<Item> call = service.postItem(item);
 
@@ -67,60 +91,86 @@ public class ItemRepository implements ItemDataAccess
             @Override
             public void onResponse(Call<Item> call, Response<Item> response){
                 if (response.isSuccessful()) {
-                    itemPost.setValue(response.body());
+                    itemPost.setValue(new ApiResponse<>(response.body()));
                 } else {
-
+                    itemPost.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
                 }
             }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
-                Log.i("postFailed", "Post failed");
+                itemPost.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
             }
         });
         return itemPost;
     }
 
-    public void deleteItem(int itemId)
+    public MutableLiveData<ApiResponse> deleteItem(int itemId)
     {
+        if(!internetChecking.isNetworkAvailable()) {
+            deleteLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+            return deleteLive;
+        }
+
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);  //TODO : Service dans constructeur
         Call<Void> call = service.deleteItem(itemId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                if(response.isSuccessful())
+                {
+                    deleteLive.setValue(new ApiResponse());
+                }
+                else
+                {
+                    deleteLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                deleteLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
             }
         });
+        return deleteLive;
     }
 
-    public void updateItem(Item item)
+    public MutableLiveData<ApiResponse> updateItem(Item item)
     {
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+        if(!internetChecking.isNetworkAvailable()) {
+            updateLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+            return updateLive;
+        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<Integer> call = service.updateItem(item.getItemId(),item);
-        call.enqueue(new Callback<Integer>() {
+        Call<Void> call = service.updateItem(item.getItemId(),item);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-               if(response.isSuccessful()) System.out.println(response.errorBody().toString());
-               else System.out.println(response.message());
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful())
+                {
+                    updateLive.setValue(new ApiResponse());
+                }
+                else
+                {
+                    updateLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                //Log.i("postFailed", "Post failed");
+            public void onFailure(Call<Void> call, Throwable t) {
+                updateLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
             }
         });
+        return updateLive;
     }
 
 
-    public MutableLiveData<List<Item>> getMyItems()
+    public MutableLiveData<ApiResponse<List<Item>>> getMyItems()
     {
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+        if(!internetChecking.isNetworkAvailable()) {
+            myItems.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            return myItems;
+        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<List<Item>> call = service.getMyItems();
         call.enqueue(new Callback<List<Item>>() {
@@ -128,39 +178,46 @@ public class ItemRepository implements ItemDataAccess
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    Log.i("Ok", response.body().toString());
-                    myItems.setValue(response.body());
+                    myItems.setValue(new ApiResponse<>(response.body()));
                 }
-                else Log.i("PasOk", response.errorBody().toString());
+                else
+                {
+                    myItems.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Log.i("postFailed", "Connection failed");
+                myItems.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
             }
         });
         return myItems;
     }
 
-    public MutableLiveData<List<Item>> getItemsByCategory(ItemCategory itemCategory)
+    public MutableLiveData<ApiResponse<List<Item>>> getItemsByCategory(int categoryId)
     {
-        if(!internetChecking.isNetworkAvailable()) {} // Todo : Renvoie erreur pas de connection
+        if(!internetChecking.isNetworkAvailable()) {
+            itemsCategoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            return itemsCategoryLive;
+        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<List<Item>> call = service.getItemsByCategory(itemCategory.getCategoryId());
+        Call<List<Item>> call = service.getItemsByCategory(categoryId);
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    Log.i("Ok", response.body().toString());
-                    itemsCategoryLive.setValue(response.body());
+                    itemsCategoryLive.setValue(new ApiResponse<>(response.body()));
                 }
-                else Log.i("PasOk", response.errorBody().toString());
+                else
+                {
+                    itemsCategoryLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                Log.i("postFailed", "Connection failed");
+                itemsCategoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
             }
         });
         return itemsCategoryLive;

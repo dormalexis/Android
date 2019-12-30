@@ -27,7 +27,7 @@ public interface ItemService {
     @GET("Item")
     Call<List<Item>> getItems();
 
-    @GET("Item/byCategories/{id}")
+    @GET("Item/byCategory/{id}")
     Call<List<Item>> getItemsByCategory(@Path("id") int id);
 
     @GET("Item/myItems")
@@ -37,7 +37,7 @@ public interface ItemService {
     Call<Item> postItem(@Body Item item);
 
     @PUT("Item/{id}")
-    Call<Integer> updateItem(@Path("id") int id,@Body Item item);
+    Call<Void> updateItem(@Path("id") int id,@Body Item item);
 
     @DELETE("Item/{id}")
     Call<Void> deleteItem(@Path("id") int id);

@@ -29,4 +29,5 @@ public class Preferences
         editor.clear();
         editor.apply();
     }
+
 }

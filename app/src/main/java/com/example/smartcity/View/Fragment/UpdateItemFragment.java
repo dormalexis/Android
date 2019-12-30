@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cloudinary.android.MediaManager;
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
@@ -73,15 +74,22 @@ public class UpdateItemFragment extends Fragment {
         itemModel = new ItemViewModel(getContext());
         categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories().observe(this,categories -> {
-            ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories);
-            categoriesList.setAdapter(adapter);
+            if(categories.isErrorDetected())
+            {
+                Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG);
+            }
+            else
+            {
+                ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories.getObject());
+                categoriesList.setAdapter(adapter);
 
-            for (int i = 0; i < categoriesList.getCount(); i++) {
-                ItemCategory categorySelect= (ItemCategory)categoriesList.getItemAtPosition(i);
+                for (int i = 0; i < categoriesList.getCount(); i++) {
+                    ItemCategory categorySelect= (ItemCategory)categoriesList.getItemAtPosition(i);
 
-                if (categorySelect.getCategoryId().equals(itemSelected.getItemCategory())) {
-                    categoriesList.setSelection(i);
-                    break;
+                    if (categorySelect.getCategoryId().equals(itemSelected.getItemCategory())) {
+                        categoriesList.setSelection(i);
+                        break;
+                    }
                 }
             }
         });
@@ -122,7 +130,16 @@ public class UpdateItemFragment extends Fragment {
             //item.setItemCategory(itemSelected.getItemCategory());
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-            itemModel.updateItem(item);
+            itemModel.updateItem(item).observe(getViewLifecycleOwner(),itemUpdate->{
+                if(itemUpdate.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),itemUpdate.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),R.string.UpdateItemOk,Toast.LENGTH_LONG).show();
+                }
+            });
         }
     };
 
@@ -130,11 +147,22 @@ public class UpdateItemFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            itemModel.deleteItem(itemSelected.getItemId());
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container,new MyItemsFragment());
-            transaction.addToBackStack(new HomeFragment().getClass().getName());
-            transaction.commit();
+            itemModel.deleteItem(itemSelected.getItemId()).observe(getViewLifecycleOwner(),itemDelete ->{
+                if(itemDelete.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),itemDelete.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),R.string.DeleteItemOk,Toast.LENGTH_LONG).show();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container,new MyItemsFragment());
+                    transaction.addToBackStack(new HomeFragment().getClass().getName());
+                    transaction.commit();
+                }
+            });
+
+
         }
     };
 }

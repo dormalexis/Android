@@ -1,8 +1,11 @@
 package com.example.smartcity.DataAccess.Repository;
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Person;
 
 public interface PersonDataAccess {
-    void postPerson(Person person);
+    MutableLiveData<ApiResponse> postPerson(Person person);
 }

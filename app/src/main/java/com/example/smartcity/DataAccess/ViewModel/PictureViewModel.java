@@ -2,9 +2,11 @@ package com.example.smartcity.DataAccess.ViewModel;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.smartcity.DataAccess.Repository.PictureRepository;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Picture;
 
 public class PictureViewModel extends ViewModel {
@@ -15,7 +17,7 @@ public class PictureViewModel extends ViewModel {
         this.repository = new PictureRepository(context);
     }
 
-    public void postPicture(Picture picture){
-        repository.postPicture(picture);
+    public LiveData<ApiResponse> postPicture(Picture picture){
+        return repository.postPicture(picture);
     }
 }

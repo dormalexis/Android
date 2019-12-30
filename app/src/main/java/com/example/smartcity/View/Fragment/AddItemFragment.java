@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
+import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
@@ -69,7 +71,15 @@ public class AddItemFragment extends Fragment {
         super.onCreate(savedInstance);
         categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories().observe(this,categories -> {
-            categoriesList.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories));
+            if(categories.isErrorDetected())
+            {
+                Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                categoriesList.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories.getObject()));
+            }
+
         });
     }
 
@@ -128,13 +138,30 @@ public class AddItemFragment extends Fragment {
             try {
                 threadCloudinary.join();
                 itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
-                    picture.setItem(item1.getItemId());
-                    pictureModel.postPicture(picture);
+                    if(item1.isErrorDetected())
+                    {
+                        Toast.makeText(getContext(),item1.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        picture.setItem(item1.getObject().getItemId());
+                        pictureModel.postPicture(picture).observe(getViewLifecycleOwner(),picturePost -> {
+                            if(picturePost.isErrorDetected())
+                            {
+                                Toast.makeText(getContext(),picturePost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(getContext(),R.string.ImagePostOk,Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
                 });
             }
             catch (Exception e)
             {
-
+                //TODO : gérer exeception
             }
 
 

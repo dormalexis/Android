@@ -18,6 +18,7 @@ import com.example.smartcity.R;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListener {
 
@@ -26,6 +27,7 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
     private ItemViewModel itemModel;
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
+    private List<Item> itemList;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -44,7 +46,8 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
         itemModel = new ItemViewModel(getContext());
 
         itemModel.getMyItems().observe(this, items -> {
-            adapter.setItems(items);
+            adapter.setItems(items.getObject());
+            itemList = items.getObject();
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         });
@@ -53,7 +56,8 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
 
     @Override
     public void onItemClick(int position) {
-        Item itemSelected = itemModel.getMyItems().getValue().get(position);
+        Item itemSelected = itemList.get(position);
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new UpdateItemFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());

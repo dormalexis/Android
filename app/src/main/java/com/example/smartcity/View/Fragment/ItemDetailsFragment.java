@@ -13,16 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.example.smartcity.DataAccess.ViewModel.ProposalViewModel;
 import com.example.smartcity.Model.Item;
-import com.example.smartcity.Model.Proposal;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
 import java.util.Calendar;
@@ -70,7 +67,6 @@ public class ItemDetailsFragment extends Fragment {
     private Item itemSelected;
     private GregorianCalendar dateFrom;
     private GregorianCalendar dateTo;
-    private ProposalViewModel proposalViewModel;
 
     public ItemDetailsFragment(Item itemSelected)
     {
@@ -181,13 +177,7 @@ public class ItemDetailsFragment extends Fragment {
     private View.OnClickListener onClickListenerBookItem = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Proposal proposal = new Proposal();
-            proposalViewModel = new ProposalViewModel(getContext());
-            proposal.setMessage("Blabla");
-            proposal.setDateFrom(dateFrom);
-            proposal.setDateTo(dateTo);
-            proposal.setRentalId(1);
-            proposalViewModel.postProposal(proposal);
+
         }
     };
 

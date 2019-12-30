@@ -13,10 +13,4 @@
         android:layout_height="101dp"
         android:src="@drawable/locapp" />
 
-    <TextView
-        android:id="@+id/userEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/connectAs" />
-
 </LinearLayout>
