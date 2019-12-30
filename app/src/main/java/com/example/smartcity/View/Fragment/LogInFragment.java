@@ -24,7 +24,6 @@ import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.View.Fragment.CheckFragment;
-import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +48,7 @@ public class LogInFragment extends Fragment {
     @BindView(R.id.signOutButton)
     Button signOutButton;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,8 +57,6 @@ public class LogInFragment extends Fragment {
         logingButton.setOnClickListener(loginListener);
         registerButton.setOnClickListener(registerListerner);
         signOutButton.setOnClickListener(signOutListener);
-
-
         return v;
     }
 
@@ -86,8 +84,8 @@ public class LogInFragment extends Fragment {
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setCancelable(true);
-                    builder.setTitle("Connexion réussie");
-                    builder.setMessage("La connexion a réussie");
+                    builder.setTitle(R.string.loginSucceed);
+                    builder.setMessage(R.string.loginSucceed);
                     builder.setPositiveButton("Voir les annonces",
                             new DialogInterface.OnClickListener() {
                                 @Override
