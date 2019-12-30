@@ -14,15 +14,16 @@
 
     <Spinner
         android:id="@+id/categorySorter"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/searchByCategory"
-        android:layout_width="wrap_content"
+        style="@style/button"
+        android:layout_width="132dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
@@ -34,7 +35,8 @@
 
     <Button
         android:id="@+id/displayAllItems"
-        android:layout_width="wrap_content"
+        style="@style/button"
+        android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"

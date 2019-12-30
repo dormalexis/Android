@@ -1,17 +1,17 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 public class ImageException extends Exception {
-    private Context context;
-    public ImageException(Context context) {
-        this.context = context;
+    public ImageException() {
     }
 
     @Override
     public String getMessage() {
-        return context.getString(R.string.imageException);
+        return App.getContext().getResources().getString(R.string.imageException);
     }
 }

@@ -1,18 +1,20 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 public class FirstNameException extends Exception {
-    private Context context;
-    public FirstNameException(Context context) {
-        this.context = context;
+
+    public FirstNameException() {
+
     }
 
     @Override
     public String getMessage()
     {
-        return context.getString(R.string.firstNameException);
+        return App.getContext().getResources().getString(R.string.firstNameException);
     }
 }

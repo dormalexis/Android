@@ -42,10 +42,8 @@ public class Person {
     @SerializedName("roleroleId")
     private Integer role;
 
-    private Context context;
-
     public Person(Context context) {
-        this.context = context;
+
     }
 
     public Integer getStreetNumber() {
@@ -57,12 +55,12 @@ public class Person {
     }
 
     public void setStreetNumber(String streetNumber) throws StreetNumberException {
-        if(!CheckForms.isValidStreetNumber(streetNumber)) throw new StreetNumberException(context);
+        if(!CheckForms.isValidStreetNumber(streetNumber)) throw new StreetNumberException();
         this.streetNumber = Integer.parseInt(streetNumber);
     }
 
     public void setBox(String box) throws BoxException {
-        if(!CheckForms.isValidBox(box)) throw new BoxException(context);
+        if(!CheckForms.isValidBox(box)) throw new BoxException();
         this.box = box;
     }
 
@@ -141,37 +139,37 @@ public class Person {
 
 
     public void setEmail(String email) throws EmailException{
-        if(!CheckForms.isValidEmail(email)) throw new EmailException(context);
+        if(!CheckForms.isValidEmail(email)) throw new EmailException();
         this.email = email;
     }
 
     public void setFirstName(String firstName) throws FirstNameException {
-        if(!CheckForms.isValidName(firstName)) throw new FirstNameException(context);
+        if(!CheckForms.isValidName(firstName)) throw new FirstNameException();
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) throws NameException {
-        if(!CheckForms.isValidName(lastName)) throw new NameException(context);
+        if(!CheckForms.isValidName(lastName)) throw new NameException();
         this.lastName = lastName;
     }
 
     public void setPhoneNumber(String phoneNumber) throws PhoneNumberException {
-        if(!CheckForms.isValidPhoneNumber(phoneNumber)) throw new PhoneNumberException(context);
+        if(!CheckForms.isValidPhoneNumber(phoneNumber)) throw new PhoneNumberException();
         this.phoneNumber = phoneNumber;
     }
 
     public void setAvailabilityDescription(String availabilityDescription) throws DescriptionException {
-        if(!CheckForms.isValidDescription(availabilityDescription)) throw  new DescriptionException(context);
+        if(!CheckForms.isValidDescription(availabilityDescription)) throw  new DescriptionException();
         this.availabilityDescription = availabilityDescription;
     }
 
     public void setPassword(String password) throws PasswordException {
-        if(!CheckForms.isValidPassword(password)) throw new PasswordException(context);
+        if(!CheckForms.isValidPassword(password)) throw new PasswordException();
         this.password = password;
     }
 
     public void setStreet(String street) throws StreetNameException{
-        if(!CheckForms.isValidStreetName(street)) throw new StreetNameException(context);
+        if(!CheckForms.isValidStreetName(street)) throw new StreetNameException();
         this.street = street;
     }
 }

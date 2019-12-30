@@ -116,6 +116,10 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
                     adapter.setItems(items.getObject());
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    if(items.getObject()==null)
+                    {
+                        Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
@@ -144,6 +148,10 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
                 itemList = items.getObject();
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                if(items.getObject()==null)
+                {
+                    Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

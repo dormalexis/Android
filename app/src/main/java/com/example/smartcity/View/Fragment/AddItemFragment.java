@@ -98,7 +98,7 @@ public class AddItemFragment extends Fragment {
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Item item = new Item(getContext());
+            Item item = new Item();
             Picture picture = new Picture();
             itemModel = new ItemViewModel(getContext());
             pictureModel = new PictureViewModel(getContext());
@@ -123,10 +123,10 @@ public class AddItemFragment extends Fragment {
             }
 
             if (photo == null) {
-                exceptionMessage += new ImageException(getContext()).getMessage();
+                exceptionMessage += new ImageException().getMessage();
             }
 
-            if (exceptionMessage != "")
+            if (!exceptionMessage.equals(""))
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
@@ -173,7 +173,7 @@ public class AddItemFragment extends Fragment {
                                 if (picturePost.isErrorDetected()) {
                                     Toast.makeText(getContext(), picturePost.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(getContext(), R.string.ImagePostOk, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), R.string.postItemOk, Toast.LENGTH_LONG).show();
                                 }
                             });
                         }

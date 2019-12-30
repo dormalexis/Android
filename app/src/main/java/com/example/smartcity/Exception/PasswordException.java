@@ -1,19 +1,21 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 
 public class PasswordException extends Exception{
-    private Context context;
-    public PasswordException(Context context) {
-        this.context = context;
+
+    public PasswordException() {
+
     }
 
     @Override
     public String getMessage()
     {
-        return context.getString(R.string.passwordException);
+        return App.getContext().getResources().getString(R.string.passwordException);
     }
 }

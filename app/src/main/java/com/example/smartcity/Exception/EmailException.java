@@ -1,18 +1,20 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 public class EmailException extends Exception {
-    private Context context;
-    public EmailException(Context context) {
-        this.context = context;
+
+    public EmailException() {
+
     }
 
     @Override
     public String getMessage()
     {
-        return context.getString(R.string.emailException);
+        return App.getContext().getResources().getString(R.string.emailException);
     }
 }

@@ -53,6 +53,10 @@ public class MyRentalsFragment extends Fragment {
                 rentalAdapter.setRentals(rentals.getObject());
                 myRentalsRecyclerView.setAdapter(rentalAdapter);
                 myRentalsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                if(rentals.getObject()==null)
+                {
+                    Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;

@@ -59,30 +59,12 @@
         android:layout_below="@+id/updatePrice"
         android:buttonTint="@color/orange"/>
 
-    <ImageView
-        android:id="@+id/updatePicture"
-        android:layout_width="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/updateIsVisible"/>
-
-    <Button
-        android:id="@+id/updatePictureButton"
-        style="@style/button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/updatePicture"
-        android:layout_marginTop="10dp"
-        android:text="@string/addPicture"
-        android:layout_centerHorizontal="true"/>
-
     <Button
         android:id="@+id/updateItem"
         style="@style/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/updatePictureButton"
+        android:layout_below="@+id/updateIsVisible"
         android:layout_marginTop="10dp"
         android:text="@string/update"
         android:layout_centerHorizontal="true"/>

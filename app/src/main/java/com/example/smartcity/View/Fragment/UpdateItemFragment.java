@@ -50,16 +50,11 @@ public class UpdateItemFragment extends Fragment {
     EditText price;
     @BindView(R.id.updateItem)
     Button confirmation;
-    @BindView(R.id.updatePictureButton)
-    Button addPicture;
-    @BindView(R.id.updatePicture)
-    ImageView picture;
     @BindView(R.id.updateIsVisible)
     CheckBox isVisible;
     @BindView(R.id.deleteItemButton)
     Button deleteItemButton;
 
-    private Bitmap photo;
     private Item itemSelected;
     private ItemViewModel itemModel;
     private CategoryViewModel categoryModel;
@@ -114,7 +109,7 @@ public class UpdateItemFragment extends Fragment {
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Item item = new Item(getContext());
+            Item item = new Item();
             item.setItemId(itemSelected.getItemId());
             itemModel = new ItemViewModel(getContext());
             String exceptionMessage = "";
@@ -125,7 +120,7 @@ public class UpdateItemFragment extends Fragment {
             try {item.setPricePerDay(price.getText().toString());}
             catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
 
-            if(exceptionMessage != "")
+            if(!exceptionMessage.equals(""))
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
@@ -139,11 +134,6 @@ public class UpdateItemFragment extends Fragment {
                 ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
                 item.setItemCategory(itemCat.getCategoryId());
 
-                //item.setOwner(1);
-                //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-                //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-                //item.setItemCategory(itemCat.getCategoryId());
-                //item.setItemCategory(itemSelected.getItemCategory());
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
                 itemModel.updateItem(item).observe(getViewLifecycleOwner(), itemUpdate -> {

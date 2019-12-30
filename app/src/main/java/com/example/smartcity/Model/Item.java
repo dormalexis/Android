@@ -32,13 +32,12 @@ public class Item {
     private Float nbStars;
     @SerializedName("nbAvis")
     private int nbAvis;
-    private Context context;
 
-    public Item(Context context){
-        this.context = context;
-    }
 
-    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures, Context context) {
+
+    public Item(){}
+
+    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures) {
         this.itemId = itemId;
         this.isVisible = isVisible;
         this.name = name;
@@ -47,7 +46,6 @@ public class Item {
         this.owner = owner;
         this.itemCategory = itemCategory;
         this.pictures = pictures;
-        this.context = context;
     }
 
     public int getNbAvis() {
@@ -87,7 +85,7 @@ public class Item {
     }
 
     public void setName(String name) throws ItemNameException{
-        if(!CheckForms.isValidItemName(name)) throw new ItemNameException(context);
+        if(!CheckForms.isValidItemName(name)) throw new ItemNameException();
         this.name = name;
     }
 
@@ -109,12 +107,12 @@ public class Item {
 
 
     public void setDescription(String description) throws DescriptionException{
-        if(!CheckForms.isValidDescription(description)) throw new DescriptionException(context);
+        if(!CheckForms.isValidDescription(description)) throw new DescriptionException();
         this.description = description;
     }
 
     public void setPricePerDay(String pricePerDay) throws NotAReal {
-        if(!CheckForms.isValidReal(pricePerDay)) throw new NotAReal(context);
+        if(!CheckForms.isValidReal(pricePerDay)) throw new NotAReal();
         this.pricePerDay = Double.valueOf(pricePerDay);
     }
 

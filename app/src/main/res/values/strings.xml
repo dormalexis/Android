@@ -64,6 +64,8 @@
     <string name="ImagePostOk">Votre image a bien été publiée</string>
     <string name="loginFail">Votre login/mdp n\'est pas valide.</string>
     <string name="confirmRental">Réservation confirmée !</string>
+    <string name="postItemOk">Objet ajouté !</string>
+    <string name="empty">Liste vide!</string>
 
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->

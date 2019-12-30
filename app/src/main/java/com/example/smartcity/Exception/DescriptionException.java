@@ -1,18 +1,19 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 public class DescriptionException extends  Exception {
-    private Context context;
-    public DescriptionException(Context context) {
-        this.context = context;
+
+    public DescriptionException( ) {
     }
 
     @Override
     public String getMessage()
     {
-        return context.getString(R.string.descriptionException);
+        return App.getContext().getResources().getString(R.string.descriptionException);
     }
 }

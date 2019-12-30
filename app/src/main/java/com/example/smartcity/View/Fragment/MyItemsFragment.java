@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +51,10 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
             itemList = items.getObject();
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            if(items.getObject()==null)
+            {
+                Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+            }
         });
         return view;
     }
@@ -57,7 +62,6 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
     @Override
     public void onItemClick(int position) {
         Item itemSelected = itemList.get(position);
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new UpdateItemFragment(itemSelected));
         transaction.addToBackStack(new HomeFragment().getClass().getName());

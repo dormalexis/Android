@@ -9,10 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="205dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="206dp"
         android:hint="@string/welcome"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
-        android:layout_marginTop="253dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
         android:hint="@string/mail"

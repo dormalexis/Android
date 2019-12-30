@@ -51,24 +51,7 @@ public class ItemDetailsFragment extends Fragment {
     ImageButton nextImageButton;
     @BindView(R.id.previousImageButton)
     ImageButton previousImageButton;
-    @BindView(R.id.inputDateFrom)
-    TextView inputDateFrom;
-    @BindView(R.id.buttonDateFrom)
-    Button buttonDateFrom;
-    @BindView(R.id.inputTimeFrom)
-    TextView inputTimeFrom;
-    @BindView(R.id.buttonTimeFrom)
-    Button buttonTimeFrom;
-    @BindView(R.id.inputDateTo)
-    TextView inputDateTo;
-    @BindView(R.id.buttonDateTo)
-    Button buttonDateTo;
-    @BindView(R.id.inputTimeTo)
-    TextView inputTimeTo;
-    @BindView(R.id.buttonTimeTo)
-    Button buttonTimeTo;
-    @BindView(R.id.bookItemButton)
-    Button bookItemButton;
+
 
 
     private Item itemSelected;
@@ -76,7 +59,6 @@ public class ItemDetailsFragment extends Fragment {
     private GregorianCalendar dateTo;
     private Rental rental;
     private RentalViewModel rentalViewModel;
-    private Date dateFromDate;
 
     public ItemDetailsFragment(Item itemSelected)
     {
@@ -84,6 +66,7 @@ public class ItemDetailsFragment extends Fragment {
         dateFrom = new GregorianCalendar();
         dateTo = new GregorianCalendar();
         this.rentalViewModel = new RentalViewModel(getContext());
+        this.rental = new Rental();
     }
 
     @Override
@@ -105,123 +88,20 @@ public class ItemDetailsFragment extends Fragment {
             }
         });
 
-        buttonDateFrom.setOnClickListener(onClickListenerDateSelector);
-        buttonTimeFrom.setOnClickListener(onClickListenerTimeSelector);
-        buttonDateTo.setOnClickListener(onClickListenerDateSelector);
-        buttonTimeTo.setOnClickListener(onClickListenerTimeSelector);
-
-        bookItemButton.setOnClickListener(onClickListenerBookItem);
 
         displayImage(0);
         changeTextImage(0,itemSelected.getPictures().size());
 
-        titleText.setText(itemSelected.getDescription());
-
+        titleText.setText(itemSelected.getName());
+        descriptionItemText.setText(itemSelected.getDescription());
         return view;
     }
 
-    private View.OnClickListener onClickListenerDateSelector = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                    new DatePickerDialog.OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int month, int day) {
-                            String generateText = (day + "-" + (month + 1) + "-" + year);
-
-                            if(v.getId() == R.id.buttonDateFrom)
-                            {
-                                inputDateFrom.setText(generateText);
-                                dateFrom.set(year,month,day);
-
-
-                            }
-                            else
-                            {
-                                inputDateTo.setText(generateText);
-                                dateTo.set(year,month,day);
-                            }
-                        }
-                    }, year, month, day);
-            datePickerDialog.show();
-        }
-    };
-
-    private View.OnClickListener onClickListenerTimeSelector = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Calendar calendar = Calendar.getInstance();
-           int hour = calendar.get(Calendar.HOUR_OF_DAY);
-           int minute = calendar.get(Calendar.MINUTE);
-
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
-                    new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hour, int minute) {
-                            java.util.Date date = new java.util.Date();
-                            date.setMinutes(minute);
-                            date.setHours(hour);
-
-                            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
-
-
-
-
-                            String generateText = (hour + " : " + (minute < 10 ? "0":"") + minute);
-                            if(v.getId() == R.id.buttonTimeFrom)
-                            {
-
-                                dateFrom.setTime(date);
-                                inputTimeFrom.setText(generateText);
-                            }
-                            else
-                            {
-                                dateTo.setTime(date);
-                                inputTimeTo.setText(generateText);
-                            }
-                        }
-                    }, hour, minute,true);
-            timePickerDialog.show();
-        }
-    };
-
-    private View.OnClickListener onClickListenerBookItem = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            rental.setDateFrom()
-            rental.setDateTo(Item);
-            rental.setItem(itemSelected.getItemId());
-            rental.setPaid(false);
-            rental.setPaidPrice(itemSelected.getPricePerDay());
-
-            rentalViewModel.postRental(rental).observe(getViewLifecycleOwner(),response -> {
-                if(response.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),response.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(),R.string.confirmRental,Toast.LENGTH_LONG).show();
-                }
-            });
-
-        }
-    };
 
     private void changeImage(Boolean isPrevious)
     {
         int nbImages = itemSelected.getPictures().size();
         int iImage = 0;
-        Log.d(TAG, "changeImage: " + iImage);
 
         if(isPrevious && iImage != 0)
         {
@@ -237,7 +117,12 @@ public class ItemDetailsFragment extends Fragment {
 
     private void changeTextImage(int iImage, int nbImage)
     {
-        countImageText.setText((iImage + 1)  + " / " + nbImage);
+        if(iImage != 0)
+        {
+            countImageText.setText((iImage + 1)  + " / " + nbImage);
+        }
+        else countImageText.setText((iImage)  + " / " + nbImage);
+
     }
 
     private void displayImage(int iImage)
@@ -258,9 +143,5 @@ public class ItemDetailsFragment extends Fragment {
         }
 
     }
-
-
-
-
 
 }

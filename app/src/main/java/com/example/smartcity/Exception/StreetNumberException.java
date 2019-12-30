@@ -1,18 +1,20 @@
 package com.example.smartcity.Exception;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.App;
 
 public class StreetNumberException extends Exception {
-    private Context context;
-    public StreetNumberException(Context context) {
-        this.context = context;
+
+    public StreetNumberException( ) {
+
     }
 
     @Override
     public String getMessage()
     {
-        return context.getString(R.string.streetNumberException);
+        return App.getContext().getResources().getString(R.string.streetNumberException);
     }
 }
