@@ -78,14 +78,14 @@ public class LogInFragment extends Fragment {
             connectionViewModel.getToken(loginModel,getContext()).observe(getViewLifecycleOwner(),token->{
                 if(token.isErrorDetected())
                 {
-                    Toast.makeText(getContext(),token.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),token.getErrorCode().getMessage(),Toast.LENGTH_LONG).show(); //TODO : Messahe bizarre dans ce contexte, car intervient quand on ne sait pas se connecter
                 }
                 else
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setCancelable(true);
-                    builder.setTitle("Connexion réussie");
-                    builder.setMessage("La connexion a réussie");
+                    builder.setTitle(R.string.loginSucceed);
+                    builder.setMessage(R.string.loginSucceed);
                     builder.setPositiveButton("Voir les annonces",
                             new DialogInterface.OnClickListener() {
                                 @Override

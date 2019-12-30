@@ -1,4 +1,5 @@
 package com.example.smartcity.View.Fragment;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,30 +86,58 @@ public class RegisterFragment extends Fragment {
     private View.OnClickListener registerListenr = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Person person = new Person();
+            Person person = new Person(getContext());
             PersonViewModel personViewModel = new PersonViewModel(getContext());
-            person.setFirstName(firstName.getText().toString());
-            person.setLastName(lastName.getText().toString());
-            person.setEmail(mail.getText().toString());
-            person.setPhoneNumber(phone.getText().toString());
-            person.setStreetNumber(Integer.valueOf(streetNumber.getText().toString()));
-            person.setBox(box.getText().toString());
-            person.setPassword(password.getText().toString());
-            person.setStreet(street.getText().toString());
+            String exceptionMessage = "";
+
+            try {person.setFirstName(firstName.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage() + "\n";}
+
+            try {person.setLastName(lastName.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage() + "\n";}
+
+            try {person.setEmail(mail.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try {person.setPhoneNumber(phone.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try {person.setStreetNumber(streetNumber.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try{person.setBox(box.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try {person.setPassword(password.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try {person.setStreet(street.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
+            try{person.setAvailabilityDescription(availibilityDescription.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+
             person.setLocality(((Locality) spinnerLocalities.getSelectedItem()).getLocalityId());
-            person.setAvailabilityDescription(availibilityDescription.getText().toString());
             person.setRole(3);
             person.setBlocked(false);
-            personViewModel.postPerson(person).observe(getViewLifecycleOwner(),personPost -> {
-            if(personPost.isErrorDetected())
-            {
-                Toast.makeText(getContext(),personPost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+
+            if(exceptionMessage == "") {
+                personViewModel.postPerson(person).observe(getViewLifecycleOwner(), personPost -> {
+                    if (personPost.isErrorDetected()) {
+                        Toast.makeText(getContext(), personPost.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), R.string.PostPersonOk, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-            else
-            {
-                Toast.makeText(getContext(),R.string.PostPersonOk,Toast.LENGTH_LONG).show();
+
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle(R.string.errorRegisterFormTitle);
+                builder.setMessage(exceptionMessage);
+                builder.create().show();
             }
-            });
 
         }
     };

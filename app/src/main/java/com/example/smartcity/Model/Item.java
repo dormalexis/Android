@@ -1,5 +1,11 @@
 package com.example.smartcity.Model;
 
+import android.content.Context;
+
+import com.example.smartcity.Exception.DescriptionException;
+import com.example.smartcity.Exception.ItemNameException;
+import com.example.smartcity.Exception.NotAReal;
+import com.example.smartcity.Utilitaries.CheckForms;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -26,10 +32,13 @@ public class Item {
     private Float nbStars;
     @SerializedName("nbAvis")
     private int nbAvis;
+    private Context context;
 
-    public Item(){}
+    public Item(Context context){
+        this.context = context;
+    }
 
-    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures) {
+    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures, Context context) {
         this.itemId = itemId;
         this.isVisible = isVisible;
         this.name = name;
@@ -38,6 +47,7 @@ public class Item {
         this.owner = owner;
         this.itemCategory = itemCategory;
         this.pictures = pictures;
+        this.context = context;
     }
 
     public int getNbAvis() {
@@ -76,7 +86,8 @@ public class Item {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws ItemNameException{
+        if(!CheckForms.isValidItemName(name)) throw new ItemNameException(context);
         this.name = name;
     }
 
@@ -97,12 +108,14 @@ public class Item {
     }
 
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws DescriptionException{
+        if(!CheckForms.isValidDescription(description)) throw new DescriptionException(context);
         this.description = description;
     }
 
-    public void setPricePerDay(Double pricePerDay) {
-        this.pricePerDay = pricePerDay;
+    public void setPricePerDay(String pricePerDay) throws NotAReal {
+        if(!CheckForms.isValidReal(pricePerDay)) throw new NotAReal(context);
+        this.pricePerDay = Double.valueOf(pricePerDay);
     }
 
     public void setOwner(Integer owner) {

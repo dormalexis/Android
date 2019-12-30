@@ -1,5 +1,6 @@
 package com.example.smartcity.View.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
+import com.example.smartcity.Exception.ImageException;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
@@ -96,77 +98,93 @@ public class AddItemFragment extends Fragment {
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Item item = new Item();
+            Item item = new Item(getContext());
             Picture picture = new Picture();
             itemModel = new ItemViewModel(getContext());
             pictureModel = new PictureViewModel(getContext());
+            String exceptionMessage = "";
 
-            item.setName(name.getText().toString());
-            item.setDescription(description.getText().toString());
-            item.setVisible(true);
-            item.setPricePerDay(Double.valueOf(price.getText().toString()));
-            ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-            item.setItemCategory(itemCat.getCategoryId());
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream .toByteArray();
-
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", "locapp",
-                    "api_key", "731592778186861",
-                    "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
-
-
-            Thread threadCloudinary = new Thread(new Runnable() {
-                public void run() {
-                    try
-                    {
-                        Map uploadResult = cloudinary.uploader().upload(byteArray,
-                                ObjectUtils.asMap("folder", "Locapp/"));
-                        String idCloudinary = (String) uploadResult.get("public_id");
-                        picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/"+idCloudinary);
-                    }
-                    catch (IOException e )
-                    {
-                        // TODO : Gérer l'exception
-                    }
-                }
-            });
-
-            threadCloudinary.start();
             try {
-                threadCloudinary.join();
-                itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
-                    if(item1.isErrorDetected())
-                    {
-                        Toast.makeText(getContext(),item1.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        picture.setItem(item1.getObject().getItemId());
-                        pictureModel.postPicture(picture).observe(getViewLifecycleOwner(),picturePost -> {
-                            if(picturePost.isErrorDetected())
-                            {
-                                Toast.makeText(getContext(),picturePost.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(getContext(),R.string.ImagePostOk,Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-
-                });
+                item.setName(name.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
             }
-            catch (Exception e)
+
+            try {
+                item.setPricePerDay(price.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
+            }
+
+            try {
+                item.setDescription(description.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
+            }
+
+            if (photo == null) {
+                exceptionMessage += new ImageException(getContext()).getMessage();
+            }
+
+            if (exceptionMessage != "")
             {
-                //TODO : gérer exeception
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle(R.string.errorAddItem);
+                builder.setMessage(exceptionMessage);
+                builder.create().show();
             }
+            else {
+                item.setVisible(true);
+                ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+                item.setItemCategory(itemCat.getCategoryId());
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+                Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "locapp",
+                        "api_key", "731592778186861",
+                        "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
 
 
+                Thread threadCloudinary = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Map uploadResult = cloudinary.uploader().upload(byteArray,
+                                    ObjectUtils.asMap("folder", "Locapp/"));
+                            String idCloudinary = (String) uploadResult.get("public_id");
+                            picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/" + idCloudinary);
+                        } catch (IOException e) {
+                            // TODO : Gérer l'exception
+                        }
+                    }
+                });
 
+                threadCloudinary.start();
+                try {
+                    threadCloudinary.join();
+                    itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
+                        if (item1.isErrorDetected()) {
+                            Toast.makeText(getContext(), item1.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                        } else {
+                            picture.setItem(item1.getObject().getItemId());
+                            pictureModel.postPicture(picture).observe(getViewLifecycleOwner(), picturePost -> {
+                                if (picturePost.isErrorDetected()) {
+                                    Toast.makeText(getContext(), picturePost.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(), R.string.ImagePostOk, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+                    });
+                } catch (Exception e) {
+                    //TODO : gérer exeception
+                }
+            }
         }
+
     };
 
     private View.OnClickListener gallery = new View.OnClickListener() {

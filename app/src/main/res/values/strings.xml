@@ -78,7 +78,22 @@
 
 
 
-    <!-- Erreurs -->
-    <string name="noConnection">Pas de connection</string>
 
+    <!-- Erreurs -->
+    <string name="nameException">Le nom est obligatoire et doit contenir maximum 50 caractères</string>
+    <string name="firstNameException">Le prénom est obligatoire et doit contenir maximum 50 caractères</string>
+    <string name="descriptionException">La description est obligatoire et ne peut pas contenir plus de 255 caractères</string>
+    <string name="notARealException">Le prix est obligatoire doit être composé de chiffres (NB : Le séparateur doit être un point)</string>
+    <string name="emailException">L\'adresse email n\'a pas été introduite ou n\'a pas un format valide</string>
+    <string name="passwordException">Le mot de passe doit contenir au moins 6 caractères/chiffres</string>
+    <string name="streetNameException">Le nom de la rue est obligatoire et doit contenir maximum 100 caractères</string>
+    <string name="boxException">Le numéro de boite ne peut pas contenir plus de 5 caractères</string>
+    <string name="streetNumberException">Le numéro de rue n\'a pas été introduit ou n\'est pas valide</string>
+    <string name="phoneNumberException">Le numéro de téléphone n\'est pas valide</string>
+    <string name="loginProblem">Cette combinaison login/mot de passe n\'existe pas></string>
+    <string name="loginSucceed">Connexion réussie</string>
+    <string name="errorRegisterFormTitle">Problème lors de l\'inscription</string>
+    <string name="imageException">Image manquante !</string>
+    <string name="itemNameException">Le nom de l\'item est obligatoire et doit comporter maximum 100 caractères</string>
+    <string name="errorAddItem">Erreur lors de l\'ajout de l\'item</string>
 </resources>

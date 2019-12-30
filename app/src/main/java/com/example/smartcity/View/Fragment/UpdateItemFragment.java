@@ -1,5 +1,6 @@
 package com.example.smartcity.View.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -113,33 +114,46 @@ public class UpdateItemFragment extends Fragment {
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Item item = new Item();
+            Item item = new Item(getContext());
             item.setItemId(itemSelected.getItemId());
             itemModel = new ItemViewModel(getContext());
-            item.setName(name.getText().toString());
-            item.setDescription(description.getText().toString());
-            item.setVisible(isVisible.isChecked());
-            item.setPricePerDay(Double.valueOf(price.getText().toString()));
-            ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-            item.setItemCategory(itemCat.getCategoryId());
+            String exceptionMessage = "";
+            try {item.setName(name.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {item.setDescription(description.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {item.setPricePerDay(price.getText().toString());}
+            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
 
-            //item.setOwner(1);
-            //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-            //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-            //item.setItemCategory(itemCat.getCategoryId());
-            //item.setItemCategory(itemSelected.getItemCategory());
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            if(exceptionMessage != "")
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle(R.string.errorRegisterFormTitle);
+                builder.setMessage(exceptionMessage);
+                builder.create().show();
+            }
 
-            itemModel.updateItem(item).observe(getViewLifecycleOwner(),itemUpdate->{
-                if(itemUpdate.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),itemUpdate.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(),R.string.UpdateItemOk,Toast.LENGTH_LONG).show();
-                }
-            });
+            else {
+                item.setVisible(isVisible.isChecked());
+                ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+                item.setItemCategory(itemCat.getCategoryId());
+
+                //item.setOwner(1);
+                //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+                //ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
+                //item.setItemCategory(itemCat.getCategoryId());
+                //item.setItemCategory(itemSelected.getItemCategory());
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+                itemModel.updateItem(item).observe(getViewLifecycleOwner(), itemUpdate -> {
+                    if (itemUpdate.isErrorDetected()) {
+                        Toast.makeText(getContext(), itemUpdate.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), R.string.UpdateItemOk, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     };
 

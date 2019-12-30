@@ -50,6 +50,19 @@ public class CheckForms {
 
     }
 
+    public static Boolean isValidStreetNumber(String streetNumber)
+    {
+        try {
+            Integer.parseInt(streetNumber);
+            return true;
+        }
+
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
+    }
+
     public static boolean isValidEmail(String email) {
         Pattern patternEmail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = patternEmail.matcher(email);
@@ -60,7 +73,7 @@ public class CheckForms {
     {
         Pattern patternPhone = Pattern.compile("0\\d{8,9}");
         Matcher matcher = patternPhone.matcher(phone);
-        return !phone.isEmpty() && matcher.find();
+        return !phone.isEmpty() && phone.length() <= 10 && matcher.find();
     }
 
 
@@ -71,7 +84,7 @@ public class CheckForms {
 
     public static Boolean isValidDescription(String description)
     {
-        return description.length() <= 255;
+        return !description.isEmpty() && description.length() <= 255;
     }
 
     public static Boolean isValidBox(String box)
