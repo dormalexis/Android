@@ -10,5 +10,5 @@ import retrofit2.http.POST;
 public interface PersonService {
 
     @POST("Person")
-    Call<Integer> postPerson(@Body Person person);
+    Call<Void> postPerson(@Body Person person);
 }

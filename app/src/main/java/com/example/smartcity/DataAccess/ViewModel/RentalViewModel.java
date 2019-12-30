@@ -24,4 +24,5 @@ public class RentalViewModel extends ViewModel {
 
     public LiveData<ApiResponse<List<Rental>>> getRentals() {return rentalDataAccess.getRentals();}
     public LiveData<ApiResponse<List<Rental>>> getValidations() {return rentalDataAccess.getValidations();}
+    public LiveData<ApiResponse> postRental(Rental rental){return rentalDataAccess.postRental(rental);}
 }

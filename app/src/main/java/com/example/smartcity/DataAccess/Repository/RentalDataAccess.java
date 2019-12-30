@@ -14,4 +14,5 @@ import java.util.List;
 public interface RentalDataAccess {
     MutableLiveData<ApiResponse<List<Rental>>> getRentals();
     MutableLiveData<ApiResponse<List<Rental>>> getValidations();
+    MutableLiveData<ApiResponse> postRental(Rental rental);
 }

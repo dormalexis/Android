@@ -24,6 +24,7 @@ import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.View.Fragment.CheckFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +49,6 @@ public class LogInFragment extends Fragment {
     @BindView(R.id.signOutButton)
     Button signOutButton;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +57,8 @@ public class LogInFragment extends Fragment {
         logingButton.setOnClickListener(loginListener);
         registerButton.setOnClickListener(registerListerner);
         signOutButton.setOnClickListener(signOutListener);
+
+
         return v;
     }
 
@@ -78,7 +80,7 @@ public class LogInFragment extends Fragment {
             connectionViewModel.getToken(loginModel,getContext()).observe(getViewLifecycleOwner(),token->{
                 if(token.isErrorDetected())
                 {
-                    Toast.makeText(getContext(),token.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),R.string.loginFail,Toast.LENGTH_LONG).show();
                 }
                 else
                 {

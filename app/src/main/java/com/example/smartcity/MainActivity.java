@@ -9,19 +9,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.View.Fragment.AddItemFragment;
 import com.example.smartcity.View.Fragment.CheckFragment;
 import com.example.smartcity.View.Fragment.HomeFragment;
-import com.example.smartcity.View.Fragment.InfoFragment;
 import com.example.smartcity.View.Fragment.LogInFragment;
 import com.example.smartcity.View.Fragment.MyItemsFragment;
 import com.example.smartcity.View.Fragment.MyRentalsFragment;
-import com.example.smartcity.View.Fragment.MySettingsFragment;
-import com.example.smartcity.View.RecyclerView.ItemViewHolder;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -41,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+
         // Changer de layout
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -51,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
     }
 
@@ -64,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logIn:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LogInFragment()).commit();
                 break;
-            case R.id.nav_mySettings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MySettingsFragment()).commit();
-                break;
             case R.id.nav_myItems:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MyItemsFragment()).commit();
                 break;
@@ -75,9 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_check:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CheckFragment()).commit();
-                break;
-            case R.id.nav_info:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new InfoFragment()).commit();
                 break;
             case R.id.nav_myRentals:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MyRentalsFragment()).commit();

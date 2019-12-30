@@ -17,11 +17,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.Rental;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -67,12 +74,16 @@ public class ItemDetailsFragment extends Fragment {
     private Item itemSelected;
     private GregorianCalendar dateFrom;
     private GregorianCalendar dateTo;
+    private Rental rental;
+    private RentalViewModel rentalViewModel;
+    private Date dateFromDate;
 
     public ItemDetailsFragment(Item itemSelected)
     {
         this.itemSelected = itemSelected;
         dateFrom = new GregorianCalendar();
         dateTo = new GregorianCalendar();
+        this.rentalViewModel = new RentalViewModel(getContext());
     }
 
     @Override
@@ -124,10 +135,13 @@ public class ItemDetailsFragment extends Fragment {
                         public void onDateSet(DatePicker view, int year,
                                               int month, int day) {
                             String generateText = (day + "-" + (month + 1) + "-" + year);
+
                             if(v.getId() == R.id.buttonDateFrom)
                             {
                                 inputDateFrom.setText(generateText);
                                 dateFrom.set(year,month,day);
+
+
                             }
                             else
                             {
@@ -156,6 +170,12 @@ public class ItemDetailsFragment extends Fragment {
                             java.util.Date date = new java.util.Date();
                             date.setMinutes(minute);
                             date.setHours(hour);
+
+                            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+
+
+
+
                             String generateText = (hour + " : " + (minute < 10 ? "0":"") + minute);
                             if(v.getId() == R.id.buttonTimeFrom)
                             {
@@ -177,6 +197,22 @@ public class ItemDetailsFragment extends Fragment {
     private View.OnClickListener onClickListenerBookItem = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            rental.setDateFrom()
+            rental.setDateTo(Item);
+            rental.setItem(itemSelected.getItemId());
+            rental.setPaid(false);
+            rental.setPaidPrice(itemSelected.getPricePerDay());
+
+            rentalViewModel.postRental(rental).observe(getViewLifecycleOwner(),response -> {
+                if(response.isErrorDetected())
+                {
+                    Toast.makeText(getContext(),response.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),R.string.confirmRental,Toast.LENGTH_LONG).show();
+                }
+            });
 
         }
     };

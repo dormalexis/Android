@@ -50,18 +50,20 @@
     <string name="Search">Rechercher</string>
     <string name="displayAllItems">Afficher tout</string>
     <string name="BADREQUEST">La rêquete est éronnée.</string>
-    <string name="UNAUTHORIZED">Une authentification est nécessaire pour accéder à la ressource.</string>
-    <string name="NOTFOUND">La ressource n\'existe pas</string>
-    <string name="NOTALLOWED">Afficher tout</string>
-    <string name="TIMEOUT">La rêquete a pris trop de temps</string>
-    <string name="SERVEURERROR">Une erreur avec le serveur s\'est produite</string>
-    <string name="NETWORKFAIL">L\'appareil n\'est pas connecté à internet</string>
-    <string name="OTHERERROR">Une erreur inconnue s\'est produite</string>
+    <string name="UNAUTHORIZED">Vous devez vous connecter.</string>
+    <string name="NOTFOUND">La ressource n\'existe pas.</string>
+    <string name="NOTALLOWED">La ressource n\'est pas allouée.</string>
+    <string name="TIMEOUT">La rêquete a pris trop de temps.</string>
+    <string name="SERVEURERROR">Une erreur avec le serveur s\'est produite.</string>
+    <string name="NETWORKFAIL">L\'appareil n\'est pas connecté à internet.</string>
+    <string name="OTHERERROR">Une erreur inconnue s\'est produite.</string>
 
     <string name="UpdateItemOk">L\'item a bien été mis à jour</string>
     <string name="DeleteItemOk">L\'item a bien été supprimé</string>
     <string name="PostPersonOk">Votre compte a bien été crée</string>
     <string name="ImagePostOk">Votre image a bien été publiée</string>
+    <string name="loginFail">Votre login/mdp n\'est pas valide.</string>
+    <string name="confirmRental">Réservation confirmée !</string>
 
 
     <!-- Pour l'accessibilité des personnes aveugles/sourdes -->

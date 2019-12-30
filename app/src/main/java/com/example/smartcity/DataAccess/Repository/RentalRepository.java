@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class RentalRepository implements RentalDataAccess {
 
     private MutableLiveData<ApiResponse<List<Rental>>> rentalsLive;
+    private MutableLiveData<ApiResponse> rentalPost;
     private Context context;
     private InternetChecking internetChecking;
 
@@ -97,5 +98,31 @@ public class RentalRepository implements RentalDataAccess {
         });
         return rentalsLive;
 
+    }
+
+    public MutableLiveData<ApiResponse> postRental(Rental rental) {
+        if(!internetChecking.isNetworkAvailable()) {
+            rentalPost.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            return rentalPost;
+        }
+        RentalService service = RetrofitInstance.getRetrofitInstance(context).create(RentalService.class);
+        Call<Void> call = service.postRental(rental);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response){
+                if (response.isSuccessful()) {
+                    rentalPost.setValue(new ApiResponse<>(response.body()));
+                } else {
+                    rentalPost.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                rentalPost.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+            }
+        });
+        return rentalPost;
     }
 }

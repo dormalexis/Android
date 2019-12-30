@@ -39,10 +39,10 @@ public class PersonRepository implements PersonDataAccess {
             return personneLive;
         }
         PersonService service = RetrofitInstance.getRetrofitInstance(context).create(PersonService.class);
-        Call<Integer> call = service.postPerson(person);
-        call.enqueue(new Callback<Integer>() {
+        Call<Void> call = service.postPerson(person);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful())
                 {
                     personneLive.setValue(new ApiResponse());
@@ -54,7 +54,7 @@ public class PersonRepository implements PersonDataAccess {
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
                 personneLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
             }
