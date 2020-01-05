@@ -95,6 +95,29 @@ public class AddItemFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("spinnerCategory", categoriesList.getSelectedItemPosition());
+        outState.putString("name",name.getText().toString());
+        outState.putString("description",name.getText().toString());
+        outState.putString("price",price.getText().toString());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState != null)
+        {
+            categoriesList.setSelection(savedInstanceState.getInt("sprinnerCategory"));
+            name.setText(savedInstanceState.getString("name"));
+            description.setText(savedInstanceState.getString("description"));
+            price.setText(savedInstanceState.getString("price"));
+        }
+    }
+
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
