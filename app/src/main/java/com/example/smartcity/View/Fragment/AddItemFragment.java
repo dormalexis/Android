@@ -94,15 +94,14 @@ public class AddItemFragment extends Fragment {
         addPicture.setOnClickListener(gallery);
         return view;
     }
-
+    /*
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putInt("spinnerCategory", categoriesList.getSelectedItemPosition());
         outState.putString("name",name.getText().toString());
         outState.putString("description",name.getText().toString());
         outState.putString("price",price.getText().toString());
-
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -116,7 +115,7 @@ public class AddItemFragment extends Fragment {
             description.setText(savedInstanceState.getString("description"));
             price.setText(savedInstanceState.getString("price"));
         }
-    }
+    }*/
 
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override

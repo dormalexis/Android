@@ -72,7 +72,6 @@ public class RegisterFragment extends Fragment {
             {
                 spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item,localities.getObject()));
             }
-
         });
 
         register.setOnClickListener(registerListenr);

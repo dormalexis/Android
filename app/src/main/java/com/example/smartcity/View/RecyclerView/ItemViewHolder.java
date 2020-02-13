@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.GlideApp;
 
 
 import butterknife.BindView;
@@ -54,11 +55,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             requestOptions.placeholder(R.drawable.ic_add);
             requestOptions.error(R.drawable.ic_check);
 
-            /*GlideApp.with(context)
+            GlideApp.with(context)
                     .load(item.getPictures().get(0).getPath())
                     .apply(requestOptions)
                     .override(100, 100)
-                    .into(image);*/
+                    .into(image);
         }
     }
 

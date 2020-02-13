@@ -22,10 +22,7 @@ public class CheckForms {
 
     public static Boolean isValidItemName(String name)
     {
-        Pattern patternName = Pattern.compile("^\\D*$");
-        Matcher matcher = patternName.matcher(name);
-
-        return !name.isEmpty() && name.length() <= 100 && matcher.find();
+        return !name.isEmpty() && name.length() <= 100;
     }
 
     public static Boolean isValidReal(String amount)

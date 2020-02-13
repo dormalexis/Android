@@ -45,12 +45,7 @@ public class ItemDetailsFragment extends Fragment {
     ImageView detailsItemImage;
     @BindView(R.id.descriptionItemText)
     TextView descriptionItemText;
-    @BindView(R.id.countImageText)
-    TextView countImageText;
-    @BindView(R.id.nextImageButton)
-    ImageButton nextImageButton;
-    @BindView(R.id.previousImageButton)
-    ImageButton previousImageButton;
+
 
 
 
@@ -75,22 +70,7 @@ public class ItemDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
         ButterKnife.bind(this,view);
 
-        previousImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeImage(true);
-            }
-        });
-        nextImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeImage(false);
-            }
-        });
-
-
         displayImage(0);
-        changeTextImage(0,itemSelected.getPictures().size());
 
         titleText.setText(itemSelected.getName());
         descriptionItemText.setText(itemSelected.getDescription());
@@ -98,40 +78,13 @@ public class ItemDetailsFragment extends Fragment {
     }
 
 
-    private void changeImage(Boolean isPrevious)
-    {
-        int nbImages = itemSelected.getPictures().size();
-        int iImage = 0;
-
-        if(isPrevious && iImage != 0)
-        {
-            iImage--;
-        }
-        if(!isPrevious && iImage < nbImages)
-        {
-            iImage++;
-        }
-        changeTextImage(iImage,nbImages);
-        displayImage(iImage);
-    }
-
-    private void changeTextImage(int iImage, int nbImage)
-    {
-        if(iImage != 0)
-        {
-            countImageText.setText((iImage + 1)  + " / " + nbImage);
-        }
-        else countImageText.setText((iImage)  + " / " + nbImage);
-
-    }
-
     private void displayImage(int iImage)
     {
         if(itemSelected.getPictures().size() > 0)
         {
             Context context = getContext();
             RequestOptions requestOptions = new RequestOptions();
-            // TODO : Modifier les drawable montrés par défaut en cas de non chargement de l'image
+
             requestOptions.placeholder(R.drawable.ic_add);
             requestOptions.error(R.drawable.ic_check);
 
