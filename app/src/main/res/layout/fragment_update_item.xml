@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/updatePrice"
-        android:buttonTint="@color/orange"/>
+        android:buttonTint="@color/blue"/>
 
     <Button
         android:id="@+id/updateItem"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LocApp</string>
+    <string name="app_name">Locable</string>
     <string name="welcome">Bienvenue sur notre application !</string>
     <string name="password">Mot de passe</string>
     <string name="login">Se connecter</string>
@@ -81,8 +81,6 @@
     <string name="changeAvailibilityDescription">Changer ses disponibilités générales</string>
 
 
-
-
     <!-- Erreurs -->
     <string name="nameException">Le nom est obligatoire et doit contenir maximum 50 caractères</string>
     <string name="firstNameException">Le prénom est obligatoire et doit contenir maximum 50 caractères</string>
@@ -100,4 +98,5 @@
     <string name="imageException">Image manquante !</string>
     <string name="itemNameException">Le nom de l\'item est obligatoire et doit comporter maximum 100 caractères</string>
     <string name="errorAddItem">Erreur lors de l\'ajout de l\'item</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

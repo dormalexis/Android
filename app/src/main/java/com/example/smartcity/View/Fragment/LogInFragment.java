@@ -2,9 +2,8 @@ package com.example.smartcity.View.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartcity.DataAccess.ViewModel.ConnectionViewModel;
-import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.Preferences;
-import com.example.smartcity.View.Fragment.CheckFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -112,10 +109,12 @@ public class LogInFragment extends Fragment {
     private View.OnClickListener registerListerner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            /*
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new RegisterFragment());
             transaction.addToBackStack(new LogInFragment().getClass().getName());
             transaction.commit();
+             */
         }
     };
 

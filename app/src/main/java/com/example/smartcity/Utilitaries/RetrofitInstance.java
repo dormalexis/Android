@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
         private static Retrofit retrofit;
-        private static final String url = "https://locappapi.azurewebsites.net/api/";
+        private static final String url = "https://localhost:44329/api/";
 
         public static Retrofit getRetrofitInstance(Context context) {
 
