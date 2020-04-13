@@ -26,7 +26,7 @@ public class CategoryViewModel extends ViewModel {
         categoryDataAccess = new CategoryRepository(context);
     }
 
-    public MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories() {
-        return categoryDataAccess.getCategories();
+    public MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories(String locale) {
+        return categoryDataAccess.getCategories(locale);
     }
 }

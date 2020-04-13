@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:isScrollContainer="true"
     android:nestedScrollingEnabled="true"
+    android:theme="@style/LocableTheme"
     tools:context=".View.Fragment.ItemDetailsFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -12,19 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"/>
-
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,7 +36,9 @@
             android:background="@color/white"
             app:itemIconTint="@color/bottom_navigation_colors"
             app:itemTextColor="@color/bottom_navigation_colors"
+            app:labelVisibilityMode="labeled"
+            style="@style/bottomNavigation"
             app:menu="@menu/bottom_navigation" />
-    </FrameLayout>
 
+    </FrameLayout>
 </FrameLayout>

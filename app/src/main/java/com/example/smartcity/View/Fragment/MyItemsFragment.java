@@ -43,7 +43,8 @@ public class MyItemsFragment extends Fragment implements ItemAdapter.OnItemListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_myitems, container, false);
-        recyclerView = view.findViewById(R.id.myItemRV);  //TODO : changer avec @bind
+        recyclerView = view.findViewById(R.id.myItemRV);
+        recyclerView.setNestedScrollingEnabled(false);//TODO : changer avec @bind
         itemModel = new ItemViewModel(getContext());
 
         itemModel.getMyItems().observe(this, items -> {

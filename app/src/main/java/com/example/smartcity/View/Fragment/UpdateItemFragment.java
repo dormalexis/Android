@@ -69,7 +69,7 @@ public class UpdateItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         itemModel = new ItemViewModel(getContext());
         categoryModel = new CategoryViewModel(getContext());
-        categoryModel.getCategories().observe(this,categories -> {
+        categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this,categories -> {
             if(categories.isErrorDetected())
             {
                 Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG);
@@ -82,7 +82,7 @@ public class UpdateItemFragment extends Fragment {
                 for (int i = 0; i < categoriesList.getCount(); i++) {
                     ItemCategory categorySelect= (ItemCategory)categoriesList.getItemAtPosition(i);
 
-                    if (categorySelect.getCategoryId().equals(itemSelected.getItemCategory())) {
+                    if (categorySelect.getCategory().equals(itemSelected.getItemCategory())) {
                         categoriesList.setSelection(i);
                         break;
                     }
@@ -96,7 +96,7 @@ public class UpdateItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_update_item,container,false);
         ButterKnife.bind(this, view);
-        name.setText(itemSelected.getName());
+        name.setText(itemSelected.getTitle());
         description.setText(itemSelected.getDescription());
         isVisible.setChecked(itemSelected.getVisible());
         price.setText(itemSelected.getPricePerDay().toString());
@@ -113,7 +113,7 @@ public class UpdateItemFragment extends Fragment {
             item.setItemId(itemSelected.getItemId());
             itemModel = new ItemViewModel(getContext());
             String exceptionMessage = "";
-            try {item.setName(name.getText().toString());}
+            try {item.setTitle(name.getText().toString());}
             catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
             try {item.setDescription(description.getText().toString());}
             catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
@@ -132,7 +132,8 @@ public class UpdateItemFragment extends Fragment {
             else {
                 item.setVisible(isVisible.isChecked());
                 ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-                item.setItemCategory(itemCat.getCategoryId());
+                item.setItemCategory(itemCat.getCategory());
+                //item.setTitle();
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 

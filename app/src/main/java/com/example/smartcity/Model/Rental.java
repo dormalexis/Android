@@ -1,6 +1,4 @@
 package com.example.smartcity.Model;
-
-import com.example.smartcity.DataAccess.InternetChecking;
 import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
@@ -25,6 +23,25 @@ public class Rental {
     private Integer Renter;
     @SerializedName("item")
     private Integer item;
+    @SerializedName("comment")
+    private String comment;
+
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public Boolean getValid() {
+        return isValid;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
 
     public int getRentalId() {
         return rentalId;

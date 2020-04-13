@@ -6,22 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-
+import androidx.fragment.app.FragmentTransaction;
+import com.google.android.material.textfield.TextInputEditText;
 import com.example.smartcity.DataAccess.ViewModel.LocalityViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PersonViewModel;
-
-import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import butterknife.BindView;
@@ -31,27 +27,23 @@ import butterknife.ButterKnife;
 public class RegisterFragment extends Fragment {
 
     @BindView(R.id.firstNameInput)
-    EditText firstName;
+    TextInputLayout firstName;
     @BindView(R.id.lastNameInput)
-    EditText lastName;
+    TextInputLayout lastName;
     @BindView(R.id.mailInput)
-    EditText mail;
+    TextInputLayout mail;
     @BindView(R.id.phoneInput)
-    EditText phone;
+    TextInputLayout phone;
     @BindView(R.id.streetInput)
-    EditText street;
+    TextInputLayout street;
     @BindView(R.id.passwordInput)
-    EditText password;
+    TextInputLayout password;
     @BindView(R.id.registerButton)
     Button register;
     @BindView(R.id.spinnerLocalities)
     SearchableSpinner spinnerLocalities;
-    @BindView(R.id.streetNumberInput)
-    EditText streetNumber;
     @BindView(R.id.box)
-    EditText box;
-    @BindView(R.id.availibilityDescriptionInput)
-    EditText availibilityDescription;
+    TextInputLayout box;
 
     LocalityViewModel localityViewModel;
 
@@ -87,57 +79,85 @@ public class RegisterFragment extends Fragment {
         public void onClick(View v) {
             Person person = new Person(getContext());
             PersonViewModel personViewModel = new PersonViewModel(getContext());
-            String exceptionMessage = "";
+            Integer nbErrors = 0;
 
-            try {person.setFirstName(firstName.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage() + "\n";}
+            try {
+                person.setFirstName(firstName.getEditText().getText().toString());
+                firstName.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                firstName.setError(getString(R.string.firstNameException));
+            }
 
-            try {person.setLastName(lastName.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage() + "\n";}
+            try {
+                person.setLastName(lastName.getEditText().getText().toString());
+                lastName.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                lastName.setError(getString(R.string.firstNameException));
+            }
 
-            try {person.setEmail(mail.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {
+                person.setEmail(mail.getEditText().getText().toString());
+                mail.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                mail.setError(getString(R.string.emailException));
+            }
 
-            try {person.setPhoneNumber(phone.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {
+                person.setPhoneNumber(phone.getEditText().getText().toString());
+                phone.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                phone.setError(getString(R.string.phoneNumberException));
+            }
 
-            try {person.setStreetNumber(streetNumber.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try{
+                person.setBox(box.getEditText().getText().toString());
+                box.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                box.setError(getString(R.string.boxException));
+            }
 
-            try{person.setBox(box.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {
+                person.setPassword(password.getEditText().getText().toString());
+                password.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                password.setError(getString(R.string.passwordException));
+            }
 
-            try {person.setPassword(password.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
-
-            try {person.setStreet(street.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
-
-            try{person.setAvailabilityDescription(availibilityDescription.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {
+                person.setStreet(street.getEditText().getText().toString());
+                street.setError(null);
+            }
+            catch (Exception e) {
+                nbErrors++;
+                street.setError(getString(R.string.streetNameException));
+            }
 
             person.setLocality(((Locality) spinnerLocalities.getSelectedItem()).getLocalityId());
-            person.setRole(3);
-            person.setBlocked(false);
 
-            if(exceptionMessage == "") {
+
+            if(nbErrors == 0) {
                 personViewModel.postPerson(person).observe(getViewLifecycleOwner(), personPost -> {
                     if (personPost.isErrorDetected()) {
                         Toast.makeText(getContext(), personPost.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getContext(), R.string.PostPersonOk, Toast.LENGTH_LONG).show();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, new LogInFragment());
+                        transaction.commit();
                     }
                 });
             }
-
-            else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setCancelable(true);
-                builder.setTitle(R.string.errorRegisterFormTitle);
-                builder.setMessage(exceptionMessage);
-                builder.create().show();
-            }
-
         }
     };
 

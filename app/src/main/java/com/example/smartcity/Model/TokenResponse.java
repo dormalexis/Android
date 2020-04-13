@@ -1,22 +1,24 @@
 package com.example.smartcity.Model;
 
+import java.util.Date;
+
 public class TokenResponse {
-    private String access_token;
-    private Integer expires_in;
+    private String accessToken;
+    private Date expirationDate;
 
-    public Integer getExpires_in() {
-        return expires_in;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public void setExpires_in(Integer expires_in) {
-        this.expires_in = expires_in;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

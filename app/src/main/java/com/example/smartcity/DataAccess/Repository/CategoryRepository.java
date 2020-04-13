@@ -34,17 +34,19 @@ public class CategoryRepository implements CategoryDataAccess
         this.internetChecking = new InternetChecking(context);
     }
 
-    public MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories() {
+    public MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories(String locale) {
 
         // Pour optimiser le réseau, comme les catégories ne vont pas souvent varier,
         // on va garder la liste des catégories telle quelle durant toute la durée de l'
         // application
+        locale = locale.substring(0,2);
+
         if(!internetChecking.isNetworkAvailable()) {
             categoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
             return categoryLive;
         }
             CategoryService service = RetrofitInstance.getRetrofitInstance(context).create(CategoryService.class);
-            Call<List<ItemCategory>> call = service.getCategory();
+            Call<List<ItemCategory>> call = service.getCategory(locale);
             call.enqueue(new Callback<List<ItemCategory>>() {
                 @Override
                 public void onResponse(Call<List<ItemCategory>> call, Response<List<ItemCategory>> response) {

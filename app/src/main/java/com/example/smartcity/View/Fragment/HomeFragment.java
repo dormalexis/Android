@@ -1,5 +1,6 @@
 package com.example.smartcity.View.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,15 +20,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
+import com.example.smartcity.DataAccess.ViewModel.FavoriteViewModel;
 import com.example.smartcity.DataAccess.ViewModel.PictureViewModel;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.Picture;
+import com.example.smartcity.View.MapsActivity;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.View.RecyclerView.ItemViewHolder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Console;
 import java.util.ArrayList;
@@ -45,12 +49,9 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     private CategoryViewModel categoryModel;
     private List<Item> itemList;
 
-    @BindView(R.id.categorySorter)
-    Spinner categorySorter;
-    @BindView(R.id.searchByCategory)
-    Button searchByCategory;
-    @BindView(R.id.displayAllItems)
-    Button displayAllItemsButton;
+    @BindView(R.id.map_button)
+    FloatingActionButton mapButton;
+
     @BindView(R.id.homeRV)
     RecyclerView recyclerView;
 
@@ -60,18 +61,6 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     {
         super.onCreate(savedInstance);
         adapter = new ItemAdapter(this);
-        categoryModel = new CategoryViewModel(getContext());
-        categoryModel.getCategories().observe(this,categories -> {
-            if(categories.isErrorDetected())
-            {
-                Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                categorySorter.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories.getObject()));
-            }
-
-        });
         itemModel = new ItemViewModel(getContext());
     }
 
@@ -82,10 +71,30 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         ButterKnife.bind(this, view);
-        searchByCategory.setOnClickListener(searchByCategoryListener);
-        displayAllItemsButton.setOnClickListener(displayAllItemsListener);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), MapsActivity.class));
+            }
+        });
 
-        displayAllItems();
+        recyclerView.removeAllViews();
+        itemModel.getItems().observe(this,items -> {
+            if(items.isErrorDetected())
+            {
+                Toast.makeText(getContext(),items.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                adapter.setItems(items.getObject());
+                itemList = items.getObject();
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                if(items.getObject()== null)
+                {
+                    Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         return view;
     }
@@ -99,60 +108,4 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         transaction.commit();
     }
 
-    private View.OnClickListener searchByCategoryListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ItemCategory itemCat = (ItemCategory) categorySorter.getSelectedItem();
-
-            recyclerView.removeAllViews();
-
-            itemModel.getItemsByCategory(itemCat.getCategoryId()).observe(getViewLifecycleOwner(), items -> {
-                if(items.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),items.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    adapter.setItems(items.getObject());
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    if(items.getObject()==null)
-                    {
-                        Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }
-    };
-
-    private View.OnClickListener displayAllItemsListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            displayAllItems();
-        }
-    };
-
-    private void displayAllItems()
-    {
-        recyclerView.removeAllViews();
-
-
-        itemModel.getItems().observe(this,items -> {
-            if(items.isErrorDetected())
-            {
-                Toast.makeText(getContext(),items.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                adapter.setItems(items.getObject());
-                itemList = items.getObject();
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                if(items.getObject()==null)
-                {
-                    Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
 }

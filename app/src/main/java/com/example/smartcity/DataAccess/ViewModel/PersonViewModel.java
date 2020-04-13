@@ -1,9 +1,7 @@
 package com.example.smartcity.DataAccess.ViewModel;
 
 import android.content.Context;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.smartcity.DataAccess.Repository.PersonDataAccess;
 import com.example.smartcity.DataAccess.Repository.PersonRepository;
 import com.example.smartcity.Model.ApiResponse;

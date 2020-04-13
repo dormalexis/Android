@@ -1,6 +1,5 @@
 package com.example.smartcity.Model;
-
-import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.example.smartcity.Exception.DescriptionException;
 import com.example.smartcity.Exception.ItemNameException;
@@ -8,7 +7,10 @@ import com.example.smartcity.Exception.NotAReal;
 import com.example.smartcity.Utilitaries.CheckForms;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item {
 
@@ -16,8 +18,8 @@ public class Item {
     private Integer itemId;
     @SerializedName("isVisible")
     private Boolean isVisible;
-    @SerializedName("name")
-    private String name;
+    @SerializedName("title")
+    private String title;
     @SerializedName("description")
     private String description;
     @SerializedName("pricePerDay")
@@ -32,20 +34,63 @@ public class Item {
     private Float nbStars;
     @SerializedName("nbAvis")
     private int nbAvis;
-
+    @SerializedName("ownerName")
+    private String ownerName;
+    @SerializedName("ownerFirstName")
+    private String ownerFirstName;
+    @SerializedName("isFavorite")
+    private Boolean isFavorite;
+    @SerializedName("rental")
+    private List<Rental> rentals;
 
 
     public Item(){}
 
-    public Item(Integer itemId, Boolean isVisible, String name, String description, Double pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures) {
-        this.itemId = itemId;
-        this.isVisible = isVisible;
-        this.name = name;
-        this.description = description;
+    public Item(Integer itemId, Boolean isVisible, String title, String description, String pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures, ArrayList<byte[]> picture) throws ItemNameException, DescriptionException, NotAReal {
+        setItemId(itemId);
+        setVisible(isVisible);
+        setTitle(title);
+        setDescription(description);
+        setPricePerDay(pricePerDay);
+        setOwner(owner);
+        setItemCategory(itemCategory);
+        setPictures(pictures);
+    }
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public String getOwnerFirstName() {
+        return ownerFirstName;
+    }
+
+    public void setOwnerFirstName(String ownerFirstName) {
+        this.ownerFirstName = ownerFirstName;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setPricePerDay(Double pricePerDay) {
         this.pricePerDay = pricePerDay;
-        this.owner = owner;
-        this.itemCategory = itemCategory;
-        this.pictures = pictures;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public int getNbAvis() {
@@ -80,13 +125,13 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) throws ItemNameException{
-        if(!CheckForms.isValidItemName(name)) throw new ItemNameException();
-        this.name = name;
+    public void setTitle(String title) throws ItemNameException{
+        if(!CheckForms.isValidItemName(title)) throw new ItemNameException();
+        this.title = title;
     }
 
     public ArrayList<Picture> getPictures() {

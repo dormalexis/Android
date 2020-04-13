@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginBottom="5dp">
 
     <Spinner
         android:id="@+id/categorySpinner"
@@ -17,43 +21,66 @@
         android:layout_marginBottom="10dp"
         style="@style/spinner"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addItemName"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/categorySpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:hint="@string/title"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:layout_below="@+id/categorySpinner"
+        android:layout_marginTop="15dp"
+        app:startIconDrawable="@drawable/ic_delete_24px"
+        app:endIconMode="clear_text"
+        app:boxStrokeColor="@color/blue"
+        app:boxStrokeWidth="1dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addItemDescription"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/addItem"
+        android:inputType="text"
         android:layout_below="@+id/addItemName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:hint="@string/description"
-        android:inputType="text"/>
+        android:layout_marginTop="15dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+        <com.google.android.material.textfield.TextInputEditText
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addItemPrice"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addItemDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
         android:hint="@string/dailyPrice"
-        android:inputType="text"/>
-    
+        android:inputType="text"
+        android:layout_below="@+id/addItemDescription"
+        android:layout_marginTop="15dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <ImageView
         android:id="@+id/picture"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_height="100dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/addItemPrice"/>
 
     <Button
@@ -64,12 +91,13 @@
         android:layout_below="@+id/picture"
         android:layout_marginTop="10dp"
         android:text="@string/addPicture"
+        android:inputType=""
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/addItemConfirmation"
         style="@style/button"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addPicture"
         android:layout_marginTop="10dp"

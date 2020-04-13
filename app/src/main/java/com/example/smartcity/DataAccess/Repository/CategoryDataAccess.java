@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CategoryDataAccess {
 
-    MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories();
+    MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories(String locale);
 }

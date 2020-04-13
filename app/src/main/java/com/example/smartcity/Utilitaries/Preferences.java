@@ -3,8 +3,6 @@ package com.example.smartcity.Utilitaries;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.smartcity.MainActivity;
-
 public class Preferences
 {
 

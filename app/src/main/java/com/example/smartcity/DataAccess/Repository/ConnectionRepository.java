@@ -47,7 +47,7 @@ public class ConnectionRepository implements ConnectionDataAccess {
                 if(response.isSuccessful())
                 {
                     tokenLive.setValue(new ApiResponse<>(response.body()));
-                    Preferences.saveToken(response.body().getAccess_token(),context);
+                    Preferences.saveToken(response.body().getAccessToken(),context);
                 }
                 else
                 {

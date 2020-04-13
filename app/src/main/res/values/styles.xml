@@ -1,24 +1,23 @@
 <resources>
 
-    <!-- Base application theme. -->
-
-
-    <style name="LocableTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="LocableTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="android:spinnerStyle">@style/spinner</item>
         <item name="ratingBarStyle">@style/ratingBar</item>
+        <item name="android:button">@style/button</item>
+
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/lightgrey</item>
+        <item name="colorError">@color/red</item>
+
     </style>
 
-    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="bottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextColor">@color/anthracite</item>
     </style>
 
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="button" parent="@android:style/Widget.Button">
+    <style name="button" parent="Widget.MaterialComponents.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:textColor">#FFFFFFFF</item>
         <item name="android:shadowColor">#FF000000</item>
@@ -27,7 +26,7 @@
         <item name="android:shadowRadius">0.2</item>
         <item name="android:textSize">16dip</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">@color/cardview_dark_background</item>
+        <item name="android:colorBackground">@color/blue</item>
     </style>
 
     <style name="spinner" parent="@android:style/Widget.Spinner">
@@ -37,19 +36,17 @@
         <item name="android:showDividers">none</item>
         <item name="android:dividerHeight">0dp</item>
         <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
-        <item name="android:dropDownSelector">@android:color/holo_blue_bright</item>
+        <item name="android:dropDownSelector">@color/blue</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">#FFFFFFFF</item>
     </style>
 
     <style name="ratingBar" parent="android:style/Widget.Material.RatingBar.Small">
-        <item name="android:progressTint">@color/blue</item>
+        <item name="android:progressTint">@color/yellow</item>
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@fonts/QualyBold.ttf</item>
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/anthracite</item>
     </style>
 
 

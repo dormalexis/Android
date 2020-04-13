@@ -1,7 +1,4 @@
 package com.example.smartcity.Utilitaries;
-
-import com.example.smartcity.Model.ApiResponse;
-
 public class ApiCodeTrad {
 
 

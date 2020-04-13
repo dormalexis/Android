@@ -45,10 +45,12 @@ public class PersonRepository implements PersonDataAccess {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful())
                 {
+
                     personneLive.setValue(new ApiResponse());
                 }
                 else
                 {
+                    Log.i("Alexis", "" + response.code());
                     personneLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
                 }
             }

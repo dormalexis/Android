@@ -1,30 +1,29 @@
 <resources>
     <string name="app_name">Locable</string>
-    <string name="welcome">Bienvenue sur notre application !</string>
-    <string name="password">Mot de passe</string>
-    <string name="login">Se connecter</string>
-    <string name="register">S\'inscrire</string>
+    <string name="app_subtitle">Location entre particuliers</string>
     <string name="myAccount">Mon compte</string>
-    <string name="mail">Adresse mail</string>
+    <string name="myItems">Mes annonces</string>
+    <string name="settings">Paramètres</string>
+    <string name="addItem">Ajouter une annonce</string>
+
+
+    <string name="comments">Commentaires</string>
+
+    <string name="register">S\'inscrire</string>
+    <string name="login">Se connecter</string>
+    <string name="connection">Connexion</string>
+    <string name="logout">Se déconnecter</string>
+
     <string name="name">Nom</string>
     <string name="firstName">Prénom</string>
-    <string name="lastName">Nom de famille</string>
-    <string name="contactInformation">Informations de contact</string>
+    <string name="mail">Adresse mail</string>
+    <string name="password">Mot de passe</string>
     <string name="street">Nom de rue</string>
-    <string name="streetNumber">Numéro de rue</string>
     <string name="box">Boite</string>
-    <string name="availibility">Vos disponibilités</string>
     <string name="city">Ville</string>
     <string name="zipCode">Code postal</string>
     <string name="phone">Numéro de téléphone</string>
-    <string name="home">Accueil</string>
-    <string name="connection">Connexion</string>
-    <string name="settings">Paramètres</string>
-    <string name="myItems">Mes annonces</string>
-    <string name="addItem">Ajouter une annonce</string>
-    <string name="myCheck">Mes validations</string>
-    <string name="information">Informations</string>
-    <string name="myItemsTitle">Les annonces</string>
+
     <string name="description">Description</string>
     <string name="title">Titre</string>
     <string name="dailyPrice">Prix journalier</string>
@@ -35,7 +34,6 @@
     <string name="sectionDateFrom">Date de départ</string>
     <string name="sectionDateTo">Date de fin</string>
     <string name="bookItemButton">Demander une réservation</string>
-    <string name="rateNumber">Basé sur</string>
     <string name="myitems">Mes annonces</string>
     <string name="titleSpinnerLocalities">Sélectionner une localité</string>
     <string name="validate">Valider</string>
@@ -61,25 +59,29 @@
     <string name="UpdateItemOk">L\'item a bien été mis à jour</string>
     <string name="DeleteItemOk">L\'item a bien été supprimé</string>
     <string name="PostPersonOk">Votre compte a bien été crée</string>
-    <string name="ImagePostOk">Votre image a bien été publiée</string>
     <string name="loginFail">Votre login/mdp n\'est pas valide.</string>
     <string name="confirmRental">Réservation confirmée !</string>
     <string name="postItemOk">Objet ajouté !</string>
     <string name="empty">Liste vide!</string>
 
 
-    <!-- Pour l'accessibilité des personnes aveugles/sourdes -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="update">Appliquer les changements</string>
     <string name="isVisible">Est visible</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="connectAs">Connecté en tant que</string>
-    <string name="mySettingsTitle">Mes paramètres</string>
     <string name="changeInfos">Changer les informations personnelles</string>
     <string name="changeAvailibilityDescription">Changer ses disponibilités générales</string>
 
+    <!-- Profile -->
+
+    <string name="rentalsRenter">Mes locations</string>
+    <string name="rentalsOwner">Mes mises en locations</string>
+    <string name="profilsInfos">Mes informations personnelles</string>
+
+    <!-- Menu -->
+
+    <string name="registered">Enregistré</string>
+    <string name="messages">Messages</string>
+    <string name="home">Accueil</string>
+    <string name="profile">Profil</string>
 
     <!-- Erreurs -->
     <string name="nameException">Le nom est obligatoire et doit contenir maximum 50 caractères</string>
@@ -99,4 +101,5 @@
     <string name="itemNameException">Le nom de l\'item est obligatoire et doit comporter maximum 100 caractères</string>
     <string name="errorAddItem">Erreur lors de l\'ajout de l\'item</string>
     <string name="title_activity_maps">Map</string>
+
 </resources>

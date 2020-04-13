@@ -8,8 +8,8 @@ public class Locality {
     private Integer localityId;
     @SerializedName("zipCode")
     private Integer zipCode;
-    @SerializedName("cityName")
-    private String cityName;
+    @SerializedName("name")
+    private String name;
 
     public Integer getLocalityId() {
         return localityId;
@@ -27,17 +27,17 @@ public class Locality {
         this.zipCode = zipCode;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getName() {
+        return name;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString()
     {
-        return zipCode + " - " + cityName;
+        return zipCode + " - " + name;
     }
 }

@@ -11,39 +11,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.smartcity.DataAccess.ViewModel.ConnectionViewModel;
+import com.example.smartcity.MainActivity;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
-import com.example.smartcity.Utilitaries.Preferences;
-
+import com.google.android.material.textfield.TextInputLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LogInFragment extends Fragment {
 
-    @BindView(R.id.welcomeText)
+    @BindView(R.id.loginFormTitle)
     TextView welcomeText;
 
     @BindView(R.id.mailInput)
-    EditText mailInput;
+    TextInputLayout mailInput;
 
     @BindView(R.id.passwordInput)
-    EditText passwordInput;
+    TextInputLayout passwordInput;
 
     @BindView(R.id.logInButton)
     Button logingButton;
 
-    @BindView(R.id.registerButton)
-    Button registerButton;
-
-    @BindView(R.id.signOutButton)
-    Button signOutButton;
 
 
     @Nullable
@@ -52,8 +44,6 @@ public class LogInFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login,container,false);
         ButterKnife.bind(this, v);
         logingButton.setOnClickListener(loginListener);
-        registerButton.setOnClickListener(registerListerner);
-        signOutButton.setOnClickListener(signOutListener);
         return v;
     }
 
@@ -68,9 +58,8 @@ public class LogInFragment extends Fragment {
         public void onClick(View v) {
             LoginModel loginModel = new LoginModel();
             ConnectionViewModel connectionViewModel = new ConnectionViewModel(getContext());
-            loginModel.setEmail(mailInput.getText().toString());
-            loginModel.setPassword(passwordInput.getText().toString());
-
+            loginModel.setEmail(mailInput.getEditText().getText().toString());
+            loginModel.setPassword(passwordInput.getEditText().getText().toString());
 
             connectionViewModel.getToken(loginModel,getContext()).observe(getViewLifecycleOwner(),token->{
                 if(token.isErrorDetected())
@@ -79,51 +68,12 @@ public class LogInFragment extends Fragment {
                 }
                 else
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setCancelable(true);
-                    builder.setTitle(R.string.loginSucceed);
-                    builder.setMessage(R.string.loginSucceed);
-                    builder.setPositiveButton("Voir les annonces",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.fragment_container, new HomeFragment());
-                                    transaction.addToBackStack(new MyItemsFragment().getClass().getName());
-                                    transaction.commit();
-                                }
-                            });
-                            builder.setNegativeButton("", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    startActivity(new Intent(getContext(), MainActivity.class));
                 }
             });
 
         }
     };
 
-    private View.OnClickListener registerListerner = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            /*
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new RegisterFragment());
-            transaction.addToBackStack(new LogInFragment().getClass().getName());
-            transaction.commit();
-             */
-        }
-    };
-
-    private View.OnClickListener signOutListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Preferences.signOutToken(getContext());
-            Toast.makeText(getContext(),R.string.signOutToast,Toast.LENGTH_LONG).show();
-        }
-    };
 
 }

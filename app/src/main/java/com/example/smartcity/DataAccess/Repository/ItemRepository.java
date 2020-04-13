@@ -1,23 +1,16 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
-import android.icu.text.MessagePattern;
 import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
-import com.cloudinary.Api;
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
-import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Utilitaries.ApiCodeTrad;
 import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,10 +44,6 @@ public class ItemRepository implements ItemDataAccess
     @Override
     public MutableLiveData<ApiResponse<List<Item>>> getItems() {
 
-        if(!internetChecking.isNetworkAvailable()) {
-            itemsLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
-            return itemsLive;
-        }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
         Call<List<Item>> call = service.getItems();
         call.enqueue(new Callback<List<Item>>() {
@@ -93,6 +82,7 @@ public class ItemRepository implements ItemDataAccess
                 if (response.isSuccessful()) {
                     itemPost.setValue(new ApiResponse<>(response.body()));
                 } else {
+                    Log.i("test", "" + response.code());
                     itemPost.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
                 }
             }

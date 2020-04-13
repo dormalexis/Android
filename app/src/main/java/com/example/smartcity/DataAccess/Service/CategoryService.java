@@ -6,11 +6,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface CategoryService {
 
-    @GET("ItemCategory")
-    Call<List<ItemCategory>> getCategory();
-
+    @GET("ItemCategory/translate/{locale}")
+    Call<List<ItemCategory>> getCategory(@Path("locale") String locale);
 
 }

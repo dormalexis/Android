@@ -1,8 +1,10 @@
+
 package com.example.smartcity.View.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -40,9 +42,11 @@ import com.example.smartcity.Model.Picture;
 import com.example.smartcity.R;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class AddItemFragment extends Fragment {
@@ -50,11 +54,11 @@ public class AddItemFragment extends Fragment {
     @BindView(R.id.categorySpinner)
     Spinner categoriesList;
     @BindView(R.id.addItemName)
-    EditText name;
+    TextInputLayout name;
     @BindView(R.id.addItemDescription)
-    EditText description;
+    TextInputLayout description;
     @BindView(R.id.addItemPrice)
-    EditText price;
+    TextInputLayout price;
     @BindView(R.id.addItemConfirmation)
     Button confirmation;
     @BindView(R.id.addPicture)
@@ -72,7 +76,7 @@ public class AddItemFragment extends Fragment {
     {
         super.onCreate(savedInstance);
         categoryModel = new CategoryViewModel(getContext());
-        categoryModel.getCategories().observe(this,categories -> {
+        categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this,categories -> {
             if(categories.isErrorDetected())
             {
                 Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
@@ -94,6 +98,7 @@ public class AddItemFragment extends Fragment {
         addPicture.setOnClickListener(gallery);
         return view;
     }
+
     /*
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -103,11 +108,9 @@ public class AddItemFragment extends Fragment {
         outState.putString("description",name.getText().toString());
         outState.putString("price",price.getText().toString());
     }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         if(savedInstanceState != null)
         {
             categoriesList.setSelection(savedInstanceState.getInt("sprinnerCategory"));
@@ -115,7 +118,8 @@ public class AddItemFragment extends Fragment {
             description.setText(savedInstanceState.getString("description"));
             price.setText(savedInstanceState.getString("price"));
         }
-    }*/
+    }
+     */
 
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
@@ -127,19 +131,19 @@ public class AddItemFragment extends Fragment {
             String exceptionMessage = "";
 
             try {
-                item.setName(name.getText().toString());
+                item.setTitle(name.getEditText().getText().toString());
             } catch (Exception e) {
                 exceptionMessage += e.getMessage() + "\n";
             }
 
             try {
-                item.setPricePerDay(price.getText().toString());
+                item.setPricePerDay(price.getEditText().getText().toString());
             } catch (Exception e) {
                 exceptionMessage += e.getMessage() + "\n";
             }
 
             try {
-                item.setDescription(description.getText().toString());
+                item.setDescription(description.getEditText().getText().toString());
             } catch (Exception e) {
                 exceptionMessage += e.getMessage() + "\n";
             }
@@ -159,51 +163,17 @@ public class AddItemFragment extends Fragment {
             else {
                 item.setVisible(true);
                 ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
-                item.setItemCategory(itemCat.getCategoryId());
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-                Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "locapp",
-                        "api_key", "731592778186861",
-                        "api_secret", "tW7qsDmldy7IP-aLhxj6XWLnh-A"));
-
-
-                Thread threadCloudinary = new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            Map uploadResult = cloudinary.uploader().upload(byteArray,
-                                    ObjectUtils.asMap("folder", "Locapp/"));
-                            String idCloudinary = (String) uploadResult.get("public_id");
-                            picture.setPath("https://res.cloudinary.com/locapp/image/upload/v1576324417/" + idCloudinary);
-                        } catch (IOException e) {
-                            // TODO : Gérer l'exception
-                        }
+                item.setItemCategory(itemCat.getCategory());
+                //item.setPicture(photo);
+                itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
+                    if (item1.isErrorDetected()) {
+                        Toast.makeText(getContext(), item1.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), R.string.postItemOk, Toast.LENGTH_LONG).show();
                     }
                 });
 
-                threadCloudinary.start();
-                try {
-                    threadCloudinary.join();
-                    itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
-                        if (item1.isErrorDetected()) {
-                            Toast.makeText(getContext(), item1.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
-                        } else {
-                            picture.setItem(item1.getObject().getItemId());
-                            pictureModel.postPicture(picture).observe(getViewLifecycleOwner(), picturePost -> {
-                                if (picturePost.isErrorDetected()) {
-                                    Toast.makeText(getContext(), picturePost.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getContext(), R.string.postItemOk, Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-
-                    });
-                } catch (Exception e) {
-                    //TODO : gérer exeception
-                }
             }
         }
 
@@ -233,7 +203,4 @@ public class AddItemFragment extends Fragment {
             }
         }
     }
-
-
-
 }

@@ -3,6 +3,10 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="anthracite">#303030</color>
-    <color name="blue">#00BCFF</color>
+    <color name="blue">#009DFF</color>
     <color name="orange">#FBAA3E</color>
+    <color name="red">#FF5252</color>
+    <color name="lightblue">#77C9FD</color>
+    <color name="lightgrey">#F7F7F7</color>
+    <color name="yellow">#FFBD00</color>
 </resources>

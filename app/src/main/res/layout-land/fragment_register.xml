@@ -34,16 +34,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
                 android:inputType="textPersonName"
-                android:hint="@string/lastName"/>
-
-            <EditText
-                android:id="@+id/streetNumberInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:hint="@string/streetNumber"
-                android:inputType="textPersonName" />
+                android:hint="@string/name"/>
 
 
             <EditText
@@ -119,17 +110,6 @@
                 android:layout_marginVertical="10dp"
                 android:text="@string/register"/>
 
-
-            <EditText
-                android:id="@+id/availibilityDescriptionInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:minLines="6"
-                android:lines="8"
-                android:hint="@string/availibility"
-                android:inputType="textPersonName" />
 
         </LinearLayout>
     </ScrollView>
