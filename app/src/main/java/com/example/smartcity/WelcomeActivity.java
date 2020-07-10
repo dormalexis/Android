@@ -1,21 +1,12 @@
 package com.example.smartcity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartcity.Utilitaries.Preferences;
-import com.example.smartcity.View.Fragment.HomeFragment;
-import com.example.smartcity.View.Fragment.LogInFragment;
-import com.example.smartcity.View.Fragment.RegisterFragment;
 import com.example.smartcity.View.Fragment.WelcomeFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.example.smartcity.Utilitaries.App.getContext;
 
@@ -25,8 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(!Preferences.getToken(getContext()).equals(""))
-        {
+        if (!Preferences.getToken(getContext()).equals("")) {
             startActivity(new Intent(getContext(), MainActivity.class));
         }
 
@@ -35,12 +25,10 @@ public class WelcomeActivity extends AppCompatActivity {
         // on verra les champs de l'activity welcome durant quelques millisecondes
         else {
             setContentView(R.layout.activity_welcome);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new WelcomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WelcomeFragment()).commit();
         }
 
     }
-
-
 
 
 }

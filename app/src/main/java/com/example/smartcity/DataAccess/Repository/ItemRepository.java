@@ -7,9 +7,11 @@ import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
-import com.example.smartcity.Utilitaries.ApiCodeTrad;
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
+import com.example.smartcity.Model.PagingResult;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
+import com.example.smartcity.Utilitaries.StatusCode;
+
+import java.io.Console;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +19,7 @@ import retrofit2.Response;
 
 public class ItemRepository implements ItemDataAccess
 {
-    private MutableLiveData<ApiResponse<List<Item>>> itemsLive;
+    private MutableLiveData<ApiResponse<PagingResult<Item>>> itemsLive;
     private MutableLiveData<ApiResponse<List<Item>>> myItems;
     private MutableLiveData<ApiResponse<Item>> itemPost;
     private MutableLiveData<ApiResponse<List<Item>>> itemsCategoryLive;
@@ -33,7 +35,7 @@ public class ItemRepository implements ItemDataAccess
         this.itemsLive = new MutableLiveData<>();
         this.myItems = new MutableLiveData<>();
         this.itemPost = new MutableLiveData<>();
-        this.internetChecking = new InternetChecking(context);
+        this.internetChecking = new InternetChecking();
         this.itemPost = new MutableLiveData<>();
         this.context = context;
         this.itemsCategoryLive = new MutableLiveData<>();
@@ -42,27 +44,26 @@ public class ItemRepository implements ItemDataAccess
     }
 
     @Override
-    public MutableLiveData<ApiResponse<List<Item>>> getItems() {
+    public MutableLiveData<ApiResponse<PagingResult<Item>>> getItems() {
 
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<List<Item>> call = service.getItems();
-        call.enqueue(new Callback<List<Item>>() {
+        Call<PagingResult<Item>> call = service.getItems();
+        call.enqueue(new Callback<PagingResult<Item>>() {
             @Override
-            public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+            public void onResponse(Call<PagingResult<Item>> call, Response<PagingResult<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    itemsLive.setValue(new ApiResponse<>(response.body()));
+                    itemsLive.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    itemsLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    itemsLive.setValue(new ApiResponse(response.code()));
                 }
-
             }
 
             @Override
-            public void onFailure(Call<List<Item>> call, Throwable t) {
-                itemsLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+            public void onFailure(Call<PagingResult<Item>> call, Throwable t) {
+                itemsLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return itemsLive;
@@ -70,7 +71,7 @@ public class ItemRepository implements ItemDataAccess
 
     public MutableLiveData<ApiResponse<Item>> postItem(Item item) {
         if(!internetChecking.isNetworkAvailable()) {
-            itemPost.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            itemPost.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return itemPost;
         }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
@@ -80,16 +81,16 @@ public class ItemRepository implements ItemDataAccess
             @Override
             public void onResponse(Call<Item> call, Response<Item> response){
                 if (response.isSuccessful()) {
-                    itemPost.setValue(new ApiResponse<>(response.body()));
+                    itemPost.setValue(new ApiResponse(response.body()));
                 } else {
                     Log.i("test", "" + response.code());
-                    itemPost.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    itemPost.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<Item> call, Throwable t) {
-                itemPost.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                itemPost.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return itemPost;
@@ -98,7 +99,7 @@ public class ItemRepository implements ItemDataAccess
     public MutableLiveData<ApiResponse> deleteItem(int itemId)
     {
         if(!internetChecking.isNetworkAvailable()) {
-            deleteLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+            deleteLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return deleteLive;
         }
 
@@ -113,13 +114,13 @@ public class ItemRepository implements ItemDataAccess
                 }
                 else
                 {
-                    deleteLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    deleteLive.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                deleteLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
+                deleteLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return deleteLive;
@@ -128,7 +129,7 @@ public class ItemRepository implements ItemDataAccess
     public MutableLiveData<ApiResponse> updateItem(Item item)
     {
         if(!internetChecking.isNetworkAvailable()) {
-            updateLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+            updateLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return updateLive;
         }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
@@ -142,13 +143,13 @@ public class ItemRepository implements ItemDataAccess
                 }
                 else
                 {
-                    updateLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    updateLive.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                updateLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
+                updateLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return updateLive;
@@ -158,7 +159,7 @@ public class ItemRepository implements ItemDataAccess
     public MutableLiveData<ApiResponse<List<Item>>> getMyItems()
     {
         if(!internetChecking.isNetworkAvailable()) {
-            myItems.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            myItems.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return myItems;
         }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
@@ -168,17 +169,17 @@ public class ItemRepository implements ItemDataAccess
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    myItems.setValue(new ApiResponse<>(response.body()));
+                    myItems.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    myItems.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    myItems.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                myItems.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                myItems.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return myItems;
@@ -187,7 +188,7 @@ public class ItemRepository implements ItemDataAccess
     public MutableLiveData<ApiResponse<List<Item>>> getItemsByCategory(int categoryId)
     {
         if(!internetChecking.isNetworkAvailable()) {
-            itemsCategoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            itemsCategoryLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return itemsCategoryLive;
         }
         ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
@@ -197,17 +198,17 @@ public class ItemRepository implements ItemDataAccess
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    itemsCategoryLive.setValue(new ApiResponse<>(response.body()));
+                    itemsCategoryLive.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    itemsCategoryLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    itemsCategoryLive.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                itemsCategoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                itemsCategoryLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return itemsCategoryLive;

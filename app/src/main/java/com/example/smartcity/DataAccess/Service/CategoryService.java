@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 
 public interface CategoryService {
 
-    @GET("ItemCategory/translate/{locale}")
+    @GET("ItemCategory/{locale}")
     Call<List<ItemCategory>> getCategory(@Path("locale") String locale);
 
 }

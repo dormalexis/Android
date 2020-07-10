@@ -1,18 +1,14 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.CategoryService;
-import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.Model.ApiResponse;
-import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
-import com.example.smartcity.Utilitaries.ApiCodeTrad;
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
+import com.example.smartcity.Utilitaries.StatusCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
 import java.util.List;
@@ -31,7 +27,7 @@ public class CategoryRepository implements CategoryDataAccess
     {
         this.categoryLive = new MutableLiveData<>();
         this.context = context;
-        this.internetChecking = new InternetChecking(context);
+        this.internetChecking = new InternetChecking();
     }
 
     public MutableLiveData<ApiResponse<List<ItemCategory>>> getCategories(String locale) {
@@ -42,7 +38,7 @@ public class CategoryRepository implements CategoryDataAccess
         locale = locale.substring(0,2);
 
         if(!internetChecking.isNetworkAvailable()) {
-            categoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            categoryLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return categoryLive;
         }
             CategoryService service = RetrofitInstance.getRetrofitInstance(context).create(CategoryService.class);
@@ -52,17 +48,17 @@ public class CategoryRepository implements CategoryDataAccess
                 public void onResponse(Call<List<ItemCategory>> call, Response<List<ItemCategory>> response) {
                     if(response.isSuccessful())
                     {
-                        categoryLive.setValue(new ApiResponse<>(response.body()));
+                        categoryLive.setValue(new ApiResponse(response.body()));
                     }
                     else
                     {
-                        categoryLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                        categoryLive.setValue(new ApiResponse(response.code()));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<ItemCategory>> call, Throwable t) {
-                    categoryLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                    categoryLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
                 }
             });
         return categoryLive;

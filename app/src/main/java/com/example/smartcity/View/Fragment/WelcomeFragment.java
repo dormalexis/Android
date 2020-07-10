@@ -1,12 +1,16 @@
 package com.example.smartcity.View.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.example.smartcity.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -17,7 +21,8 @@ public class WelcomeFragment extends Fragment {
     @BindView(R.id.regisration)
     Button registration;
 
-    public WelcomeFragment() { }
+    public WelcomeFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +46,7 @@ public class WelcomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstance)
-    {
+    public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
     }
 

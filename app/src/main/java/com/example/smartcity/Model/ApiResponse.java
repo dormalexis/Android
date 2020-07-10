@@ -1,29 +1,32 @@
 package com.example.smartcity.Model;
 
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
+import android.content.Intent;
+import android.util.Log;
+
+import com.example.smartcity.Utilitaries.StatusCode;
 
 public class ApiResponse<T> {
     private T object;
     private boolean errorDetected;
-    private ApiResponseErrorCode errorCode;
+    private Integer errorCode;
 
-    public ApiResponse(T object)
-    {
-        setErrorDetected(false);
-        setObject(object);
-        setErrorCode(null);
+    public ApiResponse(T object) {
+        if(object.getClass().equals(Integer.class)) {
+            setErrorCode((Integer) object);
+            setErrorDetected(true);
+            setObject(null);
+        }
+
+        else {
+            setErrorDetected(false);
+            setObject(object);
+            setErrorCode(null);
+        }
     }
-    public ApiResponse(ApiResponseErrorCode errorCode)
-    {
-        setErrorCode(errorCode);
-        setErrorDetected(true);
-        setObject(null);
-    }
-    public ApiResponse()
-    {
+
+    public ApiResponse() {
         setErrorDetected(false);
         setErrorCode(null);
-        setObject(null);
     }
 
     public T getObject() {
@@ -42,11 +45,11 @@ public class ApiResponse<T> {
         this.errorDetected = errorDetected;
     }
 
-    public ApiResponseErrorCode getErrorCode() {
+    public int getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(ApiResponseErrorCode errorCode) {
+    public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 }

@@ -120,46 +120,27 @@
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:text="@string/comments"/>
 
-
-            <RelativeLayout
-                android:layout_below="@+id/itemDetailsComments"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentsRV"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/itemDetailsComments"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/bookButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/commentsRV"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/itemDetailsRenterIdentity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/red"/>
-
-                <RatingBar
-                    android:id="@+id/itemsDetailsRenterRating"
-                    android:layout_toEndOf="@id/itemDetailsRenterIdentity"
-                    android:layout_marginStart="20dp"
-                    style="@style/ratingBar"
-                    android:layout_width="78dp"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="10dp" />
-
-                <TextView
-                    android:id="@+id/itemDetailsComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/itemsDetailsRenterRating"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"/>
-
-            </RelativeLayout>
-
+                android:text="@string/book"
+                style="@style/Widget.MaterialComponents.Button">
+            </Button>
 
         </RelativeLayout>
-    </RelativeLayout>
 
+
+    </RelativeLayout>
 
 </ScrollView>

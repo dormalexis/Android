@@ -1,5 +1,4 @@
 package com.example.smartcity.Model;
-import android.graphics.Bitmap;
 
 import com.example.smartcity.Exception.DescriptionException;
 import com.example.smartcity.Exception.ItemNameException;
@@ -7,8 +6,6 @@ import com.example.smartcity.Exception.NotAReal;
 import com.example.smartcity.Utilitaries.CheckForms;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,11 +37,14 @@ public class Item {
     private String ownerFirstName;
     @SerializedName("isFavorite")
     private Boolean isFavorite;
+    @SerializedName("review")
+    private List<Review> reviews;
     @SerializedName("rental")
     private List<Rental> rentals;
 
 
-    public Item(){}
+    public Item() {
+    }
 
     public Item(Integer itemId, Boolean isVisible, String title, String description, String pricePerDay, Integer owner, Integer itemCategory, ArrayList<Picture> pictures, ArrayList<byte[]> picture) throws ItemNameException, DescriptionException, NotAReal {
         setItemId(itemId);
@@ -57,12 +57,22 @@ public class Item {
         setPictures(pictures);
     }
 
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
     public List<Rental> getRentals() {
         return rentals;
     }
 
-    public void setRentals(List<Rental> rentals) {
-        this.rentals = rentals;
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
     public Boolean getFavorite() {
@@ -129,8 +139,8 @@ public class Item {
         return title;
     }
 
-    public void setTitle(String title) throws ItemNameException{
-        if(!CheckForms.isValidItemName(title)) throw new ItemNameException();
+    public void setTitle(String title) throws ItemNameException {
+        if (!CheckForms.isValidItemName(title)) throw new ItemNameException();
         this.title = title;
     }
 
@@ -151,13 +161,13 @@ public class Item {
     }
 
 
-    public void setDescription(String description) throws DescriptionException{
-        if(!CheckForms.isValidDescription(description)) throw new DescriptionException();
+    public void setDescription(String description) throws DescriptionException {
+        if (!CheckForms.isValidDescription(description)) throw new DescriptionException();
         this.description = description;
     }
 
     public void setPricePerDay(String pricePerDay) throws NotAReal {
-        if(!CheckForms.isValidReal(pricePerDay)) throw new NotAReal();
+        if (!CheckForms.isValidReal(pricePerDay)) throw new NotAReal();
         this.pricePerDay = Double.valueOf(pricePerDay);
     }
 

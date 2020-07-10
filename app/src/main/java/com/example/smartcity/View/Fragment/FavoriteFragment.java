@@ -1,5 +1,5 @@
 package com.example.smartcity.View.Fragment;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +13,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.FavoriteViewModel;
-import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
-import com.example.smartcity.View.MapsActivity;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -57,7 +53,7 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
         favoriteViewModel.getFavorites().observe(this,favorites -> {
             if(favorites.isErrorDetected())
             {
-                Toast.makeText(getContext(),favorites.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), Integer.toString(favorites.getErrorCode()),Toast.LENGTH_LONG).show();
             }
             else
             {

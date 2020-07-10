@@ -1,7 +1,8 @@
 package com.example.smartcity.Model;
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Rental {
 
@@ -23,9 +24,17 @@ public class Rental {
     private Integer Renter;
     @SerializedName("item")
     private Integer item;
-    @SerializedName("comment")
-    private String comment;
 
+
+    public Rental(Date dateFrom, Date dateTo, Integer item, Double paidPrice)
+    {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.item = item;
+        this.PaidPrice = paidPrice;
+        this.isValid = false;
+        this.isPaid = false;
+    }
     public Boolean getPaid() {
         return isPaid;
     }
@@ -33,15 +42,6 @@ public class Rental {
     public Boolean getValid() {
         return isValid;
     }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
 
     public int getRentalId() {
         return rentalId;

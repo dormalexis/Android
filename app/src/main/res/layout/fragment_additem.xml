@@ -1,107 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginBottom="5dp">
+    android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        style="@style/spinner"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addItemName"
+    <Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/title"
-        android:inputType="text"
-        android:layout_below="@+id/categorySpinner"
-        android:layout_marginTop="15dp"
-        app:startIconDrawable="@drawable/ic_delete_24px"
-        app:endIconMode="clear_text"
-        app:boxStrokeColor="@color/blue"
-        app:boxStrokeWidth="1dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:background="@color/anthracite"
+        android:titleTextColor="@color/white"
+        android:title="@string/addItem"
+        android:navigationIcon="@drawable/ic_back_arrow"
+        android:elevation="5dp">
+    </Toolbar>
 
-        <com.google.android.material.textfield.TextInputEditText
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp"
+            android:layout_gravity="center_horizontal">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addItemDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/addItem"
-        android:inputType="text"
-        android:layout_below="@+id/addItemName"
-        android:layout_marginTop="15dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-
+        <Spinner
+            android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="30dp"
+            android:backgroundTint="@color/lightgrey"
+            style="@style/spinner"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addItemPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dailyPrice"
-        android:inputType="text"
-        android:layout_below="@+id/addItemDescription"
-        android:layout_marginTop="15dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addItemName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="@string/title"
+            android:inputType="text"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textShortMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/addItemPrice"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addItemDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categorySpinner"
+                android:layout_marginTop="15dp"
+                android:hint="@string/description"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
-    <Button
-        android:id="@+id/addPicture"
-        style="@style/button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/picture"
-        android:layout_marginTop="10dp"
-        android:text="@string/addPicture"
-        android:inputType=""
-        android:layout_centerHorizontal="true"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/addItemConfirmation"
-        style="@style/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addPicture"
-        android:layout_marginTop="10dp"
-        android:text="@string/publish"
-        android:layout_centerHorizontal="true"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addItemPrice"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categorySpinner"
+                android:layout_marginTop="15dp"
+                android:hint="@string/dailyPrice"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
-</RelativeLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/addPicture"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/addPicture"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/addItemConfirmation"
+            style="@style/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/publish" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

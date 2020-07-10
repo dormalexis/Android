@@ -4,9 +4,8 @@ import com.example.smartcity.DataAccess.Service.FavoriteService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Favorite;
 import com.example.smartcity.Model.Item;
-import com.example.smartcity.Utilitaries.ApiCodeTrad;
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
+import com.example.smartcity.Utilitaries.StatusCode;
 
 import java.util.List;
 
@@ -31,18 +30,18 @@ public class FavoriteRepository implements FavoriteDataAccess {
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 if(response.isSuccessful())
                 {
-                    favoritesLive.setValue(new ApiResponse<>(response.body()));
+                    favoritesLive.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    favoritesLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    favoritesLive.setValue(new ApiResponse(response.code()));
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-                favoritesLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                favoritesLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return favoritesLive;
@@ -59,18 +58,18 @@ public class FavoriteRepository implements FavoriteDataAccess {
             public void onResponse(Call<Favorite> call, Response<Favorite> response) {
                 if(response.isSuccessful())
                 {
-                    favoritePost.setValue(new ApiResponse<>(response.body()));
+                    favoritePost.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    favoritePost.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    favoritePost.setValue(new ApiResponse(response.code()));
                 }
 
             }
 
             @Override
             public void onFailure(Call<Favorite> call, Throwable t) {
-                favoritesLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                favoritesLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return favoritePost;

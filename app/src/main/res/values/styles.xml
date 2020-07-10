@@ -8,9 +8,13 @@
 
         <item name="colorPrimary">@color/red</item>
         <item name="colorSecondary">@color/white</item>
-        <item name="android:colorBackground">@color/lightgrey</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="colorError">@color/red</item>
 
+    </style>
+
+    <style name="accountNavigation" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/lightgrey</item>
     </style>
 
     <style name="bottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Fragment.OwnerRentals"
+    android:orientation="vertical">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/followingItems"
+        android:elevation="5dp"
+        android:background="@color/anthracite"
+        android:titleTextColor="@color/white"
+        android:navigationIcon="@drawable/ic_back_arrow"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/inProgress"
+                android:layout_margin="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/inProgressRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/noRentalsInProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/accountNavigation"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noRentalsInProgress"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:padding="10dp"
+                    />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/planned"
+                android:layout_margin="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/plannedRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/noRentalsPlanned"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/accountNavigation"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noRentalsPlanned"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:padding="10dp"
+                    />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/waitingForPayment"
+                android:layout_margin="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/waitingForPaymenRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/noRentalsPaid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/accountNavigation"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noRentalsPaid"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:padding="10dp"
+                    />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/waitingForValidation"
+                android:textColor="@color/red"
+                android:layout_margin="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline6"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/waitingForValidationRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/noRentalsWaitingForValidation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/accountNavigation"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noRentalsWaitingForValidation"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:padding="10dp"
+                    />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

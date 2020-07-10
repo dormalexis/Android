@@ -1,6 +1,4 @@
 package com.example.smartcity.Exception;
-
-import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.smartcity.R;

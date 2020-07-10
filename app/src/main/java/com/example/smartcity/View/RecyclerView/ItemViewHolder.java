@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    
+
     @BindView(R.id.title) TextView title;
     @BindView(R.id.price) TextView priceText;
     @BindView(R.id.ratingBar) RatingBar ratingBar;
@@ -49,7 +49,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void updateAnnonces(Item item, Context context)
     {
         this.title.setText(item.getTitle());
-        this.priceText.setText(context.getString(R.string.dailyPrice) + " - " + String.valueOf(item.getPricePerDay()) + " €");
+        this.priceText.setText(context.getString(R.string.dailyPrice) + " - " + item.getPricePerDay() + " €");
         this.ratingBar.setRating(item.getNbStars());
         this.rateNumber.setText("(" + item.getNbAvis() + ")");
         if(item.getFavorite())

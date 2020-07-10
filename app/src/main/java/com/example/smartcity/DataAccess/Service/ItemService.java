@@ -7,13 +7,14 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import com.example.smartcity.Model.Item;
+import com.example.smartcity.Model.PagingResult;
 
 import java.util.List;
 
 public interface ItemService {
 
     @GET("Item")
-    Call<List<Item>> getItems();
+    Call<PagingResult<Item>> getItems();
 
     @GET("Item/byCategory/{id}")
     Call<List<Item>> getItemsByCategory(@Path("id") int id);

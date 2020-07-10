@@ -1,20 +1,13 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.smartcity.DataAccess.InternetChecking;
-import com.example.smartcity.DataAccess.Service.ItemService;
 import com.example.smartcity.DataAccess.Service.PictureService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Picture;
-import com.example.smartcity.Utilitaries.ApiCodeTrad;
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-
-import java.util.MissingFormatArgumentException;
+import com.example.smartcity.Utilitaries.StatusCode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,13 +21,13 @@ public class PictureRepository implements PictureDataAccess {
     public PictureRepository(Context context)
     {
         this.context = context;
-        this.internetChecking = new InternetChecking(context);
+        this.internetChecking = new InternetChecking();
         this.pictureLive = new MutableLiveData<>();
     }
 
     public MutableLiveData<ApiResponse> postPicture(Picture picture) {
         if(!internetChecking.isNetworkAvailable()) {
-            pictureLive.setValue(new ApiResponse(ApiResponseErrorCode.NETWORKFAIL));
+            pictureLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
         }
         PictureService service = RetrofitInstance.getRetrofitInstance(context).create(PictureService.class);
         Call<Void> call = service.postPicture(picture);
@@ -47,13 +40,13 @@ public class PictureRepository implements PictureDataAccess {
                 }
                 else
                 {
-                    pictureLive.setValue(new ApiResponse(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    pictureLive.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                pictureLive.setValue(new ApiResponse(ApiResponseErrorCode.SERVEURERROR));
+                pictureLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return pictureLive;

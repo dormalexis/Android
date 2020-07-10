@@ -27,19 +27,19 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="50dp"
                 android:text="@string/register"
-                android:textSize="18dp"/>
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/firstName"
-                app:endIconMode="clear_text"
-                android:inputType="text"
-                app:errorEnabled="true"
                 android:layout_below="@+id/addItemName"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/firstName"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -49,15 +49,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastNameInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/firstNameInput"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/name"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -67,15 +67,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/mailInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/mail"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/lastNameInput"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/mail"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -85,15 +85,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/mailInput"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/password"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -103,15 +103,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/streetInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/street"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/passwordInput"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/street"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -122,15 +122,15 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/box"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/box"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/streetInput"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/box"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -142,21 +142,20 @@
                 android:id="@+id/spinnerLocalities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:inputType="text"
                 android:layout_below="@+id/spinnerLocalities"
                 android:layout_marginTop="15dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                android:hint="@string/phone"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -171,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
-                android:text="@string/register"/>
+                android:text="@string/register" />
 
 
         </LinearLayout>

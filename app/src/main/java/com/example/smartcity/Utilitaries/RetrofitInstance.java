@@ -4,40 +4,26 @@ import android.content.Context;
 
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-import java.net.URL;
-
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-        private static Retrofit retrofit;
-        private static final String url = "https://locappapi.azurewebsites.net/api/";
+    private static Retrofit retrofit;
+    private static final String url = "https://192.168.1.49:45456/api/";
 
-        public static Retrofit getRetrofitInstance(Context context) {
+    public static Retrofit getRetrofitInstance(Context context) {
 
-            if (retrofit == null) {
-                OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Interceptor.Chain chain) throws IOException {
-                        Request newRequest  = chain.request().newBuilder()
-                                .addHeader("Authorization", "Bearer " + Preferences.getToken(context))
-                                .build();
-                        return chain.proceed(newRequest);
-                    }
-                }).build();
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(url)
-                        .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()))
-                        .client(client)
-                        .build();
+        if (retrofit == null) {
+            OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient(context);
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(url)
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()))
+                    .client(client)
+                    .build();
 
-            }
-            return retrofit;
         }
+        return retrofit;
+    }
 }

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/anthracite"
+        android:titleTextColor="@color/white"
+        android:navigationIcon="@drawable/ic_back_arrow"
+        android:title="@string/summary"
+        android:elevation="20dp">
+    </Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/headerContainerConfirmRental"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="30dp">
+
+        <TextView
+            android:id="@+id/rentalTitle"
+            android:layout_toLeftOf="@id/image"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textAppearance="?attr/textAppearanceHeadline6">
+        </TextView>
+
+        <TextView
+            android:id="@+id/pricePerDay"
+            android:layout_below="@+id/rentalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true">
+        </TextView>
+
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:id="@+id/image"
+            android:layout_toLeftOf="@id/image"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true">
+
+        </ImageView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/headerContainerConfirmRental"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabDates"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="30dp">
+
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Début"></TextView>
+
+        <TextView
+            android:id="@+id/endText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fin"
+            android:layout_centerHorizontal="true">
+        </TextView>
+
+        <TextView
+            android:id="@+id/cautionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caution"
+            android:layout_alignParentEnd="true">
+        </TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/tabDates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/dates">
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_alignParentStart="true">
+        </TextView>
+
+        <TextView
+            android:id="@+id/endDate"
+            android:textColor="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </TextView>
+
+        <TextView
+            android:textColor="@color/red"
+            android:id="@+id/cautionAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+        </TextView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/totalPriceText"
+        android:layout_below="@+id/dates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/totalPrice"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_alignParentStart="true">
+    </TextView>
+
+    <TextView
+        android:layout_toEndOf="@+id/totalPriceText"
+        android:id="@+id/totalPrice"
+        android:layout_below="@+id/dates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/red">
+    </TextView>
+
+    <Button
+        android:id="@+id/bookButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/askForBooking"
+        style="@style/Widget.MaterialComponents.Button">
+    </Button>
+
+</RelativeLayout>

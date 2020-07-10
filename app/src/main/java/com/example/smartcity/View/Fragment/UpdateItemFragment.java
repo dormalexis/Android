@@ -1,16 +1,7 @@
 package com.example.smartcity.View.Fragment;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cloudinary.android.MediaManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
@@ -30,8 +24,6 @@ import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.R;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +51,7 @@ public class UpdateItemFragment extends Fragment {
     private ItemViewModel itemModel;
     private CategoryViewModel categoryModel;
 
-    public UpdateItemFragment(Item itemSelected)
-    {
+    public UpdateItemFragment(Item itemSelected) {
         this.itemSelected = itemSelected;
     }
 
@@ -69,18 +60,15 @@ public class UpdateItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         itemModel = new ItemViewModel(getContext());
         categoryModel = new CategoryViewModel(getContext());
-        categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this,categories -> {
-            if(categories.isErrorDetected())
-            {
-                Toast.makeText(getContext(),categories.getErrorCode().getMessage(),Toast.LENGTH_LONG);
-            }
-            else
-            {
-                ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item,categories.getObject());
+        categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this, categories -> {
+            if (categories.isErrorDetected()) {
+                Toast.makeText(getContext(), categories.getErrorCode(), Toast.LENGTH_LONG);
+            } else {
+                ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories.getObject());
                 categoriesList.setAdapter(adapter);
 
                 for (int i = 0; i < categoriesList.getCount(); i++) {
-                    ItemCategory categorySelect= (ItemCategory)categoriesList.getItemAtPosition(i);
+                    ItemCategory categorySelect = (ItemCategory) categoriesList.getItemAtPosition(i);
 
                     if (categorySelect.getCategory().equals(itemSelected.getItemCategory())) {
                         categoriesList.setSelection(i);
@@ -94,7 +82,7 @@ public class UpdateItemFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_update_item,container,false);
+        View view = inflater.inflate(R.layout.fragment_update_item, container, false);
         ButterKnife.bind(this, view);
         name.setText(itemSelected.getTitle());
         description.setText(itemSelected.getDescription());
@@ -113,23 +101,29 @@ public class UpdateItemFragment extends Fragment {
             item.setItemId(itemSelected.getItemId());
             itemModel = new ItemViewModel(getContext());
             String exceptionMessage = "";
-            try {item.setTitle(name.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
-            try {item.setDescription(description.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
-            try {item.setPricePerDay(price.getText().toString());}
-            catch (Exception e) { exceptionMessage += e.getMessage()+ "\n";}
+            try {
+                item.setTitle(name.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
+            }
+            try {
+                item.setDescription(description.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
+            }
+            try {
+                item.setPricePerDay(price.getText().toString());
+            } catch (Exception e) {
+                exceptionMessage += e.getMessage() + "\n";
+            }
 
-            if(!exceptionMessage.equals(""))
-            {
+            if (!exceptionMessage.equals("")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
                 builder.setTitle(R.string.errorRegisterFormTitle);
                 builder.setMessage(exceptionMessage);
                 builder.create().show();
-            }
-
-            else {
+            } else {
                 item.setVisible(isVisible.isChecked());
                 ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
                 item.setItemCategory(itemCat.getCategory());
@@ -139,7 +133,7 @@ public class UpdateItemFragment extends Fragment {
 
                 itemModel.updateItem(item).observe(getViewLifecycleOwner(), itemUpdate -> {
                     if (itemUpdate.isErrorDetected()) {
-                        Toast.makeText(getContext(), itemUpdate.getErrorCode().getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "" + itemUpdate.getErrorCode(), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getContext(), R.string.UpdateItemOk, Toast.LENGTH_LONG).show();
                     }
@@ -148,20 +142,17 @@ public class UpdateItemFragment extends Fragment {
         }
     };
 
-    private View.OnClickListener deleteListener = new View.OnClickListener(){
+    private View.OnClickListener deleteListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            itemModel.deleteItem(itemSelected.getItemId()).observe(getViewLifecycleOwner(),itemDelete ->{
-                if(itemDelete.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),itemDelete.getErrorCode().getMessage(),Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(),R.string.DeleteItemOk,Toast.LENGTH_LONG).show();
+            itemModel.deleteItem(itemSelected.getItemId()).observe(getViewLifecycleOwner(), itemDelete -> {
+                if (itemDelete.isErrorDetected()) {
+                    Toast.makeText(getContext(), itemDelete.getErrorCode(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), R.string.DeleteItemOk, Toast.LENGTH_LONG).show();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container,new MyItemsFragment());
+                    transaction.replace(R.id.fragment_container, new MyItemsFragment());
                     transaction.addToBackStack(new HomeFragment().getClass().getName());
                     transaction.commit();
                 }

@@ -1,19 +1,13 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.smartcity.DataAccess.InternetChecking;
-import com.example.smartcity.DataAccess.Service.CategoryService;
 import com.example.smartcity.DataAccess.Service.LocalityService;
 import com.example.smartcity.Model.ApiResponse;
-import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.Locality;
-import com.example.smartcity.Utilitaries.ApiCodeTrad;
-import com.example.smartcity.Utilitaries.ApiResponseErrorCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
+import com.example.smartcity.Utilitaries.StatusCode;
 
 import java.util.List;
 
@@ -29,14 +23,14 @@ public class LocalityRepository implements LocalityDataAccess {
     public LocalityRepository(Context context)
     {
         localityLive = new MutableLiveData<>();
-        this.internetChecking = new InternetChecking(context);
+        this.internetChecking = new InternetChecking();
         this.context = context;
     }
 
 
     public MutableLiveData<ApiResponse<List<Locality>>> getLocalities() {
         if(!internetChecking.isNetworkAvailable()) {
-            localityLive.setValue(new ApiResponse<>(ApiResponseErrorCode.NETWORKFAIL));
+            localityLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
             return localityLive;
         }
         LocalityService service = RetrofitInstance.getRetrofitInstance(context).create(LocalityService.class);
@@ -46,17 +40,17 @@ public class LocalityRepository implements LocalityDataAccess {
             public void onResponse(Call<List<Locality>> call, Response<List<Locality>> response) {
                 if(response.isSuccessful())
                 {
-                    localityLive.setValue(new ApiResponse<>(response.body()));
+                    localityLive.setValue(new ApiResponse(response.body()));
                 }
                 else
                 {
-                    localityLive.setValue(new ApiResponse<>(ApiCodeTrad.codeErrorToApiResponse(response.code())));
+                    localityLive.setValue(new ApiResponse(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Locality>> call, Throwable t) {
-                localityLive.setValue(new ApiResponse<>(ApiResponseErrorCode.SERVEURERROR));
+                localityLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
             }
         });
         return localityLive;

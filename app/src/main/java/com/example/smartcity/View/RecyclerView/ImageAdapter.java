@@ -23,7 +23,7 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((ImageView) object);
+        return view == object;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ImageAdapter extends PagerAdapter {
 
         ImageView imageView = new ImageView(getContext());
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        ((ViewPager) container).addView(imageView, 0);
+        container.addView(imageView, 0);
 
         GlideApp.with(getContext())
                 .load(itemSelected.getPictures().get(position).getPath())
@@ -46,7 +46,7 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((ImageView) object);
+        container.removeView((ImageView) object);
     }
 
     @Override

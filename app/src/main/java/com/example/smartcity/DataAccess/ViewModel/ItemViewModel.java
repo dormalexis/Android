@@ -11,6 +11,7 @@ import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.ItemResponseAPI;
+import com.example.smartcity.Model.PagingResult;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ItemViewModel extends ViewModel {
         itemRepository = new ItemRepository(context);
     }
 
-    public LiveData<ApiResponse<List<Item>>> getItems() {
+    public LiveData<ApiResponse<PagingResult<Item>>> getItems() {
         return itemRepository.getItems();
     }
     public LiveData<ApiResponse<Item>> postItem(Item item) {

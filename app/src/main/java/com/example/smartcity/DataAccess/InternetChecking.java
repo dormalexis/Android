@@ -4,16 +4,16 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 
+import static com.example.smartcity.Utilitaries.App.getContext;
+
 
 public class InternetChecking {
-        private Context context;
 
-        public InternetChecking(Context context) {
-            this.context = context;
+        public InternetChecking() {
         }
 
         public Boolean isNetworkAvailable() {
-            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connMgr = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             return (networkInfo != null && networkInfo.isConnected());
         }

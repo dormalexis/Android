@@ -1,24 +1,24 @@
 package com.example.smartcity.View.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.example.smartcity.DataAccess.ViewModel.ConnectionViewModel;
 import com.example.smartcity.MainActivity;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.R;
 import com.google.android.material.textfield.TextInputLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,11 +37,10 @@ public class LogInFragment extends Fragment {
     Button logingButton;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_login,container,false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
         logingButton.setOnClickListener(loginListener);
         return v;
@@ -61,13 +60,10 @@ public class LogInFragment extends Fragment {
             loginModel.setEmail(mailInput.getEditText().getText().toString());
             loginModel.setPassword(passwordInput.getEditText().getText().toString());
 
-            connectionViewModel.getToken(loginModel,getContext()).observe(getViewLifecycleOwner(),token->{
-                if(token.isErrorDetected())
-                {
-                    Toast.makeText(getContext(),R.string.loginFail,Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+            connectionViewModel.getToken(loginModel, getContext()).observe(getViewLifecycleOwner(), token -> {
+                if (token.isErrorDetected()) {
+                    Toast.makeText(getContext(), R.string.loginFail, Toast.LENGTH_SHORT).show();
+                } else {
                     startActivity(new Intent(getContext(), MainActivity.class));
                 }
             });
