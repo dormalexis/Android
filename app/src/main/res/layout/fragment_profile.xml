@@ -247,11 +247,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <Button
+                android:background="@color/green"
+                style="@style/button"
                 android:id="@+id/logoutButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/logout"
-                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:layout_marginHorizontal="10dp"

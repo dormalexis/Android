@@ -33,7 +33,7 @@ public interface RentalService {
     @POST("Rental")
     Call<RentalDTO> postRental(@Body Rental rental);
 
-    @PUT("Rental/{id}")
-    Call<Void> validRental(@Path("id") int id, @Body boolean isValid);
+    @PUT("Rental/valid/{id}/{isValid}")
+    Call<Void> validRental(@Path("id") int id, @Path("isValid") boolean isValid);
 
 }

@@ -4,18 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/welcomeImg"
+    <Toolbar
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:src="@drawable/ic_exchangewelcome">
-    </ImageView>
+        android:layout_height="wrap_content"
+        android:title="@string/app_name"
+        android:elevation="5dp"
+        android:titleTextColor="@color/white"
+        android:background="@color/anthracite">
+    </Toolbar>
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="Bienvenu ! "/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/welcomeImg">
+        android:layout_below="@+id/welcomeText">
         <Button
             android:id="@+id/regisration"
             android:layout_width="wrap_content"

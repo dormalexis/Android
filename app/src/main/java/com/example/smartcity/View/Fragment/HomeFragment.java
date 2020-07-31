@@ -1,11 +1,13 @@
 package com.example.smartcity.View.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,9 @@ import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -38,6 +42,10 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
     @BindView(R.id.homeRV)
     RecyclerView recyclerView;
 
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+
+
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -46,19 +54,26 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         itemModel = new ItemViewModel(getContext());
     }
 
-    public HomeFragment() {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        BottomNavigationView bottomBar = getActivity().findViewById(R.id.bottom_navigation);
+        if(bottomBar != null) bottomBar.setVisibility(View.VISIBLE);
     }
+
+    public HomeFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-
+        progressBar.setVisibility(View.VISIBLE);
         recyclerView.removeAllViews();
         itemModel.getItems().observe(this, result -> {
+            progressBar.setVisibility(View.GONE);
             if (result.isErrorDetected()) {
-                Toast.makeText(getContext(), "" + result.getErrorCode(), Toast.LENGTH_LONG).show();
+                DisplayToast.display(result.getErrorCode());
             } else {
                 Log.i("Alexis", result.isErrorDetected() + "");
                 adapter.setItems(result.getObject().getResult());
@@ -66,7 +81,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 if (result.getObject() == null) {
-                    Toast.makeText(getContext(), R.string.empty, Toast.LENGTH_LONG).show();
+                    // TODO Ajouter dans le layout et changer la visibility gone à visible
                 }
             }
         });
@@ -80,7 +95,7 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(new HomeFragment().getClass().getName());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

@@ -1,8 +1,11 @@
 package com.example.smartcity.View.Fragment;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.smartcity.DataAccess.ViewModel.FavoriteViewModel;
 import com.example.smartcity.Model.IntervalDates;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.Rental;
@@ -72,12 +76,18 @@ public class ItemDetailsFragment extends Fragment implements ReviewAdapter.OnIte
     @BindView(R.id.back_button)
     FloatingActionButton backButton;
 
+    @BindView(R.id.favorite_button)
+    FloatingActionButton favoriteButton;
+
+
     Date start = new Date();
     Date end = new Date();
 
     private ReviewAdapter adapter;
 
     private ArrayList<IntervalDates> invalidDates = new ArrayList<>();
+
+    private FavoriteViewModel favoriteViewModel = new FavoriteViewModel();
 
     /*
 
@@ -137,6 +147,30 @@ public class ItemDetailsFragment extends Fragment implements ReviewAdapter.OnIte
             }
         });
 
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(itemSelected.getFavorite())
+                {
+                    favoriteButton.setImageTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+                }
+
+                else {
+                    favoriteButton.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF5252")));
+                }
+                itemSelected.setFavorite(!itemSelected.getFavorite());
+                favoriteViewModel.favorite(itemSelected.getItemId());
+            }
+        });
+
+        if(!itemSelected.getFavorite())
+        {
+            favoriteButton.setImageTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+        }
+
+        else {
+            favoriteButton.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF5252")));
+        }
+
         itemDetailsIitle.setText(itemSelected.getTitle());
         itemDetailsDescription.setText(itemSelected.getDescription());
         ratingBar.setRating(itemSelected.getNbStars());
@@ -186,7 +220,7 @@ public class ItemDetailsFragment extends Fragment implements ReviewAdapter.OnIte
                 CalendarConstraints calendarConstraints = calendarBuilder.build();
 
                 builder.setCalendarConstraints(calendarConstraints);
-                builder.setTitleText("Test");
+                //builder.setTitleText("Test");
                 MaterialDatePicker picker = builder.build();
                 picker.setHasOptionsMenu(false);
                 picker.show(getFragmentManager(), picker.toString());
@@ -198,7 +232,7 @@ public class ItemDetailsFragment extends Fragment implements ReviewAdapter.OnIte
 
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment_container, new ConfirmRentalFragment(start, end, itemSelected));
-                        transaction.addToBackStack(this.getClass().getName());
+                        transaction.addToBackStack(null);
                         transaction.commit();
                     }
                 });

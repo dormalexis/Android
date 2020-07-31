@@ -3,25 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="20dp">
+    android:layout_height="match_parent">
+
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/connection"
+        android:elevation="5dp"
+        android:navigationIcon="@drawable/ic_back_arrow"
+        android:titleTextColor="@color/white"
+        android:background="@color/anthracite">
+    </Toolbar>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp">
 
-        <TextView
-            android:id="@+id/loginFormTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/connection"
-            android:layout_centerHorizontal="true">
-
-        </TextView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/mailInput"
@@ -32,7 +36,6 @@
             android:inputType="text"
             app:errorEnabled="true"
             android:layout_marginTop="15dp"
-            android:layout_below="@id/loginFormTitle"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,6 +69,18 @@
         android:layout_below="@+id/passwordInput"
         android:text="@string/login"
         style="@style/button"/>
+
+
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:indeterminateDrawable="@drawable/progress"
+        android:layout_below="@+id/logInButton"
+        android:visibility="gone"
+    />
+
     </RelativeLayout>
 
 

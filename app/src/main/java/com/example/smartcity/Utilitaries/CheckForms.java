@@ -25,25 +25,24 @@ public class CheckForms {
         return !name.isEmpty() && name.length() <= 100;
     }
 
-    public static Boolean isValidReal(String amount)
+    public static Boolean isValidPrice(String amount)
     {
         try {
-            Double.parseDouble(amount);
-            return true;
+            int price = Integer.parseInt(amount);
+            return price > 0;
         }
 
         catch (NumberFormatException e)
         {
             return false;
         }
+
     }
 
     public static Boolean isValidStreetName(String streetName)
     {
-        Pattern patternName = Pattern.compile("^\\D*$");
-        Matcher matcher = patternName.matcher(streetName);
 
-        return !streetName.isEmpty() && streetName.length() <= 100 && matcher.find();
+        return !streetName.isEmpty() && streetName.length() <= 100;
 
     }
 

@@ -7,7 +7,7 @@ public class RentalDTO {
     private Integer rentalId;
     private Date dateFrom;
     private Date dateTo;
-    private  Boolean isPaid;
+private  Boolean isPaid;
     private Boolean isValid;
     private Double paidPrice;
     private String renterLastName;

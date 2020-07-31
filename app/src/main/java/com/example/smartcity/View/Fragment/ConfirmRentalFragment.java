@@ -20,6 +20,7 @@ import com.example.smartcity.Model.Rental;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.DatesUtilitaries;
 import com.example.smartcity.Utilitaries.GlideApp;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.ReviewAdapter;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.Date;
@@ -123,6 +124,10 @@ public class ConfirmRentalFragment extends Fragment implements ReviewAdapter.OnI
                         dialogBuilder.create().show();
 
                     }
+                    else {
+                        DisplayToast.display(rental.getErrorCode());
+                    }
+
                 });
             }});
 

@@ -6,7 +6,7 @@
         <item name="ratingBarStyle">@style/ratingBar</item>
         <item name="android:button">@style/button</item>
 
-        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorSecondary">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorError">@color/red</item>
@@ -30,7 +30,7 @@
         <item name="android:shadowRadius">0.2</item>
         <item name="android:textSize">16dip</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:colorBackground">@color/blue</item>
+        <item name="android:background">@color/green</item>
     </style>
 
     <style name="spinner" parent="@android:style/Widget.Spinner">

@@ -9,7 +9,6 @@ import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Rental;
 import com.example.smartcity.Model.RentalDTO;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-import com.example.smartcity.Utilitaries.StatusCode;
 import java.util.List;
 
 
@@ -44,7 +43,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse<List<RentalDTO>>> getRentalsRenterHistoric() {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalsRenterHistoric.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalsRenterHistoric.setValue(new ApiResponse(-1));
             return rentalsRenterHistoric;
         }
 
@@ -66,7 +65,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<List<RentalDTO>> call, Throwable t) {
-                rentalsRenterHistoric.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalsRenterHistoric.setValue(new ApiResponse(500));
             }
         });
         return rentalsRenterHistoric;
@@ -74,7 +73,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse<List<RentalDTO>>> getRentalsRenterInProgress() {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalsOwnerInProgress.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalsOwnerInProgress.setValue(new ApiResponse(-1));
             return rentalsOwnerInProgress;
         }
 
@@ -96,7 +95,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<List<RentalDTO>> call, Throwable t) {
-                rentalsRenterInProgress.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalsRenterInProgress.setValue(new ApiResponse(500));
             }
         });
         return rentalsRenterInProgress;
@@ -104,7 +103,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse<List<RentalDTO>>> getRentalsOwnerHistoric() {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalsOwnerHistoric.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalsOwnerHistoric.setValue(new ApiResponse(-1));
             return rentalsOwnerHistoric;
         }
 
@@ -126,7 +125,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<List<RentalDTO>> call, Throwable t) {
-                rentalsOwnerHistoric.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalsOwnerHistoric.setValue(new ApiResponse((500)));
             }
         });
         return rentalsOwnerHistoric;
@@ -134,7 +133,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse<List<RentalDTO>>> getRentals() {
         if(!internetChecking.isNetworkAvailable()) {
-            rentals.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentals.setValue(new ApiResponse(-1));
             return rentals;
         }
 
@@ -156,7 +155,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<List<RentalDTO>> call, Throwable t) {
-                rentals.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentals.setValue(new ApiResponse(500));
             }
         });
         return rentals;
@@ -164,7 +163,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse<List<RentalDTO>>> getRentalsOwnerInProgress() {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalsOwnerInProgress.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalsOwnerInProgress.setValue(new ApiResponse(-1));
             return rentalsOwnerInProgress;
         }
 
@@ -186,7 +185,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<List<RentalDTO>> call, Throwable t) {
-                rentalsOwnerInProgress.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalsOwnerInProgress.setValue(new ApiResponse(500));
             }
         });
         return rentalsOwnerInProgress;
@@ -194,7 +193,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse> postRental(Rental rental) {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalPost.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalPost.setValue(new ApiResponse(-1));
             return rentalPost;
         }
         RentalService service = RetrofitInstance.getRetrofitInstance(getContext()).create(RentalService.class);
@@ -212,7 +211,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<RentalDTO> call, Throwable t) {
-                rentalPost.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalPost.setValue(new ApiResponse((500)));
             }
         });
         return rentalPost;
@@ -220,7 +219,7 @@ public class RentalRepository implements RentalDataAccess {
 
     public MutableLiveData<ApiResponse> validRental(int id, boolean isValid) {
         if(!internetChecking.isNetworkAvailable()) {
-            rentalValidated.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            rentalValidated.setValue(new ApiResponse(-1));
             return rentalValidated;
         }
         RentalService service = RetrofitInstance.getRetrofitInstance(getContext()).create(RentalService.class);
@@ -230,7 +229,8 @@ public class RentalRepository implements RentalDataAccess {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response){
                 if (response.isSuccessful()) {
-                    rentalValidated.setValue(new ApiResponse(response.body()));
+                    Log.i("Alexis", "" + response.code());
+                    rentalValidated.setValue(new ApiResponse());
                 } else {
                     Log.i("Alexis", "" + response.code());
                     rentalValidated.setValue(new ApiResponse(response.code()));
@@ -239,7 +239,7 @@ public class RentalRepository implements RentalDataAccess {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                rentalValidated.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                rentalValidated.setValue(new ApiResponse(500));
             }
         });
         return rentalValidated;

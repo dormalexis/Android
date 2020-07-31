@@ -167,7 +167,7 @@ public class Item {
     }
 
     public void setPricePerDay(String pricePerDay) throws NotAReal {
-        if (!CheckForms.isValidReal(pricePerDay)) throw new NotAReal();
+        if (!CheckForms.isValidPrice(pricePerDay)) throw new NotAReal();
         this.pricePerDay = Double.valueOf(pricePerDay);
     }
 

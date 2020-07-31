@@ -72,7 +72,7 @@ public class MyItemsFragment extends Fragment {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             if (items.getObject() == null) {
-                Toast.makeText(getContext(), R.string.empty, Toast.LENGTH_LONG).show();
+                // TODO Ajouter dans le layout et changer la visibility gone à visible
             }
         });
         return view;

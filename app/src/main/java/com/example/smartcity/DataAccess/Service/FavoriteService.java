@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 public interface FavoriteService {
 
     @POST("Favorite/{itemId}")
-    Call<Favorite> favorite(@Path("itemId") int itemId);
+    Call<Void> favorite(@Path("itemId") int itemId);
 
     @GET("Favorite/myFavorites")
     Call<List<Item>> getFavorites();

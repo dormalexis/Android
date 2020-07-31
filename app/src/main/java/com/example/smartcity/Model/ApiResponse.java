@@ -1,17 +1,13 @@
 package com.example.smartcity.Model;
 
-import android.content.Intent;
-import android.util.Log;
-
-import com.example.smartcity.Utilitaries.StatusCode;
-
 public class ApiResponse<T> {
     private T object;
     private boolean errorDetected;
     private Integer errorCode;
 
     public ApiResponse(T object) {
-        if(object.getClass().equals(Integer.class)) {
+        // In that case it would mean something wrong happened and the number received is the error code
+        if(object != null && object.getClass().equals(Integer.class)) {
             setErrorCode((Integer) object);
             setErrorDetected(true);
             setObject(null);

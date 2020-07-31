@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.DataAccess.ViewModel.FavoriteViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.ItemAdapter;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
         favoriteViewModel.getFavorites().observe(this,favorites -> {
             if(favorites.isErrorDetected())
             {
-                Toast.makeText(getContext(), Integer.toString(favorites.getErrorCode()),Toast.LENGTH_LONG).show();
+                DisplayToast.display(favorites.getErrorCode());
             }
             else
             {
@@ -63,7 +64,7 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 if(favorites.getObject()== null)
                 {
-                    Toast.makeText(getContext(),R.string.empty,Toast.LENGTH_LONG).show();
+                    // TODO Ajouter dans le layout et changer la visibility gone à visible
                 }
             }
         });
@@ -76,7 +77,7 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
         Item itemSelected = itemList.get(position);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new ItemDetailsFragment(itemSelected));
-        transaction.addToBackStack(new HomeFragment().getClass().getName());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

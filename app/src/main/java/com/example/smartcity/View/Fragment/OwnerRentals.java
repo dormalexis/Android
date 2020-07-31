@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
 import com.example.smartcity.Model.RentalDTO;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.LayoutManagerRecyclerView;
 import com.example.smartcity.View.RecyclerView.RentalAdapter;
 import com.example.smartcity.View.RecyclerView.RentalOwnerValidationAdapter;
@@ -125,27 +126,21 @@ public class OwnerRentals extends Fragment {
 
         rentalViewModel.getRentalsOwnerInProgress().observe(this, rentals -> {
             if (rentals.isErrorDetected()) {
-                Toast.makeText(getContext(), rentals.getErrorCode(), Toast.LENGTH_LONG).show();
+               DisplayToast.display(rentals.getErrorCode());
             } else {
-                Log.i("Alexis", "ici");
                 for (RentalDTO rental : rentals.getObject()) {
-                    Log.i("Alexis", "nbRentals " + rentals.getObject().size());
                     if (rental.isValid() != null && rental.isValid() && rental.isPaid()) {
                         if (rental.getDateFrom().compareTo(new Date()) <= 0) {
                             inProgressList.add(rental);
-                            Log.i("Alexis", "progress " + inProgressList.size());
                         } else {
                             plannedList.add(rental);
-                            Log.i("Alexis", "planned " + plannedList.size());
                         }
                     } else {
                         if (!rental.isPaid() && rental.isValid() != null && rental.isValid()) {
                             waitingForPaymentList.add(rental);
-                            Log.i("Alexis", "payment " + waitingForPaymentList.size());
                         }
                         if (rental.isValid() == null) {
                             waitingForValidationList.add(rental);
-                            Log.i("Alexis", "validation " + waitingForValidationList.size());
                         }
                     }
                 }
@@ -172,11 +167,9 @@ public class OwnerRentals extends Fragment {
                 }
 
                 if (waitingForValidationList.isEmpty()) {
-                    Log.i("Test", "vide");
                     waitingForValidationRV.setVisibility(View.GONE);
                     noRentalsWaitingForValidation.setVisibility(View.VISIBLE);
                 } else {
-                    Log.i("Test", "pas vider");
                     waitingForValidation.setRentals(waitingForValidationList);
                     waitingForValidationRV.setAdapter(waitingForValidation);
                     waitingForValidationRV.setLayoutManager(new LayoutManagerRecyclerView());

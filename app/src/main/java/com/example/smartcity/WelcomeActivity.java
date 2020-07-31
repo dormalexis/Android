@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.smartcity.Utilitaries.Preferences;
+import com.example.smartcity.View.Fragment.HomeFragment;
 import com.example.smartcity.View.Fragment.WelcomeFragment;
 
 import static com.example.smartcity.Utilitaries.App.getContext;
@@ -25,7 +26,10 @@ public class WelcomeActivity extends AppCompatActivity {
         // on verra les champs de l'activity welcome durant quelques millisecondes
         else {
             setContentView(R.layout.activity_welcome);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WelcomeFragment()).commit();
+            if(savedInstanceState == null)
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WelcomeFragment()).commit();
+            }
         }
 
     }

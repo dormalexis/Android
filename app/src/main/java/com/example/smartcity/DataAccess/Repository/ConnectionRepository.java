@@ -9,7 +9,6 @@ import com.example.smartcity.DataAccess.Service.ConnectionService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.LoginModel;
 import com.example.smartcity.Model.TokenResponse;
-import com.example.smartcity.Utilitaries.StatusCode;
 import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
@@ -31,7 +30,12 @@ public class ConnectionRepository implements ConnectionDataAccess {
         this.internetChecking = new InternetChecking();
 
     }
-    public MutableLiveData<ApiResponse> getToken(LoginModel loginModel, Context context) {
+    public MutableLiveData<ApiResponse> getToken(LoginModel loginModel) {
+        if(!internetChecking.isNetworkAvailable()) {
+            tokenLive.setValue(new ApiResponse(-1));
+            return tokenLive;
+        }
+
         ConnectionService service = RetrofitInstance.getRetrofitInstance(context).create(ConnectionService.class);
         Call<TokenResponse> call = service.getToken(loginModel);
         call.enqueue(new Callback<TokenResponse>() {
@@ -51,7 +55,7 @@ public class ConnectionRepository implements ConnectionDataAccess {
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                tokenLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                tokenLive.setValue(new ApiResponse(500));
             }
         });
         return tokenLive;

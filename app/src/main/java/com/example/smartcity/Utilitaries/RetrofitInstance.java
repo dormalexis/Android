@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     private static Retrofit retrofit;
-    private static final String url = "https://192.168.1.49:45456/api/";
+    private static final String url = "https://api-fh7.conveyor.cloud/api/";
 
     public static Retrofit getRetrofitInstance(Context context) {
 

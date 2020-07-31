@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
 import com.example.smartcity.Model.RentalDTO;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.RentalAdapter;
 import com.example.smartcity.View.RecyclerView.RentalOwnerValidationAdapter;
 import com.example.smartcity.View.RecyclerView.RentalRenterPaymentAdapter;
@@ -125,7 +126,7 @@ public class RenterRentals extends Fragment {
 
         rentalViewModel.getRentalsOwnerInProgress().observe(this, rentals -> {
             if (rentals.isErrorDetected()) {
-                Toast.makeText(getContext(), rentals.getErrorCode(), Toast.LENGTH_LONG).show();
+                DisplayToast.display(rentals.getErrorCode());
             } else {
                 for (RentalDTO rental : rentals.getObject()) {
                     if (rental.isValid() != null && rental.isValid() && rental.isPaid()) {
@@ -168,7 +169,6 @@ public class RenterRentals extends Fragment {
                     waitingForValidationRV.setVisibility(View.GONE);
                     noRentalsWaitingForValidation.setVisibility(View.VISIBLE);
                 } else {
-                    Log.i("Test", "pas vider");
                     waitingForValidation.setRentals(waitingForValidationList);
                     waitingForValidationRV.setAdapter(waitingForValidation);
                     waitingForValidationRV.setLayoutManager(new LinearLayoutManager(getContext()));

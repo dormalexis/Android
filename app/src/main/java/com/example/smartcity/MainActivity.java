@@ -19,41 +19,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
+        navigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+
         if(savedInstanceState == null)
         {
-            setContentView(R.layout.activity_main);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
             // Changer de layout
-            BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
-            navigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+
         }
 
 
-        /*
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        Query query = firestore.collection("conversations").whereArrayContains("users", 1);
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.i("TAG", "listen:error", e);
-                    return;
-                }
-
-                for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                    Toast.makeText(getContext(), "Test", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        JWT jwt = new JWT(Preferences.getToken(getContext()));
-        Integer userId = jwt.getClaim("userId").asInt();
-        Toast.makeText(getContext(), userId, Toast.LENGTH_LONG).show();
-        */
 
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     // Changer de layout

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.example.smartcity.View.RecyclerView.RentalAdapter;
 import com.example.smartcity.View.RecyclerView.RentalMarkAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -74,7 +75,7 @@ public class OwnerRentalsHistoric extends Fragment {
 
         rentalViewModel.getRentalsOwnerHistoric().observe(this, rentals -> {
             if (rentals.isErrorDetected()) {
-                Toast.makeText(getContext(), rentals.getErrorCode(), Toast.LENGTH_LONG).show();
+                DisplayToast.display(rentals.getErrorCode());
             }
 
             else {

@@ -36,7 +36,7 @@ public class Person {
     @SerializedName("locality")
     private Integer locality;
 
-    public Person(Context context) {
+    public Person() {
 
     }
 

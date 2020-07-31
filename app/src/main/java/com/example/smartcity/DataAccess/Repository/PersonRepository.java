@@ -1,13 +1,14 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.PersonService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-import com.example.smartcity.Utilitaries.StatusCode;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,29 +29,31 @@ public class PersonRepository implements PersonDataAccess {
     public MutableLiveData<ApiResponse> postPerson(Person person)
     {
         if(!internetChecking.isNetworkAvailable()) {
-            personneLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            personneLive.setValue(new ApiResponse(-1));
             return personneLive;
         }
         PersonService service = RetrofitInstance.getRetrofitInstance(context).create(PersonService.class);
-        Call<Void> call = service.postPerson(person);
-        call.enqueue(new Callback<Void>() {
+        Call<Person> call = service.postPerson(person);
+        call.enqueue(new Callback<Person>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Person> call, Response<Person> response) {
                 if(response.isSuccessful())
                 {
-
-                    personneLive.setValue(new ApiResponse());
+                    personneLive.setValue(new ApiResponse(response.body()));
+                    Log.i("Alexis", String.valueOf(response.code()));
                 }
+
                 else
                 {
                     personneLive.setValue(new ApiResponse(response.code()));
+                    Log.i("Alexis", String.valueOf(response.code()));
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Person> call, Throwable t) {
 
-                personneLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                personneLive.setValue(new ApiResponse(500));
             }
         });
         return personneLive;

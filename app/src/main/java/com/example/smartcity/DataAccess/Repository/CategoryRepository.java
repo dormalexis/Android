@@ -8,7 +8,6 @@ import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.Service.CategoryService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.ItemCategory;
-import com.example.smartcity.Utilitaries.StatusCode;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
 
 import java.util.List;
@@ -38,10 +37,10 @@ public class CategoryRepository implements CategoryDataAccess
         locale = locale.substring(0,2);
 
         if(!internetChecking.isNetworkAvailable()) {
-            categoryLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            categoryLive.setValue(new ApiResponse(-1));
             return categoryLive;
         }
-            CategoryService service = RetrofitInstance.getRetrofitInstance(context).create(CategoryService.class);
+        CategoryService service = RetrofitInstance.getRetrofitInstance(context).create(CategoryService.class);
             Call<List<ItemCategory>> call = service.getCategory(locale);
             call.enqueue(new Callback<List<ItemCategory>>() {
                 @Override
@@ -58,7 +57,7 @@ public class CategoryRepository implements CategoryDataAccess
 
                 @Override
                 public void onFailure(Call<List<ItemCategory>> call, Throwable t) {
-                    categoryLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                    categoryLive.setValue(new ApiResponse(500));
                 }
             });
         return categoryLive;

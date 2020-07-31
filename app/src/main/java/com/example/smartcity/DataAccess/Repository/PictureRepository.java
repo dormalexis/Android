@@ -7,8 +7,6 @@ import com.example.smartcity.DataAccess.Service.PictureService;
 import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Picture;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
-import com.example.smartcity.Utilitaries.StatusCode;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +25,7 @@ public class PictureRepository implements PictureDataAccess {
 
     public MutableLiveData<ApiResponse> postPicture(Picture picture) {
         if(!internetChecking.isNetworkAvailable()) {
-            pictureLive.setValue(new ApiResponse(StatusCode.NETWORKFAIL));
+            pictureLive.setValue(new ApiResponse(-1));
         }
         PictureService service = RetrofitInstance.getRetrofitInstance(context).create(PictureService.class);
         Call<Void> call = service.postPicture(picture);
@@ -40,13 +38,13 @@ public class PictureRepository implements PictureDataAccess {
                 }
                 else
                 {
-                    pictureLive.setValue(new ApiResponse(response.code()));
+                    pictureLive.setValue(new ApiResponse(500));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                pictureLive.setValue(new ApiResponse(StatusCode.INTERNALSERVERERROR));
+                pictureLive.setValue(new ApiResponse(500));
             }
         });
         return pictureLive;

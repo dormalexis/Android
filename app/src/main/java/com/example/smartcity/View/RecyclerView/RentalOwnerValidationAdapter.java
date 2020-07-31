@@ -5,15 +5,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.smartcity.DataAccess.ViewModel.RentalViewModel;
+import com.example.smartcity.Model.Rental;
 import com.example.smartcity.Model.RentalDTO;
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.DatesUtilitaries;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 
 public class RentalOwnerValidationAdapter extends RecyclerView.Adapter<RentalOwnerValidationViewHolder> {
 
     private List<RentalDTO> rentals;
+    @BindView(R.id.noRentalsWaitingForValidation)
+    MaterialCardView noRentalsWaitingForValidation;
 
     public RentalOwnerValidationAdapter(){
 
@@ -29,8 +38,29 @@ public class RentalOwnerValidationAdapter extends RecyclerView.Adapter<RentalOwn
 
     @Override
     public void onBindViewHolder(@NonNull RentalOwnerValidationViewHolder holder, int position) {
+        RentalDTO rental = this.rentals.get(position);
+        holder.item.setText(rental.getItemTitle());
+        holder.dates.setText(DatesUtilitaries.FormattedDate(rental.getDateFrom()) + " - " +  DatesUtilitaries.FormattedDate(rental.getDateTo()));
+        holder.rentalPrice.setText(String.valueOf(rental.getPaidPrice()));
+        holder.renter.setText("Loué par " + rental.getRenterFirstName() + " " + rental.getRenterLastName());
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new RentalViewModel().validRental(rental.getRentalId(), true);
+                rentals.remove(position);
+                notifyItemRemoved(position);
+                notifyDataSetChanged();
 
-        holder.updateRental(this.rentals.get(position));
+            }
+        });
+        holder.deny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new RentalViewModel().validRental(rental.getRentalId(), false);
+                rentals.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

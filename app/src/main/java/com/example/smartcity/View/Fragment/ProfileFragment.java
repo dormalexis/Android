@@ -47,8 +47,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.logoutButton)
     Button logout;
 
-    public ProfileFragment() {
-    }
+    public ProfileFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +69,6 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstance) {
 
         super.onCreate(savedInstance);
-        setRetainInstance(true);
     }
 
     private View.OnClickListener onProfileClick = new View.OnClickListener() {
@@ -78,7 +76,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new ProfileFragment());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -88,7 +86,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new MyItemsFragment());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -98,7 +96,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new RenterRentals());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -108,7 +106,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new AddItemFragment());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -118,7 +116,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new MyReviews());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -128,7 +126,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new OwnerRentals());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -138,7 +136,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new OwnerRentalsHistoric());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };
@@ -148,7 +146,7 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new RenterRentals());
-            transaction.addToBackStack(new ProfileFragment().getClass().getName());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
     };

@@ -51,6 +51,7 @@ public class RentalOwnerValidationViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 new RentalViewModel().validRental(rental.getRentalId(), true);
+
             }
         });
         this.deny.setOnClickListener(new View.OnClickListener() {

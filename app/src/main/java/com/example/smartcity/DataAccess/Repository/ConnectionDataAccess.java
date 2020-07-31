@@ -9,5 +9,5 @@ import com.example.smartcity.Model.LoginModel;
 
 
 public interface ConnectionDataAccess {
-    MutableLiveData<ApiResponse> getToken(LoginModel loginModel, Context context);
+    MutableLiveData<ApiResponse> getToken(LoginModel loginModel);
 }

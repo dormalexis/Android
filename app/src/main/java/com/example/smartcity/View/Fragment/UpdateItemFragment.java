@@ -22,6 +22,7 @@ import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 
 import java.io.ByteArrayOutputStream;
 
@@ -62,7 +63,7 @@ public class UpdateItemFragment extends Fragment {
         categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this, categories -> {
             if (categories.isErrorDetected()) {
-                Toast.makeText(getContext(), categories.getErrorCode(), Toast.LENGTH_LONG);
+                DisplayToast.display(categories.getErrorCode());
             } else {
                 ArrayAdapter<ItemCategory> adapter = new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories.getObject());
                 categoriesList.setAdapter(adapter);
@@ -133,9 +134,9 @@ public class UpdateItemFragment extends Fragment {
 
                 itemModel.updateItem(item).observe(getViewLifecycleOwner(), itemUpdate -> {
                     if (itemUpdate.isErrorDetected()) {
-                        Toast.makeText(getContext(), "" + itemUpdate.getErrorCode(), Toast.LENGTH_LONG).show();
+                        DisplayToast.display(itemUpdate.getErrorCode());
                     } else {
-                        Toast.makeText(getContext(), R.string.UpdateItemOk, Toast.LENGTH_LONG).show();
+                        DisplayToast.displaySpecific(R.string.updateItemOk);
                     }
                 });
             }
@@ -148,12 +149,12 @@ public class UpdateItemFragment extends Fragment {
         public void onClick(View v) {
             itemModel.deleteItem(itemSelected.getItemId()).observe(getViewLifecycleOwner(), itemDelete -> {
                 if (itemDelete.isErrorDetected()) {
-                    Toast.makeText(getContext(), itemDelete.getErrorCode(), Toast.LENGTH_LONG).show();
+                    DisplayToast.display(itemDelete.getErrorCode());
                 } else {
-                    Toast.makeText(getContext(), R.string.DeleteItemOk, Toast.LENGTH_LONG).show();
+                    DisplayToast.displaySpecific(R.string.deleteItemOk);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, new MyItemsFragment());
-                    transaction.addToBackStack(new HomeFragment().getClass().getName());
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
             });

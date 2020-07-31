@@ -18,7 +18,7 @@
 
     <string name="agree">D\'accord</string>
 
-    <string name="register">S\'inscrire</string>
+    <string name="register">Inscription</string>
     <string name="login">Se connecter</string>
     <string name="connection">Connexion</string>
     <string name="logout">Se déconnecter</string>
@@ -56,6 +56,7 @@
     <string name="signOutToast">Vous êtes déconnecté</string>
     <string name="Search">Rechercher</string>
     <string name="displayAllItems">Afficher tout</string>
+
     <string name="BADREQUEST">La rêquete est éronnée.</string>
     <string name="UNAUTHORIZED">Vous devez vous connecter.</string>
     <string name="NOTFOUND">La ressource n\'existe pas.</string>
@@ -64,14 +65,19 @@
     <string name="INTERNALSERVERERROR">Une erreur avec le serveur s\'est produite.</string>
     <string name="NETWORKFAIL">L\'appareil n\'est pas connecté à internet.</string>
     <string name="OTHERERROR">Une erreur inconnue s\'est produite.</string>
+    <string name="SERVICEUNAVAILABLE">Service indisponible</string>
 
-    <string name="UpdateItemOk">L\'item a bien été mis à jour</string>
-    <string name="DeleteItemOk">L\'item a bien été supprimé</string>
-    <string name="PostPersonOk">Votre compte a bien été crée</string>
+    <string name="updateItemOk">L\'item a bien été mis à jour</string>
+    <string name="deleteItemOk">L\'item a bien été supprimé</string>
+    <string name="postPersonOk">Votre compte a bien été crée</string>
     <string name="loginFail">Votre login/mdp n\'est pas valide.</string>
     <string name="confirmRental">Réservation confirmée !</string>
     <string name="postItemOk">Objet ajouté !</string>
     <string name="empty">Liste vide!</string>
+
+    <string name="personNotFound">Aucun compte n\'existe avec cette adresse e-mail</string>
+    <string name="inccorectPassword">Mot de passe incorrect</string>
+
 
     <string name="note">a donné la note de</string>
     <string name="book">Demander une réservation</string>
@@ -122,7 +128,7 @@
     <string name="nameException">Le nom est obligatoire et doit contenir maximum 50 caractères</string>
     <string name="firstNameException">Le prénom est obligatoire et doit contenir maximum 50 caractères</string>
     <string name="descriptionException">La description est obligatoire et ne peut pas contenir plus de 255 caractères</string>
-    <string name="notARealException">Le prix est obligatoire doit être composé de chiffres (NB : Le séparateur doit être un point)</string>
+    <string name="notARealException">Le prix doit être un nombre entier positif</string>
     <string name="emailException">L\'adresse email n\'a pas été introduite ou n\'a pas un format valide</string>
     <string name="passwordException">Le mot de passe doit contenir au moins 6 caractères/chiffres</string>
     <string name="streetNameException">Le nom de la rue est obligatoire et doit contenir maximum 100 caractères</string>
@@ -136,6 +142,11 @@
     <string name="itemNameException">Le nom de l\'item est obligatoire et doit comporter maximum 100 caractères</string>
     <string name="errorAddItem">Erreur lors de l\'ajout de l\'item</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="emailAlreadyExists">L\'adresse email est déjà utilisée</string>
+
+    <string name="userDoesntExist">Aucun</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

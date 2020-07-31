@@ -29,6 +29,7 @@ import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.ItemCategory;
 import com.example.smartcity.Model.Picture;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -69,7 +70,7 @@ public class AddItemFragment extends Fragment {
         categoryModel = new CategoryViewModel(getContext());
         categoryModel.getCategories(getResources().getConfiguration().locale.toString()).observe(this, categories -> {
             if (categories.isErrorDetected()) {
-                Toast.makeText(getContext(), categories.getErrorCode(), Toast.LENGTH_LONG).show();
+                DisplayToast.display(categories.getErrorCode());
             } else {
                 categoriesList.setAdapter(new ArrayAdapter<ItemCategory>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories.getObject()));
             }
@@ -98,7 +99,8 @@ public class AddItemFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         BottomNavigationView bottomBar = getActivity().findViewById(R.id.bottom_navigation);
-        bottomBar.setVisibility(View.GONE);
+        //
+        if(bottomBar != null) bottomBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -106,23 +108,23 @@ public class AddItemFragment extends Fragment {
         super.onDetach();
         BottomNavigationView bottomBar = getActivity().findViewById(R.id.bottom_navigation);
         bottomBar.setVisibility(View.VISIBLE);
+
+        // Todo : Change the fact the bottom bar come back to visible after
     }
 
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        /*
         outState.putInt("spinnerCategory", categoriesList.getSelectedItemPosition());
         outState.putString("name",name.getEditText().getText().toString());
-        outState.putString("description",name.getEditText().getText().toString());
+        outState.putString("description",description.getEditText().getText().toString());
         outState.putString("price",price.getEditText().getText().toString());
-         */
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*
+
         if(savedInstanceState != null)
         {
             categoriesList.setSelection(savedInstanceState.getInt("sprinnerCategory"));
@@ -130,7 +132,6 @@ public class AddItemFragment extends Fragment {
             description.getEditText().setText(savedInstanceState.getString("description"));
             price.getEditText().setText(savedInstanceState.getString("price"));
         }
-         */
     }
 
 
@@ -178,9 +179,9 @@ public class AddItemFragment extends Fragment {
                 //item.setPicture(photo);
                 itemModel.postItem(item).observe(getViewLifecycleOwner(), item1 -> {
                     if (item1.isErrorDetected()) {
-                        Toast.makeText(getContext(), item1.getErrorCode() + "", Toast.LENGTH_LONG).show();
+                        DisplayToast.display(item1.getErrorCode());
                     } else {
-                        Toast.makeText(getContext(), R.string.postItemOk, Toast.LENGTH_LONG).show();
+                        DisplayToast.displaySpecific(R.string.postItemOk);
                     }
                 });
 

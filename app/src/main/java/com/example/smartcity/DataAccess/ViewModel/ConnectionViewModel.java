@@ -17,5 +17,5 @@ public class ConnectionViewModel {
         this.connectionDataAccess = new ConnectionRepository(context);
     }
 
-    public LiveData<ApiResponse> getToken(LoginModel loginModel, Context context) { return connectionDataAccess.getToken(loginModel, context);}
+    public LiveData<ApiResponse> getToken(LoginModel loginModel) { return connectionDataAccess.getToken(loginModel);}
 }
