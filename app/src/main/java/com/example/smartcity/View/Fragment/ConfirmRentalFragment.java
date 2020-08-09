@@ -50,9 +50,6 @@ public class ConfirmRentalFragment extends Fragment implements ReviewAdapter.OnI
     @BindView(R.id.endDate)
     TextView end;
 
-    @BindView(R.id.cautionAmount)
-    TextView cautionAmount;
-
     @BindView(R.id.totalPrice)
     TextView totalPrice;
 
@@ -87,7 +84,6 @@ public class ConfirmRentalFragment extends Fragment implements ReviewAdapter.OnI
         ButterKnife.bind(this, view);
         rentalTitle.setText(item.getTitle());
         pricePerDay.setText(item.getPricePerDay() + "€ / jour");
-        cautionAmount.setText("10€");
         Double price = item.getPricePerDay() * DatesUtilitaries.DaysBetween(startDate, endDate);
         totalPrice.setText(price.toString() + "€");
         start.setText(DatesUtilitaries.FormattedDate(startDate));

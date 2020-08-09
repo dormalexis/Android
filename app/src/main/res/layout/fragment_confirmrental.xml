@@ -68,21 +68,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="Début"></TextView>
+            android:text="@string/start"></TextView>
 
         <TextView
             android:id="@+id/endText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fin"
-            android:layout_centerHorizontal="true">
-        </TextView>
-
-        <TextView
-            android:id="@+id/cautionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Caution"
+            android:text="@string/end"
             android:layout_alignParentEnd="true">
         </TextView>
 
@@ -107,14 +99,6 @@
         <TextView
             android:id="@+id/endDate"
             android:textColor="@color/red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
-        </TextView>
-
-        <TextView
-            android:textColor="@color/red"
-            android:id="@+id/cautionAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true">
