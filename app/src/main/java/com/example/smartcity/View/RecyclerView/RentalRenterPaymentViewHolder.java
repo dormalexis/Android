@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.Model.RentalDTO;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.DatesUtilitaries;
-import com.stripe.android.Stripe;
-import com.stripe.android.model.PaymentIntent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -25,8 +25,6 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.profileInfos)
     CardView profileInfos;
-    @BindView(R.id.myReviews)
-    CardView myReviews;
     @BindView(R.id.rentalsOwner)
     CardView rentalsOwner;
     @BindView(R.id.rentalsRenter)
@@ -58,7 +56,6 @@ public class ProfileFragment extends Fragment {
         rentalsRenter.setOnClickListener(renterClick);
         addItem.setOnClickListener(addItemClick);
         logout.setOnClickListener(logoutClick);
-        myReviews.setOnClickListener(myReviewsClick);
         ownerFollowing.setOnClickListener(ownerFollowingClick);
         ownerHistoric.setOnClickListener(ownerHistoricClick);
         rentalsRenterHistoric.setOnClickListener(rentalsRenterHistoricClick);
@@ -75,7 +72,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new ProfileFragment());
+            transaction.replace(R.id.fragment_container, new UpdateProfileFragment());
             transaction.addToBackStack(null);
             transaction.commit();
         }
@@ -111,15 +108,6 @@ public class ProfileFragment extends Fragment {
         }
     };
 
-    private View.OnClickListener myReviewsClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new MyReviews());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-    };
 
     private View.OnClickListener ownerFollowingClick = new View.OnClickListener() {
         @Override
@@ -145,7 +133,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, new RenterRentals());
+            transaction.replace(R.id.fragment_container, new RenterRentalsHistoric());
             transaction.addToBackStack(null);
             transaction.commit();
         }
@@ -154,7 +142,7 @@ public class ProfileFragment extends Fragment {
     private View.OnClickListener logoutClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Preferences.signOutToken(getContext());
+            Preferences.signOutToken();
             startActivity(new Intent(getContext(), WelcomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK ));
         }
     };

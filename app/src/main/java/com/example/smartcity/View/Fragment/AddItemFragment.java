@@ -20,6 +20,7 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smartcity.DataAccess.ViewModel.CategoryViewModel;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
@@ -33,6 +34,10 @@ import com.example.smartcity.View.DisplayToast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import butterknife.BindView;
@@ -55,7 +60,12 @@ public class AddItemFragment extends Fragment {
     Button addPicture;
     @BindView(R.id.picture)
     ImageView picture;
+
     Bitmap photo;
+
+    Item item = new Item();
+
+    Integer nbErrors;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -138,41 +148,43 @@ public class AddItemFragment extends Fragment {
     private View.OnClickListener confirmationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Item item = new Item();
             Picture picture = new Picture();
             itemModel = new ItemViewModel(getContext());
             pictureModel = new PictureViewModel(getContext());
-            String exceptionMessage = "";
+            nbErrors = 0;
 
             try {
                 item.setTitle(name.getEditText().getText().toString());
+                name.setError(null);
+
             } catch (Exception e) {
-                exceptionMessage += e.getMessage() + "\n";
+                nbErrors++;
+                name.setError(e.getMessage());
             }
 
             try {
                 item.setPricePerDay(price.getEditText().getText().toString());
+                price.setError(null);
+
             } catch (Exception e) {
-                exceptionMessage += e.getMessage() + "\n";
+                nbErrors++;
+                price.setError(e.getMessage());
             }
 
             try {
                 item.setDescription(description.getEditText().getText().toString());
+                description.setError(null);
             } catch (Exception e) {
-                exceptionMessage += e.getMessage() + "\n";
+                nbErrors++;
+                description.setError(e.getMessage());
             }
 
             if (photo == null) {
-                exceptionMessage += new ImageException().getMessage();
+                nbErrors++;
+                DisplayToast.displaySpecific(R.string.imageException);
             }
 
-            if (!exceptionMessage.equals("")) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setCancelable(true);
-                builder.setTitle(R.string.errorAddItem);
-                builder.setMessage(exceptionMessage);
-                builder.create().show();
-            } else {
+            if (nbErrors == 0) {
                 item.setVisible(true);
                 ItemCategory itemCat = (ItemCategory) categoriesList.getSelectedItem();
                 item.setItemCategory(itemCat.getCategory());
@@ -182,6 +194,10 @@ public class AddItemFragment extends Fragment {
                         DisplayToast.display(item1.getErrorCode());
                     } else {
                         DisplayToast.displaySpecific(R.string.postItemOk);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container, new ProfileFragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                 });
 
@@ -196,7 +212,7 @@ public class AddItemFragment extends Fragment {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Selectionner une photo"), 1);
+            startActivityForResult(intent, 1);
 
         }
     };
@@ -205,8 +221,12 @@ public class AddItemFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             try {
-                photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                picture.setImageBitmap(photo);
+                if(data != null) {
+                    photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    item.setUriPicture(data.getData());
+                    item.setBitmap(photo);
+                    picture.setImageBitmap(photo);
+                }
 
             } catch (IOException e) {
                 // TODO : Gérer l'exception

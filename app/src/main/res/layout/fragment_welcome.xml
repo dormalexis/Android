@@ -13,36 +13,55 @@
         android:background="@color/anthracite">
     </Toolbar>
 
-    <TextView
-        android:id="@+id/welcomeText"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:text="Bienvenu ! "/>
+        android:layout_centerVertical="true">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/welcomeText">
-        <Button
-            android:id="@+id/regisration"
+        <TextView
+            android:id="@+id/welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:layout_margin="20dp">
-        </Button>
+            android:layout_centerHorizontal="true"
+            android:text="@string/welcome"
+            android:layout_marginHorizontal="30dp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginBottom="20dp"/>
 
-        <Button
-            android:id="@+id/connection"
+        <TextView
+            android:id="@+id/welcomeStart"
+            android:layout_below="@+id/welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/regisration"
-            android:text="@string/connection"
-            android:layout_margin="20dp">
-        </Button>
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/welcomeStart"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/welcomeStart">
+
+            <Button
+                android:id="@+id/regisration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="20dp">
+            </Button>
+
+            <Button
+                android:id="@+id/connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/regisration"
+                android:text="@string/connection"
+                android:layout_margin="20dp">
+            </Button>
+        </RelativeLayout>
 
     </RelativeLayout>
 

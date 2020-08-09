@@ -57,7 +57,8 @@ public class UnsafeOkHttpClient {
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request newRequest  = chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer " + Preferences.getToken(context))
+                            .addHeader("Authorization", "Bearer " + Preferences.getToken())
+                            .addHeader("Content-Type", "application/json")
                             .build();
                     return chain.proceed(newRequest);
                 }

@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/red"/>
+                    android:textColor="@color/green"/>
 
                 <RatingBar
                     android:id="@+id/itemDetailsRating"
@@ -107,6 +107,7 @@
             <TextView
                 android:id="@+id/itemDetailsDescription"
                 android:layout_below="@+id/itemDetailsPrice"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -118,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/itemDetailsDescription"
                 android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_marginTop="8dp"
                 android:text="@string/comments"/>
 
             <androidx.recyclerview.widget.RecyclerView

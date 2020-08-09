@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -61,6 +63,12 @@ public class RenterRentals extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.rentalsScrollView)
+    ScrollView rentalsScrollView;
 
 
     List<RentalDTO> inProgressList;
@@ -124,7 +132,7 @@ public class RenterRentals extends Fragment {
             }
         });
 
-        rentalViewModel.getRentalsOwnerInProgress().observe(this, rentals -> {
+        rentalViewModel.getRentalsRenterInProgress().observe(this, rentals -> {
             if (rentals.isErrorDetected()) {
                 DisplayToast.display(rentals.getErrorCode());
             } else {
@@ -144,6 +152,12 @@ public class RenterRentals extends Fragment {
                         }
                     }
                 }
+
+
+                Log.i("ALexis", rentals.getObject().size() + "");
+                progressBar.setVisibility(View.GONE);
+                rentalsScrollView.setVisibility(View.VISIBLE);
+
 
                 if (waitingForPaymentList.isEmpty()) {
                     waitingForPaymentRV.setVisibility(View.GONE);
@@ -188,5 +202,15 @@ public class RenterRentals extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

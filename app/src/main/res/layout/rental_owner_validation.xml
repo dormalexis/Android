@@ -20,7 +20,6 @@
         <TextView
             android:id="@+id/labelItemText"
             android:layout_width="wrap_content"
-            android:text="Titre annonce"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,14 +30,12 @@
             android:layout_marginTop="5dp"
             android:layout_below="@+id/labelItemText"
             android:layout_width="wrap_content"
-            android:text="26 avril 2020 - 30 avril 2020"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/rentalPrice"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/labelItemText"
             android:layout_width="wrap_content"
-            android:text="70€"
             android:layout_marginTop="5dp"
             android:layout_height="wrap_content"/>
 
@@ -47,7 +44,6 @@
             android:layout_marginTop="5dp"
             android:layout_below="@+id/dates"
             android:layout_width="wrap_content"
-            android:text="Loué par Alexis Dormal"
             android:layout_height="wrap_content"/>
 
         <Button

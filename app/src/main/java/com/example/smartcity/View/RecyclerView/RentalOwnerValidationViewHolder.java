@@ -46,7 +46,7 @@ public class RentalOwnerValidationViewHolder extends RecyclerView.ViewHolder {
         this.item.setText(rental.getItemTitle());
         this.dates.setText(DatesUtilitaries.FormattedDate(rental.getDateFrom()) + " - " +  DatesUtilitaries.FormattedDate(rental.getDateTo()));
         this.rentalPrice.setText(String.valueOf(rental.getPaidPrice()));
-        this.renter.setText("Loué par " + rental.getRenterFirstName() + " " + rental.getRenterLastName());
+        this.renter.setText(rental.getRenterFirstName() + " " + rental.getRenterLastName());
         this.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

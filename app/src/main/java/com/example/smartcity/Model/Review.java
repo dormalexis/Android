@@ -17,6 +17,8 @@ public class Review {
     private Integer renter;
     @SerializedName("owner")
     private Integer owner;
+    @SerializedName("renterName")
+    private String renterName;
 
     public Review() {}
 
@@ -44,6 +46,10 @@ public class Review {
         return reviewId;
     }
 
+    public String getRenterName() {
+        return renterName;
+    }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -66,5 +72,9 @@ public class Review {
 
     public void setReviewId(Integer reviewId) {
         this.reviewId = reviewId;
+    }
+
+    public void setRenterName(String renterName) {
+        this.renterName = renterName;
     }
 }

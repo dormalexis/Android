@@ -27,6 +27,7 @@ import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.Rental;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.DatesUtilitaries;
+import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.View.RecyclerView.ImageAdapter;
 import com.example.smartcity.View.RecyclerView.ReviewAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -191,53 +192,62 @@ public class ItemDetailsFragment extends Fragment implements ReviewAdapter.OnIte
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        bookButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
-                CalendarConstraints.DateValidator dateValidator = new CalendarConstraints.DateValidator() {
-                    @Override
-                    public boolean isValid(long date) {
-                        if (DatesUtilitaries.isPastDate(date)) return false;
-                        for (IntervalDates i : invalidDates) {
-                            if (i.isInInterval(date)) return false;
+        Log.i("Alexis", Preferences.getUserId() + "");
+        Log.i("Alexis", itemSelected.getOwner() + "");
+        if(itemSelected.getOwner() == Preferences.getUserId()) {
+            Log.i("Alexis", Preferences.getUserId() + " a");
+            bookButton.setVisibility(View.GONE);
+        }
+
+        else {
+            bookButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
+                    CalendarConstraints.DateValidator dateValidator = new CalendarConstraints.DateValidator() {
+                        @Override
+                        public boolean isValid(long date) {
+                            if (DatesUtilitaries.isPastDate(date)) return false;
+                            for (IntervalDates i : invalidDates) {
+                                if (i.isInInterval(date)) return false;
+                            }
+                            return true;
                         }
-                        return true;
-                    }
 
-                    @Override
-                    public int describeContents() {
-                        return 0;
-                    }
+                        @Override
+                        public int describeContents() {
+                            return 0;
+                        }
 
-                    @Override
-                    public void writeToParcel(Parcel dest, int flags) {
+                        @Override
+                        public void writeToParcel(Parcel dest, int flags) {
 
-                    }
+                        }
 
-                };
-                CalendarConstraints.Builder calendarBuilder = new CalendarConstraints.Builder();
-                calendarBuilder.setValidator(dateValidator);
-                CalendarConstraints calendarConstraints = calendarBuilder.build();
+                    };
+                    CalendarConstraints.Builder calendarBuilder = new CalendarConstraints.Builder();
+                    calendarBuilder.setValidator(dateValidator);
+                    CalendarConstraints calendarConstraints = calendarBuilder.build();
 
-                builder.setCalendarConstraints(calendarConstraints);
-                //builder.setTitleText("Test");
-                MaterialDatePicker picker = builder.build();
-                picker.setHasOptionsMenu(false);
-                picker.show(getFragmentManager(), picker.toString());
-                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
-                    @Override
-                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
-                        start.setTime(selection.first);
-                        end.setTime(selection.second);
+                    builder.setCalendarConstraints(calendarConstraints);
+                    //builder.setTitleText("Test");
+                    MaterialDatePicker picker = builder.build();
+                    picker.setHasOptionsMenu(false);
+                    picker.show(getFragmentManager(), picker.toString());
+                    picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
+                        @Override
+                        public void onPositiveButtonClick(Pair<Long, Long> selection) {
+                            start.setTime(selection.first);
+                            end.setTime(selection.second);
 
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container, new ConfirmRentalFragment(start, end, itemSelected));
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    }
-                });
-            }
-        });
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragment_container, new ConfirmRentalFragment(start, end, itemSelected));
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+                    });
+                }
+            });
+        }
 
         return view;
 

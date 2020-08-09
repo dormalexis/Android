@@ -35,12 +35,6 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.On
         itemView.setOnClickListener(this);
     }
 
-    public void updateAnnonces(Review review, Context context)
-    {
-        this.renterIdentity.setText("Alexis Dormal");
-        this.rating.setRating(review.getNbStars());
-        this.comment.setText("\"" + review.getComment() + "\"");
-    }
 
     @Override
     public void onClick(View v) {

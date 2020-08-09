@@ -98,8 +98,8 @@ public class LogInFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     if (token.isErrorDetected())
                     {
-                        if(token.getErrorCode() == StatusCode.NOTFOUND.getErrorCode()) {
-                            DisplayToast.displaySpecific(R.string.personNotFound);
+                        if(token.getErrorCode() == StatusCode.NETWORKFAIL.getErrorCode()) {
+                            DisplayToast.displaySpecific(R.string.NETWORKFAIL);
                             nbErrors++;
                         }
 
@@ -109,7 +109,7 @@ public class LogInFragment extends Fragment {
                         }
 
                         else {
-                            DisplayToast.display(token.getErrorCode());
+                            DisplayToast.displaySpecific(R.string.noAccountWithThisEmail);
                         }
 
                     }

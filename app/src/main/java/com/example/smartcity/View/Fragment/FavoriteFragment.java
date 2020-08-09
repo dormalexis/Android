@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,14 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
     @BindView(R.id.favoriteRV)
     RecyclerView recyclerView;
 
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.nothing)
+    TextView nothing;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstance)
@@ -52,6 +62,7 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
 
         recyclerView.removeAllViews();
         favoriteViewModel.getFavorites().observe(this,favorites -> {
+            progressBar.setVisibility(View.GONE);
             if(favorites.isErrorDetected())
             {
                 DisplayToast.display(favorites.getErrorCode());
@@ -62,8 +73,9 @@ public class FavoriteFragment extends Fragment implements ItemAdapter.OnItemList
                 itemList = favorites.getObject();
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                if(favorites.getObject()== null)
+                if(favorites.getObject().size() == 0)
                 {
+                    nothing.setVisibility(View.VISIBLE);
                     // TODO Ajouter dans le layout et changer la visibility gone à visible
                 }
             }

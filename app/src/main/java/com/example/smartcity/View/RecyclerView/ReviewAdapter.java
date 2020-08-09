@@ -29,7 +29,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
-        holder.updateAnnonces(this.reviews.get(position), context);
+
+        holder.renterIdentity.setText(reviews.get(position).getRenterName());
+        holder.rating.setRating(reviews.get(position).getNbStars());
+        holder.comment.setText("\"" + reviews.get(position).getComment() + "\"");
     }
 
     @Override

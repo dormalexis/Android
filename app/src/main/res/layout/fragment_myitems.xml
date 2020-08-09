@@ -15,6 +15,15 @@
             android:elevation="5dp">
         </Toolbar>
 
+        <ProgressBar
+            android:id="@+id/indeterminateBar"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress"
+            android:visibility="visible"
+        />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myItemRV"
             android:layout_width="match_parent"

@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -20,16 +21,20 @@ import com.example.smartcity.DataAccess.ViewModel.PersonViewModel;
 import com.example.smartcity.Model.Locality;
 import com.example.smartcity.Model.Person;
 import com.example.smartcity.R;
+import com.example.smartcity.Utilitaries.Preferences;
 import com.example.smartcity.Utilitaries.StatusCode;
 import com.example.smartcity.View.DisplayToast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RegisterFragment extends Fragment {
+public class UpdateProfileFragment extends Fragment {
 
     @BindView(R.id.firstNameInput)
     TextInputLayout firstName;
@@ -41,12 +46,14 @@ public class RegisterFragment extends Fragment {
     TextInputLayout phone;
     @BindView(R.id.streetInput)
     TextInputLayout street;
-    @BindView(R.id.passwordInput)
-    TextInputLayout password;
     @BindView(R.id.spinnerLocalities)
     SearchableSpinner spinnerLocalities;
     @BindView(R.id.box)
     TextInputLayout box;
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+    @BindView(R.id.updateProfileView)
+    ScrollView updateProfileView;
 
     @BindView(R.id.registerButton)
     Button register;
@@ -55,13 +62,17 @@ public class RegisterFragment extends Fragment {
     Toolbar toolbar;
 
     Integer nbErrors;
+    List<Locality> localityList;
 
-    Integer position;
+    int position;
+    int localityId;
+
+    PersonViewModel personViewModel = new PersonViewModel();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_updateprofile, container, false);
         ButterKnife.bind(this, view);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -70,7 +81,8 @@ public class RegisterFragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-        
+
+        toolbar.setTitle(R.string.myInformations);
         LocalityViewModel localityViewModel = new LocalityViewModel(getContext());
 
         localityViewModel.getLocalities().observe(getViewLifecycleOwner(), localities -> {
@@ -79,13 +91,56 @@ public class RegisterFragment extends Fragment {
             }
 
             else {
-                spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item, localities.getObject()));
-                if(savedInstanceState != null) {
-                    spinnerLocalities.setSelection(savedInstanceState.getInt("position"));
+                localityList = localities.getObject();
+                spinnerLocalities.setAdapter(new ArrayAdapter<Locality>(getContext(), android.R.layout.simple_spinner_dropdown_item, localityList));
+
+                if(savedInstanceState == null) {
+                    int personId = Preferences.getUserId();
+                    personViewModel.getPerson(personId).observe(getViewLifecycleOwner(), person -> {
+                        if (person.isErrorDetected()) {
+
+                        }
+
+                        else {
+                            firstName.getEditText().setText(person.getObject().getFirstName());
+                            lastName.getEditText().setText(person.getObject().getLastName());
+                            mail.getEditText().setText(person.getObject().getEmail());
+                            phone.getEditText().setText(person.getObject().getPhoneNumber());
+                            street.getEditText().setText(person.getObject().getStreet());
+                            box.getEditText().setText(person.getObject().getBox());
+
+                            localityId = person.getObject().getLocality();
+
+                            int size = localityList.size();
+                            position = 0;
+                            for(int i = 0; i < size; i++) {
+                                if(localityId == localityList.get(i).getLocalityId()) {
+                                    position = i;
+                                    i = size - 1;
+                                }
+                            }
+                            spinnerLocalities.setSelection(position);
+
+                        }
+                    });
                 }
+                spinnerLocalities.setSelection(position);
+                updateProfileView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+
+
 
             }
         });
+
+        register.setText(R.string.update);
+
+        /*
+        if(savedInstanceState != null) {
+            spinnerLocalities.onSearchableItemClicked(spinnerLocalities.getItemAtPosition(savedInstanceState.getInt("spinnerLocalities")), savedInstanceState.getInt("spinnerLocalities"));
+            // TODO : Set selection of the locality doesn't work !! Important
+        }
+         */
 
         register.setOnClickListener(registerListenr);
         spinnerLocalities.setPrompt(getResources().getString(R.string.titleSpinnerLocalities));
@@ -144,14 +199,6 @@ public class RegisterFragment extends Fragment {
             }
 
             try {
-                person.setPassword(password.getEditText().getText().toString());
-                password.setError(null);
-            } catch (Exception e) {
-                nbErrors++;
-                password.setError(getString(R.string.passwordException));
-            }
-
-            try {
                 person.setStreet(street.getEditText().getText().toString());
                 street.setError(null);
             } catch (Exception e) {
@@ -164,22 +211,25 @@ public class RegisterFragment extends Fragment {
             }
 
             if (nbErrors == 0) {
-                personViewModel.postPerson(person).observe(getViewLifecycleOwner(), personPost -> {
-                    if (personPost.isErrorDetected()) {
-                        if(personPost.getErrorCode() == StatusCode.CONFLICT.getErrorCode()) {
+                personViewModel.updatePerson(person).observe(getViewLifecycleOwner(), personUpdate -> {
+                    if (personUpdate.isErrorDetected()) {
+                        if(personUpdate.getErrorCode() == StatusCode.CONFLICT.getErrorCode()) {
                             mail.setError(getString(R.string.emailAlreadyExists));
                             nbErrors++;
                         }
 
                         else {
-                            DisplayToast.display(personPost.getErrorCode());
+                            Log.i("Alexis2", personUpdate.getErrorCode() + "");
+                            DisplayToast.display(personUpdate.getErrorCode());
                         }
 
 
-                    } else {
-                        DisplayToast.displaySpecific(R.string.postPersonOk);
+                    }
+
+                    else {
+                        DisplayToast.displaySpecific(R.string.updatePersonOk);
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container, new LogInFragment());
+                        transaction.replace(R.id.fragment_container, new ProfileFragment());
                         transaction.commit();
                     }
                 });
@@ -195,9 +245,10 @@ public class RegisterFragment extends Fragment {
         outState.putString("mail",mail.getEditText().getText().toString());
         outState.putString("phone",phone.getEditText().getText().toString());
         outState.putString("street",street.getEditText().getText().toString());
-        outState.putString("password",password.getEditText().getText().toString());
         outState.putString("box",box.getEditText().getText().toString());
+        //outState.putInt("position", position);
         outState.putInt("position", spinnerLocalities.getSelectedItemPosition());
+        //outState.putParcelableArrayList("localities", (ArrayList<? extends Parcelable>) localityList);
     }
 
     @Override
@@ -211,7 +262,6 @@ public class RegisterFragment extends Fragment {
             mail.getEditText().setText(savedInstanceState.getString("mail"));
             phone.getEditText().setText(savedInstanceState.getString("phone"));
             street.getEditText().setText(savedInstanceState.getString("street"));
-            password.getEditText().setText(savedInstanceState.getString("password"));
             box.getEditText().setText(savedInstanceState.getString("box"));
 
             position = savedInstanceState.getInt("position");

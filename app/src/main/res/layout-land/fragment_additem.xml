@@ -28,6 +28,13 @@
             android:layout_margin="15dp"
             android:layout_gravity="center_horizontal">
 
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/lightgrey"
+                style="@style/spinner"/>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addItemName"
@@ -101,13 +108,6 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/addPicture"
                 android:layout_gravity="center"/>
-
-            <Spinner
-                android:id="@+id/categorySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:backgroundTint="@color/lightgrey"
-                style="@style/spinner"/>
 
             <Button
                 android:id="@+id/addItemConfirmation"

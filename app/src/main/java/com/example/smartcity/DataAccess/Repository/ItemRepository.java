@@ -1,6 +1,7 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import com.example.smartcity.DataAccess.InternetChecking;
@@ -9,12 +10,26 @@ import com.example.smartcity.Model.ApiResponse;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.Model.PagingResult;
 import com.example.smartcity.Utilitaries.RetrofitInstance;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.ResponseBody;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Console;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.smartcity.Utilitaries.App.getContext;
 
 public class ItemRepository implements ItemDataAccess
 {
@@ -77,9 +92,22 @@ public class ItemRepository implements ItemDataAccess
             itemPost.setValue(new ApiResponse((-1)));
             return itemPost;
         }
-        ItemService service = RetrofitInstance.getRetrofitInstance(context).create(ItemService.class);
-        Call<Item> call = service.postItem(item);
 
+        ItemService service = RetrofitInstance.getRetrofitInstance(getContext()).create(ItemService.class);
+
+        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+        // use the FileUtils to get the actual file by uri
+
+        File file = bitMapToFile(item.getBitmap());
+
+        okhttp3.RequestBody reqFile = okhttp3.RequestBody.create(
+                okhttp3.MediaType.parse(getContext().getContentResolver().getType(item.getUriPicture())),
+                file
+        );
+        MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), reqFile);
+
+
+        Call<Item> call = service.postItem(item.getTitle(), item.getDescription(), item.getPricePerDay(), item.getItemCategory(), body);
         call.enqueue(new Callback<Item>() {
             @Override
             public void onResponse(Call<Item> call, Response<Item> response){
@@ -215,6 +243,39 @@ public class ItemRepository implements ItemDataAccess
             }
         });
         return itemsCategoryLive;
+
+    }
+
+    public File bitMapToFile(Bitmap bitmap) {
+
+        File f = new File(getContext().getCacheDir(), "mypic");
+        try {
+            f = new File(getContext().getCacheDir(), "mypic");
+            f.createNewFile();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return f;
 
     }
 

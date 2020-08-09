@@ -9,52 +9,44 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="@string/app_name"
+        android:title="@string/register"
         android:elevation="5dp"
+        android:navigationIcon="@drawable/ic_back_arrow"
         android:titleTextColor="@color/white"
         android:background="@color/anthracite">
     </Toolbar>
 
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progress"
+        android:visibility="visible"
+    />
+
     <ScrollView
+        android:id="@+id/updateProfileView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginVertical="50dp"
+        android:visibility="gone">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="20dp">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lastNameInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:hint="@string/name"
-                android:inputType="text"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true"
-                android:layout_marginRight="20dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameInput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/lastNameInput"
+                android:layout_below="@+id/addItemName"
                 android:layout_marginTop="15dp"
                 android:hint="@string/firstName"
                 android:inputType="text"
@@ -67,7 +59,23 @@
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastNameInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstNameInput"
+                android:layout_marginTop="15dp"
+                android:hint="@string/name"
+                android:inputType="text"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/mailInput"
@@ -84,25 +92,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/mailInput"
-                android:layout_marginTop="15dp"
-                android:hint="@string/password"
-                android:inputType="text"
-                app:endIconMode="clear_text"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_below="@+id/box"
                 android:prompt="@string/selectDate"
                 android:background="@color/green"
                 android:tooltipText="@string/accept"/>
@@ -175,14 +164,14 @@
             <Button
                 android:id="@+id/registerButton"
                 style="@style/button"
-                android:layout_below="@+id/phoneInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:text="@string/register" />
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/update" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
 

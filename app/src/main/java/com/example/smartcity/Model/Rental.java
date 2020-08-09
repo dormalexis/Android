@@ -24,6 +24,9 @@ public class Rental {
     private Integer Renter;
     @SerializedName("item")
     private Integer item;
+    @SerializedName("itemTitle")
+    private String itemTitle;
+
 
 
     public Rental(Date dateFrom, Date dateTo, Integer item, Double paidPrice)
@@ -113,5 +116,13 @@ public class Rental {
 
     public void setItem(int item) {
         this.item = item;
+    }
+
+    public void setItemTitle(String itemTitle) {
+        this.itemTitle = itemTitle;
+    }
+
+    public String getItemTitle() {
+        return itemTitle;
     }
 }

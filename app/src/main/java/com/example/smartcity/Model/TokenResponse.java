@@ -1,5 +1,7 @@
 package com.example.smartcity.Model;
 
+import com.auth0.android.jwt.JWT;
+
 import java.util.Date;
 
 public class TokenResponse {
@@ -12,6 +14,7 @@ public class TokenResponse {
 
     public String getAccessToken() {
         return accessToken;
+
     }
 
     public void setAccessToken(String accessToken) {

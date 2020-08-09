@@ -46,7 +46,6 @@
             android:layout_marginTop="5dp"
             android:layout_below="@+id/dates"
             android:layout_width="wrap_content"
-            android:text="Loué par Alexis Dormal"
             android:layout_height="wrap_content"/>
 
         <Button

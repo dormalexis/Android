@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -62,6 +64,12 @@ public class OwnerRentals extends Fragment {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.rentalsScrollView)
+    ScrollView rentalsScrollView;
+
 
     List<RentalDTO> inProgressList;
     List<RentalDTO> plannedList;
@@ -79,10 +87,7 @@ public class OwnerRentals extends Fragment {
 
 
     public OwnerRentals() {
-        inProgressList = new ArrayList<>();
-        plannedList = new ArrayList<>();
-        waitingForPaymentList = new ArrayList<>();
-        waitingForValidationList = new ArrayList<>();
+
 
     }
 
@@ -93,6 +98,10 @@ public class OwnerRentals extends Fragment {
         this.planned = new RentalAdapter();
         this.waitingForPayment = new RentalAdapter();
         this.waitingForValidation = new RentalOwnerValidationAdapter();
+        inProgressList = new ArrayList<>();
+        plannedList = new ArrayList<>();
+        waitingForPaymentList = new ArrayList<>();
+        waitingForValidationList = new ArrayList<>();
     }
 
     @Override
@@ -144,7 +153,8 @@ public class OwnerRentals extends Fragment {
                         }
                     }
                 }
-
+                progressBar.setVisibility(View.GONE);
+                rentalsScrollView.setVisibility(View.VISIBLE);
 
                 if (waitingForPaymentList.isEmpty()) {
                     waitingForPaymentRV.setVisibility(View.GONE);
@@ -190,5 +200,15 @@ public class OwnerRentals extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

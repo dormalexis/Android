@@ -17,7 +17,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!Preferences.getToken(getContext()).equals("")) {
+        if (!Preferences.getToken().equals("")) {
             startActivity(new Intent(getContext(), MainActivity.class));
         }
 

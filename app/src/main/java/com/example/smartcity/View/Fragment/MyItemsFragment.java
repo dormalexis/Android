@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartcity.DataAccess.ViewModel.ItemViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
+import com.example.smartcity.View.DisplayToast;
+import com.example.smartcity.View.RecyclerView.ItemAdapter;
 import com.example.smartcity.View.RecyclerView.MyItemAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,7 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyItemsFragment extends Fragment {
+public class MyItemsFragment extends Fragment{
 
 
     private ArrayList<Item> itemsArray = new ArrayList<>();
@@ -41,6 +44,9 @@ public class MyItemsFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -67,13 +73,20 @@ public class MyItemsFragment extends Fragment {
         });
 
         itemModel.getMyItems().observe(this, items -> {
-            adapter.setItems(items.getObject());
-            itemList = items.getObject();
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            if (items.getObject() == null) {
-                // TODO Ajouter dans le layout et changer la visibility gone à visible
+            progressBar.setVisibility(View.GONE);
+            if(items.isErrorDetected()) {
+                DisplayToast.display(items.getErrorCode());
             }
+            else {
+                adapter.setItems(items.getObject());
+                itemList = items.getObject();
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                if (items.getObject() == null) {
+                    // TODO Ajouter dans le layout et changer la visibility gone à visible
+                }
+            }
+
         });
         return view;
     }
@@ -90,6 +103,16 @@ public class MyItemsFragment extends Fragment {
         super.onDetach();
         BottomNavigationView bottomBar = getActivity().findViewById(R.id.bottom_navigation);
         bottomBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 
