@@ -1,6 +1,7 @@
 package com.example.smartcity.DataAccess.Repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -44,11 +45,12 @@ public class ConnectionRepository implements ConnectionDataAccess {
                 if(response.isSuccessful())
                 {
                     tokenLive.setValue(new ApiResponse(response.body()));
-                    Preferences.saveToken(response.body().getAccessToken(),context);
+                    Preferences.saveToken(response.body().getAccessToken());
                 }
                 else
                 {
                     tokenLive.setValue(new ApiResponse(response.code()));
+                    Log.i("Alexis", response.message());
                 }
 
             }

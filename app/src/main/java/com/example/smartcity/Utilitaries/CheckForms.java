@@ -67,9 +67,9 @@ public class CheckForms {
 
     public static Boolean isValidPhoneNumber(String phone)
     {
-        Pattern patternPhone = Pattern.compile("0\\d{8,9}");
+        Pattern patternPhone = Pattern.compile("(0|\\+32)\\d{8,9}");
         Matcher matcher = patternPhone.matcher(phone);
-        return !phone.isEmpty() && phone.length() <= 10 && matcher.find();
+        return !phone.isEmpty() && phone.length() <= 12 && matcher.find();
     }
 
 

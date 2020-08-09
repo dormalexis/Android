@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment implements ItemAdapter.OnItemListener
             if (result.isErrorDetected()) {
                 DisplayToast.display(result.getErrorCode());
             } else {
-                Log.i("Alexis", result.isErrorDetected() + "");
                 adapter.setItems(result.getObject().getResult());
                 itemList = result.getObject().getResult();
                 recyclerView.setAdapter(adapter);

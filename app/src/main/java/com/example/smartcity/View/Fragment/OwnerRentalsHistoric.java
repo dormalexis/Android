@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -32,16 +33,21 @@ public class OwnerRentalsHistoric extends Fragment {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.indeterminateBar)
+    ProgressBar progressBar;
+
     private RentalViewModel rentalViewModel;
     private RentalMarkAdapter rentalAdapter;
 
     public OwnerRentalsHistoric() {
-        rentalAdapter = new RentalMarkAdapter();
+
     }
 
     @Override
     public void onCreate(Bundle savedInstance) {
+
         super.onCreate(savedInstance);
+        rentalAdapter = new RentalMarkAdapter();
     }
 
     @Override
@@ -74,16 +80,30 @@ public class OwnerRentalsHistoric extends Fragment {
         });
 
         rentalViewModel.getRentalsOwnerHistoric().observe(this, rentals -> {
+            progressBar.setVisibility(View.GONE);
             if (rentals.isErrorDetected()) {
                 DisplayToast.display(rentals.getErrorCode());
             }
 
             else {
+                if(rentals.getObject().size() == 0) {
+
+                }
                 rentalAdapter.setRentals(rentals.getObject());
                 historicRentalsRV.setAdapter(rentalAdapter);
                 historicRentalsRV.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

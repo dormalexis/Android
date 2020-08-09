@@ -1,9 +1,11 @@
 package com.example.smartcity.DataAccess.Service;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -26,9 +28,6 @@ public interface ItemService {
     @GET("Item/myItems")
     Call<List<Item>> getMyItems();
 
-    @POST("Item")
-    Call<Item> postItem(@Body Item item);
-
     @PUT("Item/{id}")
     Call<Void> updateItem(@Path("id") int id,@Body Item item);
 
@@ -36,12 +35,12 @@ public interface ItemService {
     Call<Void> deleteItem(@Path("id") int id);
 
     @Multipart
-    @POST("upload")
-    Call<RequestBody> uploadMultipleFilesDynamic(
-            @Part("description") RequestBody description,
-            @Part("title") RequestBody title,
-            @Part("pricePerDay") RequestBody pricePerDay,
-            @Part("itemCategory") RequestBody itemCategory,
-            @Part List<MultipartBody.Part> picture);
+    @POST("Item")
+    Call<Item> postItem(
+            @Part("title") String title,
+            @Part("description") String description,
+            @Part("pricePerDay") Double pricePerDay,
+            @Part("itemCategory") Integer itemCategory,
+            @Part MultipartBody.Part picture);
 
 }

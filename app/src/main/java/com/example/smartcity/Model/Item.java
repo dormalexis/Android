@@ -1,5 +1,8 @@
 package com.example.smartcity.Model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import com.example.smartcity.Exception.DescriptionException;
 import com.example.smartcity.Exception.ItemNameException;
 import com.example.smartcity.Exception.NotAReal;
@@ -21,7 +24,7 @@ public class Item {
     private String description;
     @SerializedName("pricePerDay")
     private Double pricePerDay;
-    @SerializedName("owner")
+    @SerializedName("ownerId")
     private Integer owner;
     @SerializedName("itemCategory")
     private Integer itemCategory;
@@ -37,10 +40,14 @@ public class Item {
     private String ownerFirstName;
     @SerializedName("isFavorite")
     private Boolean isFavorite;
-    @SerializedName("review")
+    @SerializedName("reviews")
     private List<Review> reviews;
     @SerializedName("rental")
     private List<Rental> rentals;
+
+
+    private Uri uriPicture;
+    private Bitmap bitmap;
 
 
     public Item() {
@@ -56,6 +63,7 @@ public class Item {
         setItemCategory(itemCategory);
         setPictures(pictures);
     }
+
 
 
     public void setRentals(List<Rental> rentals) {
@@ -185,5 +193,21 @@ public class Item {
 
     public void setPictures(ArrayList<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public Uri getUriPicture() {
+        return uriPicture;
+    }
+
+    public void setUriPicture(Uri uriPicture) {
+        this.uriPicture = uriPicture;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }

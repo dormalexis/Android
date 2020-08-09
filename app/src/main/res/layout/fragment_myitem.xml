@@ -31,7 +31,6 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title"
                 android:textAppearance="?attr/textAppearanceHeadline6"/>
 
             <TextView
@@ -40,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
                 android:layout_marginTop="8dp"
-                android:text="10€ / jour"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"/>
 
@@ -49,32 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/price"
-                android:text="Visible"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?attr/textAppearanceBody2" />
-
-            <RelativeLayout
-                android:layout_below="@id/visibility"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/setAvailibilities"
-                    android:layout_toLeftOf="@+id/setItem"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Disponibilités">
-
-                </Button>
-
-                <Button
-                    android:id="@+id/setItem"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Modifier"></Button>
-            </RelativeLayout>
 
         </RelativeLayout>
     </LinearLayout>

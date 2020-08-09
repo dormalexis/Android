@@ -17,6 +17,7 @@ import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
 import com.example.smartcity.View.Fragment.HomeFragment;
 import com.example.smartcity.View.Fragment.ItemDetailsFragment;
+import com.example.smartcity.View.Fragment.ProfileFragment;
 import com.example.smartcity.View.Fragment.UpdateItemFragment;
 import com.google.firebase.database.collection.LLRBNode;
 
@@ -32,9 +33,6 @@ public class MyItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.price) TextView priceText;
     @BindView(R.id.visibility) TextView isVisible;
     @BindView(R.id.viewPagerItem) ViewPager pictures;
-    @BindView(R.id.setAvailibilities) Button setAvailibilities;
-    @BindView(R.id.setItem) Button setItem;
-
 
     public MyItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -45,18 +43,6 @@ public class MyItemViewHolder extends RecyclerView.ViewHolder {
     {
         this.title.setText(item.getTitle());
         this.priceText.setText(context.getString(R.string.dailyPrice) + " - " + item.getPricePerDay() + " €");
-        this.setAvailibilities.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        this.setItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
 
         if(item.getVisible() != null)
         {

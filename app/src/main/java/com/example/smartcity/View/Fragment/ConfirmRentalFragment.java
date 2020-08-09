@@ -1,6 +1,9 @@
 package com.example.smartcity.View.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -141,6 +144,7 @@ public class ConfirmRentalFragment extends Fragment implements ReviewAdapter.OnI
     public void onItemClick(int position) {
 
     }
+
 
 }
 

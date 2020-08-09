@@ -94,15 +94,15 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/addPicture"
             style="@style/button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/addPicture"
@@ -111,9 +111,10 @@
         <Button
             android:id="@+id/addItemConfirmation"
             style="@style/button"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:text="@string/publish" />
 
         </LinearLayout>

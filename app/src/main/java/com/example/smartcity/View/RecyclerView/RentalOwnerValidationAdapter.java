@@ -42,7 +42,7 @@ public class RentalOwnerValidationAdapter extends RecyclerView.Adapter<RentalOwn
         holder.item.setText(rental.getItemTitle());
         holder.dates.setText(DatesUtilitaries.FormattedDate(rental.getDateFrom()) + " - " +  DatesUtilitaries.FormattedDate(rental.getDateTo()));
         holder.rentalPrice.setText(String.valueOf(rental.getPaidPrice()));
-        holder.renter.setText("Loué par " + rental.getRenterFirstName() + " " + rental.getRenterLastName());
+        holder.renter.setText(rental.getRenterFirstName() + " " + rental.getRenterLastName());
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

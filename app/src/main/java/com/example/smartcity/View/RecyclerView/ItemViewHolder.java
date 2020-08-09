@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.request.RequestOptions;
+import com.example.smartcity.DataAccess.InternetChecking;
 import com.example.smartcity.DataAccess.ViewModel.FavoriteViewModel;
 import com.example.smartcity.Model.Item;
 import com.example.smartcity.R;
 import com.example.smartcity.Utilitaries.GlideApp;
+import com.example.smartcity.View.DisplayToast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -34,6 +36,8 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @BindView(R.id.ownerIdentity) TextView ownerIdentity;
     @BindView(R.id.favorite) FloatingActionButton favorite;
     @BindView(R.id.viewPagerItem) ViewPager pictures;
+
+    InternetChecking internetChecking = new InternetChecking();
 
 
     private FavoriteViewModel favoriteViewModel = new FavoriteViewModel();
@@ -59,7 +63,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         if(item.getVisible() != null && !item.getVisible())
         {
             this.isVisible.setText(context.getString(R.string.hidden));
-            this.isVisible.setTextColor(Color.RED);
+            this.isVisible.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF5252")));
         }
 
         this.ownerIdentity.setText(item.getOwnerFirstName() + " " + item.getOwnerName());
@@ -67,19 +71,26 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         ImageAdapter adapterView = new ImageAdapter(item);
         pictures.setAdapter(adapterView);
 
+
         favorite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(item.getFavorite())
-                {
-                    favorite.setImageTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+                if(internetChecking.isNetworkAvailable()) {
+                    if(item.getFavorite())
+                    {
+                        favorite.setImageTintList(ColorStateList.valueOf(Color.parseColor("#000000")));
+                    }
+
+                    else {
+                        favorite.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF5252")));
+                    }
+                    item.setFavorite(!item.getFavorite());
+                    favoriteViewModel.favorite(item.getItemId());
                 }
 
                 else {
-                    favorite.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FF5252")));
+                    DisplayToast.displaySpecific(R.string.NETWORKFAIL);
                 }
-                item.setFavorite(!item.getFavorite());
-                Log.i("Alexis", item.getItemId() + "");
-                favoriteViewModel.favorite(item.getItemId());
+
             }
         });
     }

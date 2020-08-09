@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Locable</string>
+    <string name="app_name">Locapp</string>
     <string name="app_subtitle">Location entre particuliers</string>
     <string name="myAccount">Mon compte</string>
     <string name="myItems">Mes annonces</string>
@@ -36,7 +36,7 @@
     <string name="description">Description</string>
     <string name="title">Titre</string>
     <string name="dailyPrice">Prix journalier</string>
-    <string name="addPicture">Ajouter des images</string>
+    <string name="addPicture">Ajouter une image</string>
     <string name="publish">Publier</string>
     <string name="selectDate">Sélectionner une date</string>
     <string name="selectTime">Sélectionner une heure</string>
@@ -50,12 +50,18 @@
     <string name="myValidations">Mes validations</string>
     <string name="hidden">Invisible</string>
     <string name="avis">avis</string>
-    <string name="deleteItem">Supprimer cette annonce</string>
+    <string name="deleteItem">Supprimer</string>
     <string name="exceptionApi">Erreur avec l\'API</string>
     <string name="signOutButton">Se déconnecter</string>
     <string name="signOutToast">Vous êtes déconnecté</string>
     <string name="Search">Rechercher</string>
     <string name="displayAllItems">Afficher tout</string>
+
+
+    <string name="welcome">Bienvenu sur l\'application Locapp !</string>
+    <string name="welcomeStart">Connectez-vous ou inscrivez-vous pour commencer.</string>
+
+
 
     <string name="BADREQUEST">La rêquete est éronnée.</string>
     <string name="UNAUTHORIZED">Vous devez vous connecter.</string>
@@ -67,9 +73,12 @@
     <string name="OTHERERROR">Une erreur inconnue s\'est produite.</string>
     <string name="SERVICEUNAVAILABLE">Service indisponible</string>
 
+    <string name="missImage">Il faut obligatoireement ajouter une image</string>
+
     <string name="updateItemOk">L\'item a bien été mis à jour</string>
     <string name="deleteItemOk">L\'item a bien été supprimé</string>
     <string name="postPersonOk">Votre compte a bien été crée</string>
+    <string name="updatePersonOk">Vos données ont bien été modifiées</string>
     <string name="loginFail">Votre login/mdp n\'est pas valide.</string>
     <string name="confirmRental">Réservation confirmée !</string>
     <string name="postItemOk">Objet ajouté !</string>
@@ -85,10 +94,11 @@
     <string name="askForBooking">Demande une réservation</string>
     <string name="totalPrice">Prix total</string>
 
-    <string name="update">Appliquer les changements</string>
+    <string name="update">Modifier</string>
     <string name="isVisible">Est visible</string>
     <string name="changeInfos">Changer les informations personnelles</string>
     <string name="changeAvailibilityDescription">Changer ses disponibilités générales</string>
+
 
     <!-- Profile -->
 
@@ -98,6 +108,7 @@
     <string name="followingItems">Suivi des locations</string>
     <string name="inProgress">En cours</string>
 
+    <string name="noFavorites">Aucune annonce ajoutée dans les favoris</string>
     <string name="noRentalsInProgress">Aucune location n\'est en cours</string>
     <string name="noRentalsPlanned">Aucune location n\'est planifiée</string>
     <string name="noRentalsPaid">Aucune location n\'est en attente de paiement</string>
@@ -138,14 +149,17 @@
     <string name="loginProblem">Cette combinaison login/mot de passe n\'existe pas></string>
     <string name="loginSucceed">Connexion réussie</string>
     <string name="errorRegisterFormTitle">Problème lors de l\'inscription</string>
-    <string name="imageException">Image manquante !</string>
+    <string name="imageException">Il faut obligatoirement ajouter une image</string>
     <string name="itemNameException">Le nom de l\'item est obligatoire et doit comporter maximum 100 caractères</string>
     <string name="errorAddItem">Erreur lors de l\'ajout de l\'item</string>
     <string name="title_activity_maps">Map</string>
 
+
     <string name="emailAlreadyExists">L\'adresse email est déjà utilisée</string>
 
     <string name="userDoesntExist">Aucun</string>
+
+    <string name="noAccountWithThisEmail">Aucun compte avec cette adresse e-mail"</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
