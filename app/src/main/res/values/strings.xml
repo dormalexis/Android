@@ -114,6 +114,9 @@
     <string name="noRentalsPaid">Aucune location n\'est en attente de paiement</string>
     <string name="noRentalsWaitingForValidation">Aucune demande de location en attente</string>
 
+    <string name="start">Début</string>
+    <string name="end">Fin</string>
+
     <string name="planned">Planifiées</string>
     <string name="waitingForValidation">En attente d\'acceptation</string>
     <string name="waitingForPayment">En attente de paiement</string>
